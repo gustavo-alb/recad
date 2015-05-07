@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @funcionario.nome %>
+</p>
+
+<p>
+  <strong>Cpf:</strong>
+  <%= @funcionario.cpf %>
+</p>
+
+<p>
+  <strong>Cadastro:</strong>
+  <%= @funcionario.cadastro %>
+</p>
+
+<p>
+  <strong>Classe:</strong>
+  <%= @funcionario.classe %>
+</p>
+
+<p>
+  <strong>Padrao:</strong>
+  <%= @funcionario.padrao %>
+</p>
+
+<p>
+  <strong>Carga horaria:</strong>
+  <%= @funcionario.carga_horaria %>
+</p>
+
+<%= link_to 'Edit', edit_funcionario_path(@funcionario) %> |
+<%= link_to 'Back', funcionarios_path %>
