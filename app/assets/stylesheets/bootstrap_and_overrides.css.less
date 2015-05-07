@@ -27,6 +27,12 @@
 //
 // Example:
 // @link-color: #ff0000;
-@navbarBackgroundHighlight:#3e9722;
-@navbarBackground:#f1e77a;
-@navbarHeight:41px;
+@navbar-gradient-start-color: #3e9722;
+@navbar-gradient-stop-color: #f1e77a;
+@navbar-height:41px;
+@navbar-gradient: linear-gradient(to bottom, @navbar-gradient-start-color 0%, @navbar-gradient-stop-color 100%);
+
+// in your main definitions/ overrides:
+.navbar {
+  background-image: @navbar-gradient; 
+}
