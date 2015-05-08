@@ -6,7 +6,8 @@ class FuncionariosController < ApplicationController
   # GET /funcionarios
   # GET /funcionarios.json
   def index
-    @funcionarios = Funcionario.all
+    @usuario = current_usuario
+    @funcionarios = current_usuario.local.funcionarios
   end
 
   # GET /funcionarios/1
@@ -79,5 +80,8 @@ class FuncionariosController < ApplicationController
       @padroes = 1.upto(25).to_a
       @locais = Local.asc(:nome).collect{|l|["#{l.nome.upcase} - #{l.codigo}",l.id]}
       @ambientes = ["Sala de Aula","LIED","Secretaria","Diretoria","Coordenação Pedagógica","Biblioteca"].sort
+      @disciplinas = Disciplina.asc(:nome).collect{|d|[d.nome,d.id]}
+      @formacoes = []
+      @cargas_horarias = ["20 Horas","40 Horas","60 Horas","80 Horas"]
     end
 end

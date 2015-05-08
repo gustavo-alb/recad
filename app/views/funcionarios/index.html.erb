@@ -5,22 +5,19 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:nome) %></th>
       <th><%= model_class.human_attribute_name(:cpf) %></th>
       <th><%= model_class.human_attribute_name(:cadastro) %></th>
       <th><%= model_class.human_attribute_name(:classe) %></th>
       <th><%= model_class.human_attribute_name(:padrao) %></th>
       <th><%= model_class.human_attribute_name(:carga_horaria) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @funcionarios.each do |funcionario| %>
       <tr>
-        <td><%= link_to funcionario.id, funcionario_path(funcionario) %></td>
-        <td><%= funcionario.nome %></td>
+        <td><%= link_to funcionario.nome, funcionario_path(funcionario) %></td>
         <td><%= funcionario.cpf %></td>
         <td><%= funcionario.cadastro %></td>
         <td><%= funcionario.classe %></td>
@@ -28,12 +25,10 @@
         <td><%= funcionario.carga_horaria %></td>
         <td><%=l funcionario.created_at %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_funcionario_path(funcionario), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+          <%= link_to t('.destroy', :default => "Apagar"),
                       funcionario_path(funcionario),
                       :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Tem certeza?')) },
                       :class => 'btn btn-xs btn-danger' %>
         </td>
       </tr>
@@ -41,6 +36,6 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
+<%= link_to "Cadastrar Funcionário",
             new_funcionario_path,
             :class => 'btn btn-primary' %>

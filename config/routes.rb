@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   #   end
   #   resources :posts, concerns: :toggleable
   #   resources :photos, concerns: :toggleable
+  root :to => 'funcionarios#index'
 
   # Example resource route within a namespace:
   #   namespace :admin do

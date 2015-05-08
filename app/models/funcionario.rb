@@ -7,5 +7,8 @@ class Funcionario
   field :padrao, type: Integer
   field :carga_horaria, type: String
   field :ambiente, type: String
+  field :formacao, type: String
+  field :ch_em_sala,type: Integer
   belongs_to :local
+  belongs_to :disciplina
 end

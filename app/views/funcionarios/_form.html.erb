@@ -1,21 +1,27 @@
 <%= simple_form_for @funcionario, :html => { :class => 'form-condensed' } do |f| %>
   <%= f.input :nome %>
   <%= error_span(@funcionario[:nome]) %>
-  <%= f.input :cpf,:input_html=>{:class=>"cpf"} %>
+  <%= f.input :cpf,:label=>"CPF",:input_html=>{:class=>"cpf"} %>
   <%= error_span(@funcionario[:cpf]) %>
   <%= f.input :cadastro %>
   <%= error_span(@funcionario[:cadastro]) %>
   <%= f.input :classe,:collection=>@classes %>
   <%= error_span(@funcionario[:classe]) %>
-  <%= f.input :padrao,:collection=>@padroes %>
+  <%= f.input :padrao,:collection=>@padroes,:label=>"Padrão"%>
   <%= error_span(@funcionario[:padrao]) %>
-  <%= f.input :carga_horaria %>
+  <%= f.input :carga_horaria,:collection=>@cargas_horarias,:label=>"Carga Horária do vínculo" %>
   <%= error_span(@funcionario[:carga_horaria]) %>
   <%= error_span(@funcionario[:classe]) %>
-  <%= f.input :cadastro,:url=>autocomplete_local_nome_funcionarios_path,:as=>:autocomplete %>
-  <%#= f.input :local,:as=>:hidden,:input_html=>{:value=>current_user.local} %>
+  <%= f.input :disciplina,:collection=>@disciplinas %>
+  <%= error_span(@funcionario[:disciplina]) %>
+  <%= f.input :formacao,:collection=>@formacao,:label=>"Formação" %>
+  <%= error_span(@funcionario[:formacao]) %>
+  <%#= f.input :local,:url=>autocomplete_local_nome_funcionarios_path,:as=>:autocomplete %>
+  <%= f.input :local,:as=>:hidden,:input_html=>{:value=>current_usuario.local} %>
   <%= f.input :ambiente,:collection=>@ambientes %>
   <%= error_span(@funcionario[:ambiente]) %>
+  <%= f.input :ch_em_sala,:label=>"Carga Horária em sala",:as=>:integer %>
+  <%= error_span(@funcionario[:ch_em_sala]) %>
 
 
   <%= f.button :submit, :class => 'btn-primary' %>
