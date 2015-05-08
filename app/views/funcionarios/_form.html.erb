@@ -1,16 +1,24 @@
-<%= simple_form_for(@funcionario) do |f| %>
-  <%= f.error_notification %>
+<%= simple_form_for @funcionario, :html => { :class => 'form-condensed' } do |f| %>
+  <%= f.input :nome %>
+  <%= error_span(@funcionario[:nome]) %>
+  <%= f.input :cpf,:input_html=>{:class=>"cpf"} %>
+  <%= error_span(@funcionario[:cpf]) %>
+  <%= f.input :cadastro %>
+  <%= error_span(@funcionario[:cadastro]) %>
+  <%= f.input :classe,:collection=>@classes %>
+  <%= error_span(@funcionario[:classe]) %>
+  <%= f.input :padrao,:collection=>@padroes %>
+  <%= error_span(@funcionario[:padrao]) %>
+  <%= f.input :carga_horaria %>
+  <%= error_span(@funcionario[:carga_horaria]) %>
+  <%= error_span(@funcionario[:classe]) %>
+  <%= f.input :cadastro,:url=>autocomplete_local_nome_funcionarios_path,:as=>:autocomplete %>
+  <%#= f.input :local,:as=>:hidden,:input_html=>{:value=>current_user.local} %>
+  <%= f.input :ambiente,:collection=>@ambientes %>
+  <%= error_span(@funcionario[:ambiente]) %>
 
-  <div class="form-inputs">
-    <%= f.input :nome %>
-    <%= f.input :cpf %>
-    <%= f.input :cadastro %>
-    <%= f.input :classe %>
-    <%= f.input :padrao %>
-    <%= f.input :carga_horaria %>
-  </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                funcionarios_path, :class => 'btn btn-default' %>
 <% end %>

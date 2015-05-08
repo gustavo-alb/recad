@@ -1,5 +1,7 @@
 class FuncionariosController < ApplicationController
   before_action :set_funcionario, only: [:show, :edit, :update, :destroy]
+  before_filter :dados
+  autocomplete :local,:nome
 
   # GET /funcionarios
   # GET /funcionarios.json
@@ -70,5 +72,12 @@ class FuncionariosController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def funcionario_params
       params.require(:funcionario).permit(:nome, :cpf, :cadastro, :classe, :padrao, :carga_horaria)
+    end
+
+    def dados
+      @classes = ["A","B","C","D","E","F"]
+      @padroes = 1.upto(25).to_a
+      @locais = Local.asc(:nome).collect{|l|["#{l.nome.upcase} - #{l.codigo}",l.id]}
+      @ambientes = ["Sala de Aula","LIED","Secretaria","Diretoria","Coordenação Pedagógica","Biblioteca"].sort
     end
 end

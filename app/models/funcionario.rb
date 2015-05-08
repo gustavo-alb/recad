@@ -6,4 +6,6 @@ class Funcionario
   field :classe, type: String
   field :padrao, type: Integer
   field :carga_horaria, type: String
+  field :ambiente, type: String
+  belongs_to :local
 end

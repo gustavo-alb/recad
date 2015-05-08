@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :funcionarios
+  devise_for :usuarios
+  resources :funcionarios do
+    get :autocomplete_local_nome,:on=>:collection
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

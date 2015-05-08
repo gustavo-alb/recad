@@ -5,13 +5,13 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 gem "bson_ext"
 gem "axlsx"
-gem "jquery-autocomplete-rails"
+gem 'rails-jquery-autocomplete'
 gem "simple_form"
 gem "cancan"
 gem "devise"
-gem "therubyracer"
+gem "therubyracer", "~> 0.10.2" 
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem "twitter-bootstrap-rails",:git=>"https://github.com/seyhunak/twitter-bootstrap-rails"
+gem "twitter-bootstrap-rails"
 gem "mongoid", git: "https://github.com/mongoid/mongoid.git"
 
 # Use SCSS for stylesheets

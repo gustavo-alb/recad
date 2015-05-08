@@ -1,37 +1,46 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Funcionarios</h1>
-
-<table>
+<%- model_class = Funcionario -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Nome</th>
-      <th>Cpf</th>
-      <th>Cadastro</th>
-      <th>Classe</th>
-      <th>Padrao</th>
-      <th>Carga horaria</th>
-      <th colspan="3"></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:nome) %></th>
+      <th><%= model_class.human_attribute_name(:cpf) %></th>
+      <th><%= model_class.human_attribute_name(:cadastro) %></th>
+      <th><%= model_class.human_attribute_name(:classe) %></th>
+      <th><%= model_class.human_attribute_name(:padrao) %></th>
+      <th><%= model_class.human_attribute_name(:carga_horaria) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @funcionarios.each do |funcionario| %>
       <tr>
+        <td><%= link_to funcionario.id, funcionario_path(funcionario) %></td>
         <td><%= funcionario.nome %></td>
         <td><%= funcionario.cpf %></td>
         <td><%= funcionario.cadastro %></td>
         <td><%= funcionario.classe %></td>
         <td><%= funcionario.padrao %></td>
         <td><%= funcionario.carga_horaria %></td>
-        <td><%= link_to 'Show', funcionario %></td>
-        <td><%= link_to 'Edit', edit_funcionario_path(funcionario) %></td>
-        <td><%= link_to 'Destroy', funcionario, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%=l funcionario.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_funcionario_path(funcionario), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      funcionario_path(funcionario),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Funcionario', new_funcionario_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_funcionario_path,
+            :class => 'btn btn-primary' %>
