@@ -83,5 +83,6 @@ class FuncionariosController < ApplicationController
       @disciplinas = Disciplina.asc(:nome).collect{|d|[d.nome,d.id]}
       @formacoes = []
       @cargas_horarias = ["20 Horas","40 Horas","60 Horas","80 Horas"]
+      @cargos = ["Especialista em Educaçao","Pedagogo","Auxiliar Educacional","Professor"].sort
     end
 end

@@ -9,6 +9,7 @@ class Funcionario
   field :ambiente, type: String
   field :formacao, type: String
   field :ch_em_sala,type: Integer
+  field :cargo, type: String
   belongs_to :local
   belongs_to :disciplina
 end
