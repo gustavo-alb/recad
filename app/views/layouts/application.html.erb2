@@ -39,7 +39,7 @@
     <body>
 
       <div class="navbar navbar-default navbar-fixed-top">
-       <a class="navbar-left"><%=image_tag("logo_governo.png")%></a>
+       <a href="#" class="navbar-left"><%=image_tag("logo_governo.png")%></a>
        <div class="container">
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav navbar-fixed">
@@ -49,21 +49,21 @@
       </div>
     </div>
 
-    <div class="container-fluid" style="margin-top: 4%; margin-left: 5%; align: center;">
+    <div class="container" style="margin-top: 5%;">
       <div class="row">
         <div class="col-lg-9 panel panel-default">
          <div class="panel-body">
-           <%= bootstrap_flash %>
-           <%= yield %>
+         <%= bootstrap_flash %>
+         <%= yield %>
          </div>
-      </div>
-    </div>
-  </div><!--/row-->
+       </div>
+     </div>
+   </div><!--/row-->
+ 
 
-
-  <div class="footer navbar-fixed-bottom">
+   <footer>
     <p>&copy; Company 2015</p>
-  </div>
+  </footer>
 
 </div> <!-- /container -->
 

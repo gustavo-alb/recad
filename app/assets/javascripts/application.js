@@ -19,3 +19,10 @@
 //= require jquery.maskedinput.min
 //= require autocomplete-rails
 //= require mascara
+//= require underscore
+//= require dependent-fields
+
+
+$(document).ready(function() {
+    DependentFields.bind()
+});

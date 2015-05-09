@@ -1,4 +1,3 @@
----
 pt-BR:
   date:
     abbr_day_names:
@@ -131,6 +130,16 @@ pt-BR:
         one: 'Não foi possível gravar %{model}: 1 erro'
         other: 'Não foi possível gravar %{model}: %{count} erros.'
   helpers:
+    actions: "Ações"
+    titles:
+      new: "Novo %{model}"
+      edit: "Editando %{model}"
+    links:
+      cancel: "Cancelar"
+      destroy: "Apagar"
+      edit: "Editar"
+      back: "Voltar"
+      new: "Cadastrar Novo"
     select:
       prompt: Por favor selecione
     submit:

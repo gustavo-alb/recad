@@ -6,6 +6,8 @@ gem 'rails', '4.2.0'
 gem "bson_ext"
 gem "axlsx"
 gem 'rails-jquery-autocomplete'
+gem 'dependent-fields-rails'
+gem 'underscore-rails'
 gem 'devise-bootstrap-views'
 gem "simple_form"
 gem "cancan"

@@ -14,8 +14,36 @@
   <dd><%= @funcionario.classe %></dd>
   <dt><strong><%= model_class.human_attribute_name(:padrao) %>:</strong></dt>
   <dd><%= @funcionario.padrao %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:turmas) %>:</strong></dt>
+  <dd><%= @funcionario.turmas %></dd>
   <dt><strong><%= model_class.human_attribute_name(:carga_horaria) %>:</strong></dt>
   <dd><%= @funcionario.carga_horaria %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ambiente) %>:</strong></dt>
+  <dd><%= @funcionario.ambiente %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:formacao) %>:</strong></dt>
+  <dd><%= @funcionario.formacao %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ch_em_sala) %>:</strong></dt>
+  <dd><%= @funcionario.ch_em_sala %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:cargo) %>:</strong></dt>
+  <dd><%= @funcionario.cargo %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:quadro) %>:</strong></dt>
+  <dd><%= @funcionario.quadro %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:concurso) %>:</strong></dt>
+  <dd><%= @funcionario.concurso %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:area_concurso) %>:</strong></dt>
+  <dd><%= @funcionario.area_concurso %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:programa) %>:</strong></dt>
+  <dd><%= @funcionario.programa %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:situacao) %>:</strong></dt>
+  <dd><%= @funcionario.situacao %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:local_id) %>:</strong></dt>
+  <dd><%= @funcionario.local_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:disciplina_concurso_id) %>:</strong></dt>
+  <dd><%= @funcionario.disciplina_concurso_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:disciplina_atuacao_id) %>:</strong></dt>
+  <dd><%= @funcionario.disciplina_atuacao_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:municipio_concurso_id) %>:</strong></dt>
+  <dd><%= @funcionario.municipio_concurso_id %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
