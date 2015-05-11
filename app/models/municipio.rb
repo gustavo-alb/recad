@@ -6,5 +6,4 @@ class Municipio
   field :cep, type: String
   field :sigla, type: String
   has_many :funcionarios
-  embeds_many :distritos
 end

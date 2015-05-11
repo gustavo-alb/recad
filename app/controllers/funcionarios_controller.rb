@@ -29,6 +29,9 @@ class FuncionariosController < ApplicationController
   # POST /funcionarios.json
   def create
     @funcionario = Funcionario.new(funcionario_params)
+    if !@funcionario.ambiente_nao_docente.blank?
+      @funcionario.ambiente = @funcionario.ambiente_nao_docente
+    end
 
     respond_to do |format|
       if @funcionario.save
@@ -44,6 +47,9 @@ class FuncionariosController < ApplicationController
   # PATCH/PUT /funcionarios/1
   # PATCH/PUT /funcionarios/1.json
   def update
+     if !@funcionario.ambiente_nao_docente.blank?
+      @funcionario.ambiente = @funcionario.ambiente_nao_docente
+    end
     respond_to do |format|
       if @funcionario.update(funcionario_params)
         format.html { redirect_to @funcionario, notice: 'Funcionário atualizado.' }

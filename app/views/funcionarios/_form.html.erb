@@ -21,7 +21,7 @@
 	<%= error_span(@funcionario[:classe]) %>
 	<%= f.input :padrao,:collection=>@padroes,:label=>"Padrão"%>
 	<%= error_span(@funcionario[:padrao]) %>
-	<% if @funcionario.municipio_concurso and !@funcionario.new_record?%>
+	<% if @funcionario.municipio_concurso%>
 	<%= f.input :municipio_concurso,:label=>"Município do Concurso",:collection=>@municipios,:selected=>@funcionario.municipio_concurso%>
 	<% else %>
 	<%= f.input :municipio_concurso,:label=>"Município do Concurso",:collection=>@municipios%>
@@ -34,7 +34,7 @@
 		<%= error_span(@funcionario[:area_concurso]) %>
 	</div>
 	<div class="js-dependent-fields" data-select-id='funcionario_cargo' data-option-value='Professor'>
-		<% if @funcionario.disciplina_concurso and !@funcionario.new_record? %>
+		<% if @funcionario.disciplina_concurso%>
 		<%= f.input :disciplina_concurso,:label=>"Disciplina do Concurso",:collection=>@disciplinas,:selected=>@funcionario.disciplina_concurso%>
 		<% else %>
 		<%= f.input :disciplina_concurso,:label=>"Disciplina do Concurso",:collection=>@disciplinas%>
@@ -54,11 +54,12 @@
 	<%= error_span(@funcionario[:ambiente]) %>
 </div>
 <div class="js-dependent-fields" data-select-id='funcionario_cargo' data-option-value='Especialista em Educaçao|Pedagogo|Auxiliar Educacional'>
-	<%= f.input :ambiente,:collection=>@ambientes %>
+	<%= f.input :ambiente_nao_docente,:collection=>@ambientes %>
+	<%= error_span(@funcionario[:ambiente]) %>
 </div>
 
 <div class="js-dependent-fields" data-select-id='funcionario_ambiente' data-option-value='Sala de Aula'>
-	<%if @funcionario.disciplina_atuacao and !@funcionario.new_record?%>
+	<%if @funcionario.disciplina_atuacao%>
 	<%= f.input :disciplina_atuacao,:collection=>@disciplinas,:selected=>@funcionario.disciplina_atuacao %>
 	<%else%>
 	<%= f.input :disciplina_atuacao,:collection=>@disciplinas%>
