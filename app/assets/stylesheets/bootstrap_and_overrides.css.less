@@ -31,12 +31,21 @@
 @navbar-gradient-stop-color: #f1e77a;
 @navbar-height:41px;
 @navbar-gradient: linear-gradient(to bottom, @navbar-gradient-start-color 0%, @navbar-gradient-stop-color 100%);
-@navbar-default-link-color: #747A67;
-@link-color: #AAAAAA; 
+@navbar-default-link-color: transparent;
+@navbar-default-link-hover-color: transparent;
+@navbar-default-link-hover-bg: transparent;
+@navbar-default-toggle-hover-bg: transparent;
 // in your main definitions/ overrides:
 .navbar {
   background-image: @navbar-gradient; 
 }
 .form-group {
 	margin-bottom: 10px;
+}
+
+footer {
+    position: fixed;
+    height: 20px;
+    bottom: 0;
+    width: 100%;
 }

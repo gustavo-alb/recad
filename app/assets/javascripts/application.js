@@ -13,14 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require underscore
+//= require dependent-fields
 //= require twitter/bootstrap
-//= require turbolinks
 //= require bootstrap
 //= require jquery.maskedinput.min
 //= require autocomplete-rails
 //= require mascara
-//= require underscore
-//= require dependent-fields
+
 
 
 $(document).ready(function() {

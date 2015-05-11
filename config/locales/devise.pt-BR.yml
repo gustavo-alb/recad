@@ -10,6 +10,9 @@ pt-BR:
     models:
       user: Usuário
   devise:
+    failure:
+      usuario:
+        unauthenticated: "Entre com cpf e senha para acessar"
     confirmations:
       new:
         resend_confirmation_instructions: Reenviar instruções de confirmação
@@ -39,6 +42,8 @@ pt-BR:
         forgot_your_password: Esqueceu sua senha?
         send_me_reset_password_instructions: Enviar instruções para redefinição da senha
     registrations:
+      usuario:
+        updated: "Perfil atualizado."
       edit:
         are_you_sure: Você tem certeza?
         cancel_my_account: Cancelar minha conta
@@ -51,6 +56,8 @@ pt-BR:
       new:
         sign_up: Inscrever-se
     sessions:
+      usuario:
+        signed_in: "Você entrou com sucesso!"
       new:
         sign_in: Login
     shared:

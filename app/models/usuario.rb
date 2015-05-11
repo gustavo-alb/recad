@@ -25,6 +25,7 @@ class Usuario
   field :last_sign_in_ip,    type: String
 
   field :nome, type: String
+  field :admin,type: Boolean,:default=>false
   belongs_to :local
 
   ## Confirmable

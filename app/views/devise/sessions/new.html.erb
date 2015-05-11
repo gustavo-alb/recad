@@ -5,7 +5,7 @@
   <div class="panel-body">
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>
       <div class="form-group">
-        <%= f.input :cpf, :input_html=>{autofocus: true, class: "form-control"} %>
+        <%= f.input :cpf, :input_html=>{autofocus: true, class: "form-control cpf"} %>
       </div>
       <div class="form-group">
         <%= f.input :password,:label=>"Senha", input_html: {autocomplete: "off", class: "form-control"} %>
@@ -13,8 +13,8 @@
       <% if devise_mapping.rememberable? %>
         <div class="checkbox">
           <label>
-            <%= f.check_box :remember_me,:label=>"Lembrar senha?"%>
-            <%= f.label :remember_me %>
+            <%= f.check_box :remember_me%>
+            <%= f.label "Lembrar login?" %>
           </label>
         </div>
         <% end %>

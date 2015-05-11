@@ -4,28 +4,35 @@
     <h4><%= t('.title', :resource => resource_class.model_name.human , :default => 'Edit #{resource_name.to_s.humanize}') %></h4>
   </div>
   <div class="panel-body">
-    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
       <div class="form-group">
-        <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, class: "form-control" %>
+        <%= f.label :cpf %>
+        <%= f.input :cpf, :label=>false,class: "cpf" %>
       </div>
       <div class="form-group">
-        <%= f.label :password %> <i>(<%= t('.leave_blank_if_you_don_t_want_to_change_it', :default => "leave blank if you don't want to change it") %>)</i><br />
-        <%= f.password_field :password, :autocomplete => "off", class: "form-control" %>
+        <%= f.label :nome %>
+        <%= f.input :nome,:label=>false%>
       </div>
       <div class="form-group">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, class: "form-control"  %>
+        <%= f.label :local %>
+        <%= f.input :local,:label=>false,disabled: true,:input_html=>{:value=>objeto_valor(f.object.local)}%>
       </div>
       <div class="form-group">
-        <%= f.label :current_password %> <i>(<%= t('.we_need_your_current_password_to_confirm_your_changes', :default => 'we need your current password to confirm your changes') %>)</i>
-        <%= f.password_field :current_password, class: "form-control" %>
+        <%= f.label "Senha" %> <i>(<%= t('.leave_blank_if_you_don_t_want_to_change_it', :default => "leave blank if you don't want to change it") %>)</i><br />
+        <%= f.input :password, :label=>false %>
+      </div>
+      <div class="form-group">
+        <%= f.label "Confirmação de Senha" %> 
+        <%= f.input :password_confirmation, :label=>false %>
+      </div>
+      <div class="form-group">
+        <%= f.label "Senha Atual" %> <i>(<%= t('.we_need_your_current_password_to_confirm_your_changes', :default => 'we need your current password to confirm your changes') %>)</i>
+        <%= f.input :current_password, :label=>false  %>
       </div>
       <%= f.submit t('.update', :default => "Update"), class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
 
-<p><%= t('.unhappy', :default => 'Unhappy') %>? <%= link_to t('.cancel_my_account', :default => "Cancel my account"), registration_path(resource_name), :data => { :confirm => t('.are_you_sure', :default => "Are you sure?") }, :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+funcionarios_path, :class => 'btn btn-default'  %>

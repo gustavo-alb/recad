@@ -1,0 +1,11 @@
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+   Local: <%= objeto_valor(current_usuario.local)%>  
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><%= link_to('Editar perfil', edit_usuario_registration_path) %></li>
+    <li role="presentation"><%= link_to('Sair do Sistema', destroy_usuario_session_path, :method => :get) %></li>	
+  </ul>
+</div>
+

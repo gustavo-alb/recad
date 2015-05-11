@@ -13,7 +13,6 @@
       <th><%= model_class.human_attribute_name(:cargo) %></th>
       <th><%= model_class.human_attribute_name(:quadro) %></th>
       <th><%= model_class.human_attribute_name(:situacao) %></th>
-      <th><%= model_class.human_attribute_name(:local_id) %></th>
       <th><%= model_class.human_attribute_name(:disciplina_concurso_id) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -22,15 +21,14 @@
     <% @funcionarios.each do |funcionario| %>
       <tr>
         <td><%= link_to funcionario.nome,funcionario_path(funcionario) %></td>
-        <td><%= funcionario.cpf %></td>
-        <td><%= funcionario.cadastro %></td>
-        <td><%= funcionario.carga_horaria %></td>
-        <td><%= funcionario.ambiente %></td>
-        <td><%= funcionario.cargo %></td>
-        <td><%= funcionario.quadro %></td>
-        <td><%= funcionario.situacao %></td>
-        <td><%= funcionario.local %></td>
-        <td><%= funcionario.disciplina_concurso %></td>
+        <td><%= objeto_valor(funcionario.cpf) %></td>
+        <td><%= objeto_valor(funcionario.cadastro) %></td>
+        <td><%= objeto_valor(funcionario.carga_horaria) %></td>
+        <td><%= objeto_valor(funcionario.ambiente) %></td>
+        <td><%= objeto_valor(funcionario.cargo) %></td>
+        <td><%= objeto_valor(funcionario.quadro) %></td>
+        <td><%= objeto_valor(funcionario.situacao) %></td>
+        <td><%= objeto_valor(funcionario.disciplina_concurso) %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_funcionario_path(funcionario), :class => 'btn btn-default btn-xs' %>
@@ -47,4 +45,4 @@
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_funcionario_path,
-            :class => 'btn btn-primary' %>
+            :class => 'btn btn-success' %>
