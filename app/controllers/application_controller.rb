@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
 protected
 
 def configure_permitted_parameters
-  devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:nome,:mudar_senha,:current_password) }
+  devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:cpf, :email, :nome, :admin, :mudar_senha, :inep, :local_id,:current_password,:password,:password_confirmation) }
 end
 
  def mudar_senha
