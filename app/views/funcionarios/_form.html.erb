@@ -27,12 +27,12 @@
 	<%= f.input :municipio_concurso,:label=>"Município do Concurso",:collection=>@municipios%>
 	<% end %>
 	<%= error_span(@funcionario[:municipio_concurso]) %>
-	<%= f.input :situacao,:label=>"Situação",:collection=>@situacoes %>
-	<%= error_span(@funcionario[:concurso]) %>
 	<div class="js-dependent-fields" data-select-id='funcionario_municipio_concurso' data-option-value='<%=Municipio.find_by(:nome=>'Macapá').id%>|<%=Municipio.find_by(:nome=>'Santana').id%>'>
 		<%= f.input :area_concurso,:label=>"Área do Concurso",:collection=>["Urbana","Rural"] %>
 		<%= error_span(@funcionario[:area_concurso]) %>
 	</div>
+	<%= f.input :situacao,:label=>"Situação",:collection=>@situacoes %>
+	<%= error_span(@funcionario[:situacao]) %>
 	<div class="js-dependent-fields" data-select-id='funcionario_cargo' data-option-value='Professor'>
 		<% if @funcionario.disciplina_concurso%>
 		<%= f.input :disciplina_concurso,:label=>"Disciplina do Concurso",:collection=>@disciplinas,:selected=>@funcionario.disciplina_concurso%>
