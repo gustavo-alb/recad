@@ -1,5 +1,6 @@
 class FuncionariosController < ApplicationController
   before_action :set_funcionario, only: [:show, :edit, :update, :destroy]
+  before_action :mudar_senha
   before_filter :dados
   #autocomplete :local,:nome,:full=>true
 

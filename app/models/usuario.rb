@@ -2,7 +2,7 @@ class Usuario
   include Mongoid::Document
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable
 
   ## Database authenticatable
@@ -25,7 +25,8 @@ class Usuario
   field :last_sign_in_ip,    type: String
 
   field :nome, type: String
-  field :admin,type: Boolean,:default=>false
+  field :admin,type: Boolean, default: false
+  field :mudar_senha, type: Boolean, default: true
   belongs_to :local
 
   ## Confirmable
