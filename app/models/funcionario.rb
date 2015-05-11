@@ -16,6 +16,7 @@ class Funcionario
   field :area_concurso, type: String
   field :programa, type: String
   field :situacao, type: String
+  field :diretor_ou_secretario,type: Boolean,default: false
   belongs_to :local
   belongs_to :disciplina_concurso,:class_name=>"Disciplina",:inverse_of=>:funcionarios
   belongs_to :disciplina_atuacao,:class_name=>"Disciplina",:inverse_of=>:funcionarios_atuando

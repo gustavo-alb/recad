@@ -11,30 +11,34 @@
 <%= f.input :cargo,:collection=>@cargos,:label=>"Cargo"%>
 <%= error_span(@funcionario[:cargo]) %>
 <%= f.input :quadro,:collection=>@quadros %>
+
 <%= error_span(@funcionario[:quadro]) %>
 <div class="js-dependent-fields" data-select-id='funcionario_quadro' data-option-value='Estadual|Federal'>
+	<%= f.label "Diretor(a) ou Secretário(a) que está em sala de Aula ou Coordenação de Programas Federais/Estaduais" %>
+	<%= f.input :diretor_ou_secretario,label: "Este funcionário é Diretor ou Secretário e está em sala de aula ou cordenação de programas?",as: :boolean %>
+	<%= error_span(@funcionario[:nome]) %>
 	<%= f.input :classe,:collection=>@classes %>
 	<%= error_span(@funcionario[:classe]) %>
 	<%= f.input :padrao,:collection=>@padroes,:label=>"Padrão"%>
 	<%= error_span(@funcionario[:padrao]) %>
-  <% if @funcionario.municipio_concurso and !@funcionario.new_record?%>
+	<% if @funcionario.municipio_concurso and !@funcionario.new_record?%>
 	<%= f.input :municipio_concurso,:label=>"Município do Concurso",:collection=>@municipios,:selected=>@funcionario.municipio_concurso%>
-  <% else %>
-  <%= f.input :municipio_concurso,:label=>"Município do Concurso",:collection=>@municipios%>
-  <% end %>
+	<% else %>
+	<%= f.input :municipio_concurso,:label=>"Município do Concurso",:collection=>@municipios%>
+	<% end %>
 	<%= error_span(@funcionario[:municipio_concurso]) %>
 	<%= f.input :situacao,:label=>"Situação",:collection=>@situacoes %>
 	<%= error_span(@funcionario[:concurso]) %>
 	<div class="js-dependent-fields" data-select-id='funcionario_municipio_concurso' data-option-value='<%=Municipio.find_by(:nome=>'Macapá').id%>|<%=Municipio.find_by(:nome=>'Santana').id%>'>
-		<%= f.input :area_concurso,:label=>"Área",:collection=>["Urbana","Rural"] %>
+		<%= f.input :area_concurso,:label=>"Área do Concurso",:collection=>["Urbana","Rural"] %>
 		<%= error_span(@funcionario[:area_concurso]) %>
 	</div>
 	<div class="js-dependent-fields" data-select-id='funcionario_cargo' data-option-value='Professor'>
-  <% if @funcionario.disciplina_concurso and !@funcionario.new_record? %>
+		<% if @funcionario.disciplina_concurso and !@funcionario.new_record? %>
 		<%= f.input :disciplina_concurso,:label=>"Disciplina do Concurso",:collection=>@disciplinas,:selected=>@funcionario.disciplina_concurso%>
-    <% else %>
-    <%= f.input :disciplina_concurso,:label=>"Disciplina do Concurso",:collection=>@disciplinas%>
-    <% end %>
+		<% else %>
+		<%= f.input :disciplina_concurso,:label=>"Disciplina do Concurso",:collection=>@disciplinas%>
+		<% end %>
 		<%= error_span(@funcionario[:disciplina_concurso]) %>
 	</div>
 </div>
@@ -46,19 +50,19 @@
 <%= error_span(@funcionario[:carga_horaria]) %>
 
 <div class="js-dependent-fields" data-select-id='funcionario_cargo' data-option-value='Professor'>
-<%= f.input :ambiente,:collection=>@ambientesprof %>
-<%= error_span(@funcionario[:ambiente]) %>
+	<%= f.input :ambiente,:collection=>@ambientesprof %>
+	<%= error_span(@funcionario[:ambiente]) %>
 </div>
 <div class="js-dependent-fields" data-select-id='funcionario_cargo' data-option-value='Especialista em Educaçao|Pedagogo|Auxiliar Educacional'>
-<%= f.input :ambiente,:collection=>@ambientes %>
+	<%= f.input :ambiente,:collection=>@ambientes %>
 </div>
 
 <div class="js-dependent-fields" data-select-id='funcionario_ambiente' data-option-value='Sala de Aula'>
-<%if @funcionario.disciplina_atuacao and !@funcionario.new_record?%>
-<%= f.input :disciplina_atuacao,:collection=>@disciplinas,:selected=>@funcionario.disciplina_atuacao %>
-<%else%>
-<%= f.input :disciplina_atuacao,:collection=>@disciplinas%>
-<%end%>
+	<%if @funcionario.disciplina_atuacao and !@funcionario.new_record?%>
+	<%= f.input :disciplina_atuacao,:collection=>@disciplinas,:selected=>@funcionario.disciplina_atuacao %>
+	<%else%>
+	<%= f.input :disciplina_atuacao,:collection=>@disciplinas%>
+	<%end%>
 	
 	<%= error_span(@funcionario[:disciplina_atuacao]) %>
 	<%= f.input :turmas,:label=>"Numero de Turmas",:as=>:integer %>
