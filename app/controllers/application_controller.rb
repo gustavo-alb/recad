@@ -34,16 +34,22 @@ class ApplicationController < ActionController::Base
   	end
   end
 
-protected
+  protected
 
-def configure_permitted_parameters
-  devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:cpf, :email, :nome, :admin, :mudar_senha, :inep, :local_id,:current_password,:password,:password_confirmation) }
-end
-
- def mudar_senha
-  if current_usuario.mudar_senha?
-    redirect_to(edit_usuario_registration_path,:notice=>"Mude sua senha, para evitar problemas posteriormente.")
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:cpf, :email, :nome, :admin, :mudar_senha, :inep, :local_id,:current_password,:password,:password_confirmation) }
   end
-end
+
+  def mudar_senha
+    if current_usuario.mudar_senha?
+      redirect_to(edit_usuario_registration_path,:notice=>"Mude sua senha, para evitar problemas posteriormente.")
+    end
+  end
+
+  def admin
+    if !current_usuario.admin?
+      redirect_to :root,:alert=>"Você não tem acesso a esta área"
+    end
+  end
 
 end

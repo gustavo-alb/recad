@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Disciplina
-	def columns
-		self.fields
+	def self.columns
+		self.fields.collect{|c| c[1]}
 	end
 	include Mongoid::Document
 	include Mongoid::Timestamps
