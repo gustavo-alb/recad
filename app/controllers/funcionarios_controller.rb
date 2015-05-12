@@ -76,7 +76,7 @@ class FuncionariosController < ApplicationController
     end
 
     def dados
-      @classes = ["A","B","C","D","E","F","S","GAB"]
+      @classes = ["A","B","C","D","E","F","S","GAB","3ª"]
       @padroes = ((1.upto(25).to_a)+[202,302,303,401,402]).sort
       @locais = Local.asc(:nome).collect{|l|["#{l.nome.upcase} - #{l.codigo}",l.id]}
       @ambientesprof = ["TV Escola","Assessoria de Direção", "Biblioteca", "Coordenação Pedagógica - Assessor Pedagógico", "Coordenação Pedagógica - Orientação", "Coordenação Pedagógica - Supervisão", "Coordenação de Programa Estadual","Coordenação de Programa Federal", "LIED", "Sala de Aula", "Sala de Leitura", "Secretaria Escolar ","Sistema Modular de Ensino Médio","Sistema Modular de Ensino Fundamental","Sistema Modular de Ensino Médio Indígena","Sistema Modular de Ensino Fundamental Indígena","Atendimento de Ensino Especial"].sort
