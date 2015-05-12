@@ -35,7 +35,7 @@
 	<%= error_span(@funcionario[:situacao]) %>
 	<div class="js-dependent-fields" data-select-id='funcionario_cargo' data-option-value='Professor'>
 		<% if @funcionario.disciplina_concurso%>
-		<%= f.input :disciplina_concurso,:label=>"Disciplina do Concurso",:collection=>@disciplinas,:selected=>@funcionario.disciplina_concurso%>
+		<%= f.input :disciplina_concurso,:label=>"Disciplina do Concurso",:collection=>@disciplinas,:selected=>@funcionario.disciplina_concurso_id%>
 		<% else %>
 		<%= f.input :disciplina_concurso,:label=>"Disciplina do Concurso",:collection=>@disciplinas%>
 		<% end %>
@@ -53,14 +53,14 @@
 	<%= f.input :ambiente,:collection=>@ambientesprof %>
 	<%= error_span(@funcionario[:ambiente]) %>
 </div>
-<div class="js-dependent-fields" data-select-id='funcionario_cargo' data-option-value='<%=(@cargos.join("|").html_safe)%>'>
+<div class="js-dependent-fields" data-select-id='funcionario_cargo' data-option-value='<%=((@cargos-['Professor']).join("|").html_safe)%>'>
 	<%= f.input :ambiente_nao_docente,:label=>"Ambiente",:collection=>@ambientes %>
 	<%= error_span(@funcionario[:ambiente]) %>
 </div>
 
 <div class="js-dependent-fields" data-select-id='funcionario_ambiente' data-option-value='Sala de Aula'>
 	<%if @funcionario.disciplina_atuacao%>
-	<%= f.input :disciplina_atuacao,:collection=>@disciplinas,:selected=>@funcionario.disciplina_atuacao %>
+	<%= f.input :disciplina_atuacao,:collection=>@disciplinas,:selected=>@funcionario.disciplina_atuacao_id %>
 	<%else%>
 	<%= f.input :disciplina_atuacao,:collection=>@disciplinas%>
 	<%end%>
