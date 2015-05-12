@@ -83,8 +83,8 @@ class FuncionariosController < ApplicationController
     end
 
     def dados
-      @classes = ["A","B","C","D","E","F"]
-      @padroes = 1.upto(25).to_a
+      @classes = ["A","B","C","D","E","F","S"]
+      @padroes = (1.upto(25).to_a)+[202,302,402]
       @locais = Local.asc(:nome).collect{|l|["#{l.nome.upcase} - #{l.codigo}",l.id]}
       @ambientesprof = ["TV Escola","Assessoria de Direção", "Biblioteca", "Coordenação Pedagógica - Assessor Pedagógico", "Coordenação Pedagógica - Orientação", "Coordenação Pedagógica - Supervisão", "Coordenação de Programa Estadual","Coordenação de Programa Federal", "LIED", "Sala de Aula", "Sala de Leitura", "Secretaria Escolar ","Sistema Modular de Ensino Médio","Sistema Modular de Ensino Fundamental","Sistema Modular de Ensino Médio Indígena","Sistema Modular de Ensino Fundamental Indígena","Atendimento de Ensino Especial"].sort
       @ambientes = ["TV Escola","Assessoria de Direção", "Biblioteca", "Coordenação Pedagógica - Assessor Pedagógico", "Coordenação Pedagógica - Orientação", "Coordenação Pedagógica - Supervisão", "Coordenação de Programa Estadual","Coordenação de Programa Federal", "LIED", "Sala de Leitura", "Secretaria Escolar"].sort
@@ -93,7 +93,7 @@ class FuncionariosController < ApplicationController
       @cargas_horarias = ["20 Horas","40 Horas"]
       @cargos = ["Especialista em Educaçao","Pedagogo","Auxiliar Educacional","Professor","Agente Administrativo","Datilógrafo","Auxiliar Administrativo"].sort
       @quadros = ["Estadual","Federal","Contrato Administrativo","Contrato Horista"]
-      @concursos = ["Antes de 1989","1989","1992","1994","1996","2000 (Ex-Ipesap)","2005","2012"]
+      @concursos = ["Antes de 1989","1989","1992","1993","1994","1996","2000 (Ex-Ipesap)","2005","2012"]
       @municipios = Municipio.asc(:nome).collect{|m|[m.nome,m.id]}
       @situacoes = ["Ativo","Acompanhado pela Casa do Professor","Licença Sem Vencimento","Licença Maternidade","Licença Médica (Junta Médica/AMPREV)","Licença para Estudos","Licença Prêmio Especial"]
     end
