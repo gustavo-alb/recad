@@ -5,4 +5,5 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-Local.create(:nome=>"Polo Universitário Equador - Universidade Aberta do Brasil",:codigo=>"AP01054860")
+#Local.create(:nome=>"Polo Universitário Equador - Universidade Aberta do Brasil",:codigo=>"AP01054860")
+Usuario.create(:inep=>"AP01054860",:password=>"AP01054860",:password_confirmation=>"AP01054860",:local=>Local.find(:codigo=>"AP01054860"))
