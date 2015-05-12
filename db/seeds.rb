@@ -5,3 +5,4 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Local.create(:nome=>"Polo Universitário Equador - Universidade Aberta do Brasil",:codigo=>"UAB")

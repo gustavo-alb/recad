@@ -29,7 +29,7 @@ class Funcionario
   validates_presence_of :programa,if:  Proc.new { |a| a.cargo.include?("Programa") and a.situacao=="Ativo" },message: "Informação necessária"
   validates_presence_of :cadastro,if:  Proc.new { |a| !a.quadro=="Contrato Administrativo"},message: "Informação necessária"
   validate :cpf_valido
-  #validates_presence_of :ambiente,message: "Informação necessária"
+  validates_presence_of :ambiente,message: "Informação necessária",:if=>Proc.new{|a|!a.ambiente_nao_docente.blank?}
 
   def cpf_valido
     cpf = Cpf.new(self.cpf)
