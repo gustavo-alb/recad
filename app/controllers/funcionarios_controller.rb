@@ -95,6 +95,6 @@ class FuncionariosController < ApplicationController
       @quadros = ["Estadual","Federal","Contrato Administrativo","Contrato Horista"]
       @concursos = ["Antes de 1989","1989","1992","1993","1994","1996","2000 (Ex-Ipesap)","2005","2012"]
       @municipios = Municipio.asc(:nome).collect{|m|[m.nome,m.id]}
-      @situacoes = ["Ativo","Acompanhado pela Casa do Professor","Licença Sem Vencimento","Licença Maternidade","Licença Médica (Junta Médica/AMPREV)","Licença para Estudos","Licença Prêmio Especial"]
+      @situacoes = ["Ativo","Acompanhado pela Casa do Professor","Ativo mas em sala ambiente perante perícia médica","Licença Sem Vencimento","Licença Maternidade","Licença Médica (Junta Médica/AMPREV)","Licença para Estudos","Licença Prêmio Especial"]
     end
 end
