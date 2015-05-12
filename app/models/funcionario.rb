@@ -29,7 +29,8 @@ class Funcionario
   validates_presence_of :programa,if:  Proc.new { |a| a.cargo.include?("Programa") and a.situacao=="Ativo" },message: "Informação necessária"
   validates_presence_of :cadastro,if:  Proc.new { |a| !a.quadro=="Contrato Administrativo"},message: "Informação necessária"
   validate :cpf_valido
-  validates_presence_of :ambiente,message: "Informação necessária",:if=>Proc.new{|a|a.ambiente_nao_docente.blank?}
+  validate :validate_ambiente
+  #validates_presence_of :ambiente,message: "Informação necessária",:if=>Proc.new{|a|a.ambiente_nao_docente.blank? or (a.situacao.include?("Ativo") or a.situacao.include?("Acompanhado"))}
   validates_uniqueness_of :cadastro,scope: :local
   before_save :pos_ambiente
 
@@ -37,6 +38,12 @@ class Funcionario
     cpf = Cpf.new(self.cpf)
     if !cpf.valido?
      errors.add(:cpf, "não é valido")
+    end
+  end
+
+  def validate_ambiente
+    if self.ambiente_nao_docente.blank? and self.ambiente.blank? and (self.situacao=="Ativo" or self.situacao=="Acompanhado pela Casa do Professor" or self.situacao=="Ativo mas em sala ambiente perante perícia médica")
+      errors.add(:ambiente, "Informação necessária")
     end
   end
 
