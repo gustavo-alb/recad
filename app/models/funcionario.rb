@@ -30,6 +30,7 @@ class Funcionario
   validates_presence_of :cadastro,if:  Proc.new { |a| !a.quadro=="Contrato Administrativo"},message: "Informação necessária"
   validate :cpf_valido
   validates_presence_of :ambiente,message: "Informação necessária",:if=>Proc.new{|a|a.ambiente_nao_docente.blank?}
+  validates_uniqueness_of :cadastro,scope: :local
   before_save :pos_ambiente
 
   def cpf_valido
