@@ -77,14 +77,14 @@ class FuncionariosController < ApplicationController
 
     def dados
       @classes = ["A","B","C","D","E","F","S","GAB","3ª"].sort
-      @padroes = ((1.upto(25).to_a)+[202,302,303,401,402]).sort
+      @padroes = ((1.upto(25).to_a)+[202,302,303,401,402,103]).sort
       @locais = Local.asc(:nome).collect{|l|["#{l.nome.upcase} - #{l.codigo}",l.id]}
       @ambientesprof = ["TV Escola","Assessoria de Direção", "Biblioteca", "Coordenação Pedagógica - Assessor Pedagógico", "Coordenação Pedagógica - Orientação", "Coordenação Pedagógica - Supervisão", "Coordenação de Programa Estadual","Coordenação de Programa Federal", "LIED", "Sala de Aula", "Sala de Leitura", "Secretaria Escolar ","Sistema Modular de Ensino Médio","Sistema Modular de Ensino Fundamental","Sistema Modular de Ensino Médio Indígena","Sistema Modular de Ensino Fundamental Indígena","Atendimento de Ensino Especial"].sort
       @ambientes = ["TV Escola","Assessoria de Direção", "Biblioteca", "Coordenação Pedagógica - Assessor Pedagógico", "Coordenação Pedagógica - Orientação", "Coordenação Pedagógica - Supervisão", "Coordenação de Programa Estadual","Coordenação de Programa Federal", "LIED", "Sala de Leitura", "Secretaria Escolar"].sort
       @disciplinas = Disciplina.asc(:nome).collect{|d|[d.nome,d.id]}
       @formacoes = []
       @cargas_horarias = ["20 Horas","40 Horas"]
-      @cargos = ["Agente de Portaria","Auxiliar Operacional de Serviços Diversos" ,"Especialista em Educaçao","Pedagogo","Auxiliar Educacional","Professor","Agente Administrativo","Datilógrafo","Auxiliar Administrativo"].sort
+      @cargos = ["Cuidador","Intérprete","Agente de Portaria","Auxiliar Operacional de Serviços Diversos" ,"Especialista em Educaçao","Pedagogo","Auxiliar Educacional","Professor","Agente Administrativo","Datilógrafo","Auxiliar Administrativo"].sort
       @quadros = ["Estadual","Federal","Contrato Administrativo","Contrato Horista"]
       @concursos = ["Antes de 1989","1989","1992","1993","1994","1996","2000 (Ex-Ipesap)","2005","2012"]
       @municipios = Municipio.asc(:nome).collect{|m|[m.nome,m.id]}
