@@ -93,7 +93,7 @@ class FuncionariosController < ApplicationController
       @cargas_horarias = ["20 Horas","40 Horas"]
       @cargos = ["Especialista em Educaçao","Pedagogo","Auxiliar Educacional","Professor","Agente Administrativo","Datilógrafo","Auxiliar Administrativo"].sort
       @quadros = ["Estadual","Federal","Contrato Administrativo","Contrato Horista"]
-      @concursos = ["1989","1992","1994","1996","2000 (Ex-Ipesap)","2005","2012"]
+      @concursos = ["Antes de 1989","1989","1992","1994","1996","2000 (Ex-Ipesap)","2005","2012"]
       @municipios = Municipio.asc(:nome).collect{|m|[m.nome,m.id]}
       @situacoes = ["Ativo","Acompanhado pela Casa do Professor","Licença Sem Vencimento","Licença Maternidade","Licença Médica (Junta Médica/AMPREV)","Licença para Estudos","Licença Prêmio Especial"]
     end
