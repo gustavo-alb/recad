@@ -29,11 +29,8 @@ class FuncionariosController < ApplicationController
   # POST /funcionarios.json
   def create
     @funcionario = Funcionario.new(funcionario_params)
-    if !@funcionario.ambiente_nao_docente.blank?
-      @funcionario.ambiente = @funcionario.ambiente_nao_docente
-    end
     respond_to do |format|
-      if @funcionario.save
+      if @funcionario.save!
         format.html { redirect_to @funcionario, notice: 'Funcionário cadastrado com sucesso' }
         format.json { render :show, status: :created, location: @funcionario }
       else
@@ -46,11 +43,8 @@ class FuncionariosController < ApplicationController
   # PATCH/PUT /funcionarios/1
   # PATCH/PUT /funcionarios/1.json
   def update
-     if !@funcionario.ambiente_nao_docente.blank?
-      @funcionario.ambiente = @funcionario.ambiente_nao_docente
-    end
     respond_to do |format|
-      if @funcionario.update(funcionario_params)
+      if @funcionario.update!(funcionario_params)
         format.html { redirect_to @funcionario, notice: 'Funcionário atualizado.' }
         format.json { render :show, status: :ok, location: @funcionario }
       else

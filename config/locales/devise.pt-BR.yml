@@ -12,7 +12,8 @@ pt-BR:
   devise:
     failure:
       usuario:
-        unauthenticated: "Entre com cpf e senha para acessar"
+        not_found_in_database: "INEP Inválido."
+        unauthenticated: "Entre com INEP e senha para acessar"
     confirmations:
       new:
         resend_confirmation_instructions: Reenviar instruções de confirmação
