@@ -53,7 +53,7 @@
 	<%= f.input :ambiente,:collection=>@ambientesprof %>
 	<%= error_span(@funcionario[:ambiente]) %>
 </div>
-<div class="js-dependent-fields" data-select-id='funcionario_cargo' data-option-value='<%=(@cargos.join("|").html_safe)%>'>
+<div class="js-dependent-fields" data-select-id='funcionario_cargo' data-option-value='<%=((@cargos-['Professor']).join("|").html_safe)%>'>
 	<%= f.input :ambiente_nao_docente,:label=>"Ambiente",:collection=>@ambientes %>
 	<%= error_span(@funcionario[:ambiente]) %>
 </div>
