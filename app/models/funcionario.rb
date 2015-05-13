@@ -23,14 +23,18 @@ class Funcionario
   belongs_to :disciplina_atuacao,:class_name=>"Disciplina",:inverse_of=>:funcionarios_atuando
   belongs_to :municipio_concurso,:class_name=>"Municipio"
   validates_presence_of :nome,:cpf,:cargo,:carga_horaria,:quadro,message: "Informação necessária"
-  validates_presence_of :classe,:padrao,:municipio_concurso,:situacao,:concurso,if:  Proc.new { |a| self.quadro=="Estadual"},message: "Informação necessária"
+  validates_presence_of :classe,:municipio_concurso,:situacao,:concurso,if:  Proc.new { |a| self.quadro=="Estadual"},message: "Informação necessária"
   validates_presence_of :disciplina_concurso,if:  Proc.new { |a| a.cargo=="Professor" and (self.quadro=="Estadual" or self.quadro=="Federal")},message: "Informação necessária"
   validates_presence_of :disciplina_atuacao,:turmas,:ch_em_sala,if:  Proc.new { |a| a.ambiente=="Sala de Aula" and a.situacao=="Ativo" }
   validates_presence_of :programa,if:  Proc.new { |a| a.cargo.include?("Programa") and a.situacao=="Ativo" },message: "Informação necessária"
-  validates_presence_of :cadastro,if:  Proc.new { |a| !a.quadro=="Contrato Administrativo"},message: "Informação necessária"
+  validate :validate_cadastro
   validate :cpf_valido
   validate :validate_ambiente
+
+  #Validaçoes antigas
+  #validates_presence_of :cadastro,if:  Proc.new { |a| !a.quadro=="Contrato Administrativo"},message: "Informação necessária"
   #validates_presence_of :ambiente,message: "Informação necessária",:if=>Proc.new{|a|a.ambiente_nao_docente.blank? or (a.situacao.include?("Ativo") or a.situacao.include?("Acompanhado"))}
+  
   validates_uniqueness_of :cadastro,scope: :local
   before_save :pos_ambiente
 
@@ -44,6 +48,12 @@ class Funcionario
   def validate_ambiente
     if self.ambiente_nao_docente.blank? and self.ambiente.blank? and (self.situacao=="Ativo" or self.situacao=="Acompanhado pela Casa do Professor" or self.situacao=="Ativo mas em sala ambiente perante perícia médica")
       errors.add(:ambiente, "Informação necessária")
+    end
+  end
+
+  def validate_cadastro
+    if self.cadastro.blank? and !self.quadro.include?("Contrato")
+      errors.add(:cadastro, "Informação necessária")
     end
   end
 

@@ -37,7 +37,6 @@
       <%= javascript_include_tag "application" %>
     </head>
     <body>
-
       <div class="navbar navbar-default navbar-fixed-top">
        <a class="navbar-left"><%=image_tag("logo_governo.png")%></a>
        <div class="navbar-collapse collapse navbar-responsive-collapse">
@@ -45,13 +44,18 @@
           <%= render 'devise/shared/menu' if usuario_signed_in?%>
         </ul>
       </div>
-
     </div>
-
-    <div class="container panel panel-default" style="margin-top: 4%; margin-left: 1%; width:98%;">
+    <% if usuario_signed_in? and current_usuario.alerta_ambiente%>
+     <h4 class="alert alert-danger container" role="alert" style="margin-top: 4%; width: 98%;">Os funcionários com a informação marcada em vermelho precisam ser revistos.</h4>
+     <div class="container panel panel-default" style="margin-top: 1%; margin-left: 1%; width:98%;">
+      <%else%>
+      <div class="container panel panel-default" style="margin-top: 4%; margin-left: 1%; width:98%;">
+    <% end %>
+    
       <div class="row">
         <div class="col-lg-12">
          <div class="panel-body">
+
            <%= bootstrap_flash %>
            <%= yield %>
          </div>

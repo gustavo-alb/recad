@@ -18,7 +18,7 @@ gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) support
 gem "twitter-bootstrap-rails"
 gem "mongoid", git: "https://github.com/mongoid/mongoid.git"
 gem 'rails_12factor', group: :production
-
+gem "will_paginate-bootstrap"
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

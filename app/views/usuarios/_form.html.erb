@@ -1,0 +1,37 @@
+<% if @usuario.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <p><strong>This form contains <%= pluralize(@usuario.errors.count, 'errors') %>.</strong></p>
+      <ul>
+        <% @usuario.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+<%= simple_form_for @usuario,:url=>@caminho, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :cpf,input_html:{class: "cpf"}%>
+  <%= error_span(@usuario[:cpf]) %>
+  <%= f.input :nome %>
+  <%= error_span(@usuario[:nome]) %>
+  <%= f.input :admin,:collection=>[["Sim",true],["Não",false]] %>
+  <%= error_span(@usuario[:admin]) %>
+  <%= f.input :mudar_senha,:collection=>[["Sim",true],["Não",false]] %>
+  <%= error_span(@usuario[:mudar_senha]) %>
+  <% if @usuario.local %>
+  <%= f.input :local,:collection=>@locais,:selected=>@usuario.local_id%>
+  <% else %>
+  <%= f.input :local,:collection=>@locais %>
+  <% end %>
+  <%= error_span(@usuario[:local]) %>
+  <%= f.input :password,:label=>"Senha" %>
+  <%= error_span(@usuario[:password]) %>
+  <%= f.input :password,:label=>"Confirmação de Senha" %>
+  <%= error_span(@usuario[:password]) %>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                admin_usuarios_path, :class => 'btn btn-default' %>
+<% end %>

@@ -5,8 +5,10 @@ Rails.application.routes.draw do
     get :funcionario_professor
   end
 
-
+  scope "/admin", as: "admin" do
     resources :disciplinas
+    resources :usuarios
+  end
 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -6,7 +6,8 @@
 <%= error_span(@funcionario[:nome]) %>
 <%= f.input :cpf,:label=>"CPF",:input_html=>{:class=>"cpf"} %>
 <%= error_span(@funcionario[:cpf]) %>
-<%= f.input :cadastro %>
+<%= f.label "Cadastro¹"%> <i>¹não é necessário para Contrato Administrativo e Horista</i>
+<%= f.input :cadastro,:label=>false%>
 <%= error_span(@funcionario[:cadastro]) %>
 <%= f.input :cargo,:collection=>@cargos,:label=>"Cargo"%>
 <%= error_span(@funcionario[:cargo]) %>
@@ -19,10 +20,8 @@
 	<%= error_span(@funcionario[:nome]) %>
 	<%= f.input :classe,:collection=>@classes %>
 	<%= error_span(@funcionario[:classe]) %>
-	<%= f.input :padrao,:collection=>@padroes,:label=>"Padrão"%>
-	<%= error_span(@funcionario[:padrao]) %>
 	<% if @funcionario.municipio_concurso%>
-	<%= f.input :municipio_concurso,:label=>"Município do Concurso",:collection=>@municipios,:selected=>@funcionario.municipio_concurso%>
+	<%= f.input :municipio_concurso,:label=>"Município do Concurso",:collection=>@municipios,:selected=>@funcionario.municipio_concurso_id%>
 	<% else %>
 	<%= f.input :municipio_concurso,:label=>"Município do Concurso",:collection=>@municipios%>
 	<% end %>
