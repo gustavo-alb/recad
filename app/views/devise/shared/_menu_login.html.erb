@@ -1,0 +1,9 @@
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" aria-expanded="true" onclick="$('#login_gestor').modal()">
+   <a>Gestores do complexo da SEED e Anexos, cliquem aqui.</a>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><%= link_to('Editar perfil', edit_usuario_registration_path) %></li>
+    <li role="presentation"><%= link_to('Sair do Sistema', destroy_usuario_session_path) %></li>	
+  </ul>
+
+
