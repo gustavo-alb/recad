@@ -2,6 +2,16 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
+
+
+<%= form_tag admin_usuarios_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Busca", :name => nil %>
+  </p>
+<% end %>
+
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -36,7 +46,7 @@
     <% end %>
   </tbody>
 </table>
-<%= will_paginate @usuarios, renderer: BootstrapPagination::Rails,:previous_label=>"<",:next_label=>">"%>
+<%#= will_paginate @usuarios, renderer: BootstrapPagination::Rails,:previous_label=>"<",:next_label=>">"%>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_admin_usuario_path,
             :class => 'btn btn-primary' %>

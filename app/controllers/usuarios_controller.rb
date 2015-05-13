@@ -5,7 +5,11 @@ class UsuariosController < ApplicationController
   # GET /usuarios
   # GET /usuarios.json
   def index
-    @usuarios = Usuario.all.paginate(:page => params[:page], :per_page => 10)
+    if params[:search].blank?
+      @usuarios = Usuario.all.paginate(:page => params[:page], :per_page => 10)
+    else
+      @usuarios = Usuario.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+    end
   end
 
   # GET /usuarios/1
@@ -80,4 +84,4 @@ class UsuariosController < ApplicationController
     def dados
       @locais = Local.asc(:nome).collect{|l|["#{l.nome.upcase} - #{l.codigo}",l.id]}
     end
-end
+  end

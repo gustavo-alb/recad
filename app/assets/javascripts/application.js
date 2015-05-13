@@ -20,9 +20,17 @@
 //= require jquery.maskedinput.min
 //= require autocomplete-rails
 //= require mascara
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 
 
 
 $(document).ready(function() {
     DependentFields.bind()
 });
+
+$(document).ready(function() {
+    $('.datatable').dataTable( {
+      
+    } );
+} );

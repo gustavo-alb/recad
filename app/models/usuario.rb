@@ -1,5 +1,6 @@
 class Usuario
   include Mongoid::Document
+  include Mongoid::Search
   def self.columns
     self.fields.collect{|c| c[1]}
   end
@@ -33,6 +34,9 @@ class Usuario
   field :inep,type: String,default: ""
   belongs_to :local
 
+  search_in :nome, :inep,:cpf#, :local => [:nome,:codigo],:match=>:any
+
+#
 
 
 
