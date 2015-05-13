@@ -1,4 +1,4 @@
-<%= simple_form_for @disciplina, :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for @disciplina,:url=>@caminho, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.input :nome %>
   <%= error_span(@disciplina[:nome]) %>
   <%= f.input :codigo %>

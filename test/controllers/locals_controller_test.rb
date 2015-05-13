@@ -21,7 +21,7 @@ class LocalsControllerTest < ActionController::TestCase
       post :create, local: {  }
     end
 
-    assert_redirected_to local_path(assigns(:local))
+    assert_redirected_to admin_admin_local_path(assigns(:local))
   end
 
   test "should show local" do
@@ -36,7 +36,7 @@ class LocalsControllerTest < ActionController::TestCase
 
   test "should update local" do
     patch :update, id: @local, local: {  }
-    assert_redirected_to local_path(assigns(:local))
+    assert_redirected_to admin_admin_local_path(assigns(:local))
   end
 
   test "should destroy local" do
@@ -44,6 +44,6 @@ class LocalsControllerTest < ActionController::TestCase
       delete :destroy, id: @local
     end
 
-    assert_redirected_to locals_path
+    assert_redirected_to admin_locals_path
   end
 end

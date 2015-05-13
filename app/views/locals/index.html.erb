@@ -1,25 +1,47 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Local -%>
+<% content_for :header do%>
+<%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+<% end %>
 
-<h1>Listing Locals</h1>
+<%= search_form_for @q,:url=>admin_locals_path do |f| %>
 
-<table>
+<%= f.label "Busca" %>
+<%= f.search_field :nome_or_codigo_cont %>
+<%= f.submit %>
+<% end %>
+
+<table class="table table-striped">
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th><%= model_class.human_attribute_name(:nome) %></th>
+      <th><%= model_class.human_attribute_name(:codigo) %></th>
+      <th><%= model_class.human_attribute_name(:escola) %></th>
+      <th><%= model_class.human_attribute_name(:municipio) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @locals.each do |local| %>
       <tr>
-        <td><%= link_to 'Show', local %></td>
-        <td><%= link_to 'Edit', edit_local_path(local) %></td>
-        <td><%= link_to 'Destroy', local, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to objeto_valor(local.nome),admin_local_path(local) %></td>
+        <td><%= objeto_valor(local.codigo) %></td>
+        <td><%= objeto_valor(local.escola) %></td>
+        <td><%= objeto_valor(local.municipio)%></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_admin_local_path(local), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      admin_local_path(local),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Local', new_local_path %>
+<%= will_paginate @locals, renderer: BootstrapPagination::Rails,:previous_label=>"<",:next_label=>">"%><br/>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_admin_local_path,
+            :class => 'btn btn-primary' %>

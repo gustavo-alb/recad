@@ -2,23 +2,26 @@
 <%content_for :header do%>
 <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %>
 <% end %>
+
+<%= search_form_for @q,:url=>admin_disciplinas_path do |f| %>
+
+<%= f.label "Busca" %>
+<%= f.search_field :nome_or_codigo_cont %>
+<%= f.submit %>
+<% end %>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:nome) %></th>
       <th><%= model_class.human_attribute_name(:codigo) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th><%=t '.actions', :default => t("helpers.actions")%></th>
     </tr>
   </thead>
   <tbody>
     <% @disciplinas.each do |disciplina| %>
       <tr>
-        <td><%= link_to disciplina.id, admin_disciplina_path(disciplina) %></td>
-        <td><%= disciplina.nome %></td>
-        <td><%= disciplina.codigo %></td>
-        <td><%=l disciplina.created_at %></td>
+        <td><%= objeto_valor(disciplina.nome) %></td>
+        <td><%= objeto_valor(disciplina.codigo) %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_admin_disciplina_path(disciplina), :class => 'btn btn-default btn-xs' %>
@@ -32,7 +35,7 @@
     <% end %>
   </tbody>
 </table>
-
+<%= will_paginate @usuarios, renderer: BootstrapPagination::Rails,:previous_label=>"<",:next_label=>">"%><br/>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_admin_disciplina_path,
             :class => 'btn btn-primary' %>
