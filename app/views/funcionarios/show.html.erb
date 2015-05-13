@@ -41,13 +41,16 @@
   <%if @funcionario.cargo=="Professor"%>
   <dt><strong><%= model_class.human_attribute_name(:disciplina_concurso_id) %>:</strong></dt>
   <dd><%= objeto_valor(@funcionario.disciplina_concurso) %></dd>
+  <% end %>
+  <%if @funcionario.local.escola?%>
   <dt><strong><%= model_class.human_attribute_name(:disciplina_atuacao_id) %>:</strong></dt>
   <dd><%= objeto_valor(@funcionario.disciplina_atuacao) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:turmas) %>:</strong></dt>
   <dd><%= @funcionario.turmas %></dd>
   <dt><strong><%= model_class.human_attribute_name(:ch_em_sala) %>:</strong></dt>
   <dd><%= carga_horaria(@funcionario.ch_em_sala) %></dd>
-  <% end %>
+  <%end%>
+  
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
