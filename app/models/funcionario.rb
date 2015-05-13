@@ -47,7 +47,7 @@ class Funcionario
  end
 
  def validate_ambiente
-  if !self.cargo!="Professor" and self.ambiente_nao_docente.blank? and (self.situacao=="Ativo" or self.situacao=="Acompanhado pela Casa do Professor" or self.situacao=="Ativo mas em sala ambiente perante perícia médica")
+  if self.cargo!="Professor" and self.ambiente_nao_docente.blank? and (self.situacao=="Ativo" or self.situacao=="Acompanhado pela Casa do Professor" or self.situacao=="Ativo mas em sala ambiente perante perícia médica")
     errors.add(:ambiente_nao_docente, "Informação necessária")
   elsif self.cargo=="Professor" and self.ambiente.blank? and (self.situacao=="Ativo" or self.situacao=="Acompanhado pela Casa do Professor" or self.situacao=="Ativo mas em sala ambiente perante perícia médica")
      errors.add(:ambiente, "Informação necessária")
@@ -61,9 +61,9 @@ def validate_cadastro
 end
 
 def pos_ambiente
-  if !self.ambiente_nao_docente.blank?
+  if !self.ambiente_nao_docente.blank? and self.cargo!="Professor"
     self.ambiente = self.ambiente_nao_docente
-  else
+  elsif self.ambiente_nao_docente.blank? and self.cargo!="Professor"
     self.ambiente = ""
   end
 end
