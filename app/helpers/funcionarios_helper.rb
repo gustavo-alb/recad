@@ -8,10 +8,12 @@ module FuncionariosHelper
 	end
 
 	def ambiente_alerta(obj)
-		if obj.ambiente.blank? and (obj.situacao=="Ativo" or obj.situacao=="Acompanhado pela Casa do Professor" or obj.situacao=="Ativo mas em sala ambiente perante perícia médica")
+		if obj.local.escola and obj.ambiente.blank? and (obj.situacao=="Ativo" or obj.situacao=="Acompanhado pela Casa do Professor" or obj.situacao=="Ativo mas em sala ambiente perante perícia médica")
 			return raw "<b style='color: red;'>Nada cadastrado</b>"
-		else
+		elsif !obj.ambiente.blank?
 			return obj.ambiente
+			else
+				return "Nada Cadastrado"
 		end
 	end
 end

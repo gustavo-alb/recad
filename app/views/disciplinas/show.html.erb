@@ -1,7 +1,7 @@
 <%- model_class = Disciplina -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
-</div>
+<%content_for :header do%>
+<%=t '.title', :default => model_class.model_name.human.titleize %>
+<% end %>
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:nome) %>:</strong></dt>

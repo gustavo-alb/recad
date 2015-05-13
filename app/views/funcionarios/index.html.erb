@@ -1,7 +1,7 @@
 <%- model_class = Funcionario -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-</div>
+<%content_for :header do%>
+<%=t '.title', :default => model_class.model_name.human.pluralize.titleize %>
+<% end %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -9,7 +9,9 @@
       <th><%= model_class.human_attribute_name(:cpf) %></th>
       <th><%= model_class.human_attribute_name(:cadastro) %></th>
       <th><%= model_class.human_attribute_name(:carga_horaria) %></th>
+      <% if current_usuario.local.escola%>
       <th><%= model_class.human_attribute_name(:ambiente) %></th>
+      <%end%>
       <th><%= model_class.human_attribute_name(:cargo) %></th>
       <th><%= model_class.human_attribute_name(:quadro) %></th>
       <th><%= model_class.human_attribute_name(:situacao) %></th>
@@ -24,7 +26,9 @@
         <td><%= objeto_valor(funcionario.cpf) %></td>
         <td><%= objeto_valor(funcionario.cadastro) %></td>
         <td><%= objeto_valor(funcionario.carga_horaria) %></td>
+        <% if current_usuario.local.escola%>
         <td><%= ambiente_alerta(funcionario) %></td>
+        <% end %>
         <td><%= objeto_valor(funcionario.cargo) %></td>
         <td><%= objeto_valor(funcionario.quadro) %></td>
         <td><%= objeto_valor(funcionario.situacao) %></td>

@@ -30,7 +30,7 @@ class FuncionariosController < ApplicationController
   def create
     @funcionario = Funcionario.new(funcionario_params)
     respond_to do |format|
-      if @funcionario.save
+      if @funcionario.save!
         format.html { redirect_to @funcionario, notice: 'Funcionário cadastrado com sucesso' }
         format.json { render :show, status: :created, location: @funcionario }
       else

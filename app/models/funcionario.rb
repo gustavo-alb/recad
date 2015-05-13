@@ -25,11 +25,11 @@ class Funcionario
   validates_presence_of :nome,:cpf,:cargo,:carga_horaria,:quadro,message: "Informação necessária"
   validates_presence_of :classe,:municipio_concurso,:situacao,:concurso,if:  Proc.new { |a| self.quadro=="Estadual"},message: "Informação necessária"
   validates_presence_of :disciplina_concurso,if:  Proc.new { |a| a.cargo=="Professor" and (self.quadro=="Estadual" or self.quadro=="Federal")},message: "Informação necessária"
-  validates_presence_of :disciplina_atuacao,:turmas,:ch_em_sala,if:  Proc.new { |a| a.ambiente=="Sala de Aula" and a.situacao=="Ativo" }
+  validates_presence_of :disciplina_atuacao,:turmas,:ch_em_sala,if:  Proc.new { |a| a.ambiente=="Sala de Aula" and a.situacao=="Ativo" and !current_usuario.local.escola?}
   validates_presence_of :programa,if:  Proc.new { |a| a.cargo.include?("Programa") and a.situacao=="Ativo" },message: "Informação necessária"
   validate :validate_cadastro
   validate :cpf_valido
-  validate :validate_ambiente
+  validate :validate_ambiente,:if=> Proc.new { |a| a.local.escola}
 
   #Validaçoes antigas
   #validates_presence_of :cadastro,if:  Proc.new { |a| !a.quadro=="Contrato Administrativo"},message: "Informação necessária"
