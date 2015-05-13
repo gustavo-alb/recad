@@ -4,11 +4,11 @@
 </div>
 
 
-<%= form_tag admin_usuarios_path, :method => 'get' do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Busca", :name => nil %>
-  </p>
+<%= search_form_for @q,:url=>admin_usuarios_path do |f| %>
+
+<%= f.label "Busca" %>
+<%= f.search_field :nome_or_inep_or_cpf_cont %>
+<%= f.submit %>
 <% end %>
 
 
@@ -16,7 +16,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:inep) %></th>
-      <th><%= model_class.human_attribute_name(:nome) %></th>
+      <th><%= sort_link(@q, :nome,default_order: :asc)%></th>
       <th><%= model_class.human_attribute_name(:cpf) %></th>
       <th><%= model_class.human_attribute_name(:admin) %></th>
       <th><%= model_class.human_attribute_name(:senha_ja_alterada) %></th>
@@ -26,27 +26,27 @@
   </thead>
   <tbody>
     <% @usuarios.each do |usuario| %>
-      <tr>
-        <td><%= link_to usuario.inep, admin_usuario_path(usuario) %></td>
-        <td><%= objeto_valor(usuario.nome) %></td>
-        <td><%= objeto_valor(usuario.cpf) %></td>
-        <td><%= objeto_valor(usuario.admin) %></td>
-        <td><%= objeto_valor(usuario.mudar_senha) %></td>
-        <td><%= objeto_valor(usuario.local) %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_admin_usuario_path(usuario), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      admin_usuario_path(usuario),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
-        </td>
-      </tr>
+    <tr>
+      <td><%= link_to usuario.inep, admin_usuario_path(usuario) %></td>
+      <td><%= objeto_valor(usuario.nome) %></td>
+      <td><%= objeto_valor(usuario.cpf) %></td>
+      <td><%= objeto_valor(usuario.admin) %></td>
+      <td><%= objeto_valor(usuario.mudar_senha) %></td>
+      <td><%= objeto_valor(usuario.local) %></td>
+      <td>
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+        edit_admin_usuario_path(usuario), :class => 'btn btn-default btn-xs' %>
+        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+        admin_usuario_path(usuario),
+        :method => :delete,
+        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+        :class => 'btn btn-xs btn-danger' %>
+      </td>
+    </tr>
     <% end %>
   </tbody>
 </table>
-<%#= will_paginate @usuarios, renderer: BootstrapPagination::Rails,:previous_label=>"<",:next_label=>">"%>
+<%= will_paginate @usuarios, renderer: BootstrapPagination::Rails,:previous_label=>"<",:next_label=>">"%><br/>
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_admin_usuario_path,
-            :class => 'btn btn-primary' %>
+new_admin_usuario_path,
+:class => 'btn btn-primary' %>

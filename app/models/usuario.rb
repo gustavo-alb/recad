@@ -1,6 +1,5 @@
 class Usuario
   include Mongoid::Document
-  include Mongoid::Search
   def self.columns
     self.fields.collect{|c| c[1]}
   end
@@ -33,11 +32,24 @@ class Usuario
   field :mudar_senha, type: Boolean, default: true
   field :inep,type: String,default: ""
   belongs_to :local
+  validates_presence_of :cpf,:message=>"Informação Necessária"
+  validate :cpf_valido
 
-  search_in :nome, :inep,:cpf#, :local => [:nome,:codigo],:match=>:any
+  def cpf_valido
+    cpf = Cpf.new(self.cpf)
+    if !cpf.valido?
+     errors.add(:cpf, "não é valido")
+   end
+ end
 
-#
 
+ before_save :nome_maiusculo
+
+ def nome_maiusculo
+  if !self.nome.blank?
+    self.nome = self.nome.upcase
+  end
+end
 
 
   ## Confirmable

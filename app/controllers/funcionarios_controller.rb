@@ -8,7 +8,7 @@ class FuncionariosController < ApplicationController
   # GET /funcionarios.json
   def index
     @usuario = current_usuario
-    @funcionarios = @usuario.local.funcionarios
+    @funcionarios = @usuario.local.funcionarios.asc(:nome)
   end
 
   # GET /funcionarios/1

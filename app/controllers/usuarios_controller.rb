@@ -5,11 +5,8 @@ class UsuariosController < ApplicationController
   # GET /usuarios
   # GET /usuarios.json
   def index
-    if params[:search].blank?
-      @usuarios = Usuario.all.paginate(:page => params[:page], :per_page => 10)
-    else
-      @usuarios = Usuario.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
-    end
+  @q = Usuario.ransack(params[:q])
+  @usuarios = @q.result(distinct: true).asc(:nome).paginate(:page=>params[:page],:per_page=>10)
   end
 
   # GET /usuarios/1

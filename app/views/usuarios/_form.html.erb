@@ -1,16 +1,3 @@
-<% if @usuario.errors.any? %>
-  <div id="error_explanation">
-    <div class="alert alert-danger alert-dismissable">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <p><strong>This form contains <%= pluralize(@usuario.errors.count, 'errors') %>.</strong></p>
-      <ul>
-        <% @usuario.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-<% end %>
 <%= simple_form_for @usuario,:url=>@caminho, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.input :cpf,input_html:{class: "cpf"}%>
   <%= error_span(@usuario[:cpf]) %>

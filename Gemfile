@@ -21,7 +21,7 @@ gem 'rails_12factor', group: :production
 gem "will_paginate-bootstrap"
 gem 'jquery-datatables-rails', '~> 3.3.0'
 gem 'kaminari'
-gem 'mongoid_search'
+gem 'ransack'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

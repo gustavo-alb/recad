@@ -37,31 +37,38 @@ class Funcionario
   
   validates_uniqueness_of :cadastro,scope: :local
   before_save :pos_ambiente
+  before_save :nome_maiusculo
 
   def cpf_valido
     cpf = Cpf.new(self.cpf)
     if !cpf.valido?
      errors.add(:cpf, "não é valido")
-    end
-  end
+   end
+ end
 
-  def validate_ambiente
-    if self.ambiente_nao_docente.blank? and self.ambiente.blank? and (self.situacao=="Ativo" or self.situacao=="Acompanhado pela Casa do Professor" or self.situacao=="Ativo mas em sala ambiente perante perícia médica")
-      errors.add(:ambiente, "Informação necessária")
-    end
+ def validate_ambiente
+  if self.ambiente_nao_docente.blank? and self.ambiente.blank? and (self.situacao=="Ativo" or self.situacao=="Acompanhado pela Casa do Professor" or self.situacao=="Ativo mas em sala ambiente perante perícia médica")
+    errors.add(:ambiente, "Informação necessária")
   end
+end
 
-  def validate_cadastro
-    if self.cadastro.blank? and !self.quadro.include?("Contrato")
-      errors.add(:cadastro, "Informação necessária")
-    end
+def validate_cadastro
+  if self.cadastro.blank? and !self.quadro.include?("Contrato")
+    errors.add(:cadastro, "Informação necessária")
   end
+end
 
-  def pos_ambiente
-    if !self.ambiente_nao_docente.blank?
-      self.ambiente = self.ambiente_nao_docente
-    end
+def pos_ambiente
+  if !self.ambiente_nao_docente.blank?
+    self.ambiente = self.ambiente_nao_docente
   end
+end
+
+def nome_maiusculo
+  if !self.nome.blank?
+    self.nome = self.nome.upcase
+  end
+end
 
 
 end
