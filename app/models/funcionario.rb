@@ -25,17 +25,17 @@ class Funcionario
   validates_presence_of :nome,:cpf,:cargo,:carga_horaria,:quadro,message: "Informação necessária"
   validates_presence_of :classe,:municipio_concurso,:situacao,:concurso,if:  Proc.new { |a| self.quadro=="Estadual"},message: "Informação necessária"
   validates_presence_of :disciplina_concurso,if:  Proc.new { |a| a.cargo=="Professor" and (self.quadro=="Estadual" or self.quadro=="Federal")},message: "Informação necessária"
-  validates_presence_of :disciplina_atuacao,:turmas,:ch_em_sala,if:  Proc.new { |a| a.ambiente=="Sala de Aula" and a.situacao=="Ativo" }
+  validates_presence_of :disciplina_atuacao,:turmas,:ch_em_sala,if:  Proc.new { |a| a.ambiente=="Sala de Aula" and a.situacao=="Ativo" and !a.local.escola?}
   validates_presence_of :programa,if:  Proc.new { |a| a.cargo.include?("Programa") and a.situacao=="Ativo" },message: "Informação necessária"
   validate :validate_cadastro
   validate :cpf_valido
-  validate :validate_ambiente
+  validate :validate_ambiente,if: Proc.new { |a| a.local.escola}
 
   #Validaçoes antigas
   #validates_presence_of :cadastro,if:  Proc.new { |a| !a.quadro=="Contrato Administrativo"},message: "Informação necessária"
   #validates_presence_of :ambiente,message: "Informação necessária",:if=>Proc.new{|a|a.ambiente_nao_docente.blank? or (a.situacao.include?("Ativo") or a.situacao.include?("Acompanhado"))}
   
-  validates_uniqueness_of :cadastro,scope: :local
+  validates_uniqueness_of :cadastro,scope: :local,:if=>Proc.new { |a|!a.quadro.include?("Contrato")}
   before_save :pos_ambiente
   before_save :nome_maiusculo
 
@@ -47,8 +47,10 @@ class Funcionario
  end
 
  def validate_ambiente
-  if self.ambiente_nao_docente.blank? and self.ambiente.blank? and (self.situacao=="Ativo" or self.situacao=="Acompanhado pela Casa do Professor" or self.situacao=="Ativo mas em sala ambiente perante perícia médica")
-    errors.add(:ambiente, "Informação necessária")
+  if self.cargo!="Professor" and self.ambiente_nao_docente.blank? and (self.situacao=="Ativo" or self.situacao=="Acompanhado pela Casa do Professor" or self.situacao=="Ativo mas em sala ambiente perante perícia médica")
+    errors.add(:ambiente_nao_docente, "Informação necessária")
+  elsif self.cargo=="Professor" and self.ambiente.blank? and (self.situacao=="Ativo" or self.situacao=="Acompanhado pela Casa do Professor" or self.situacao=="Ativo mas em sala ambiente perante perícia médica")
+     errors.add(:ambiente, "Informação necessária")
   end
 end
 
@@ -59,8 +61,10 @@ def validate_cadastro
 end
 
 def pos_ambiente
-  if !self.ambiente_nao_docente.blank?
+  if !self.ambiente_nao_docente.blank? and self.cargo!="Professor"
     self.ambiente = self.ambiente_nao_docente
+  elsif self.ambiente_nao_docente.blank? and self.cargo!="Professor"
+    self.ambiente = ""
   end
 end
 

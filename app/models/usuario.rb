@@ -31,8 +31,9 @@ class Usuario
   field :admin,type: Boolean, default: false
   field :mudar_senha, type: Boolean, default: true
   field :inep,type: String,default: ""
+  attr_accessor :login,:tipo_local
   belongs_to :local
-  validates_presence_of :cpf,:message=>"Informação Necessária"
+  validates_presence_of :cpf,:nome,:on=>:update,:message=>"Informação Necessária"
   validate :cpf_valido
 
   def cpf_valido
@@ -44,6 +45,7 @@ class Usuario
 
 
  before_save :nome_maiusculo
+ #after_save :set_mudar_senha
 
  def nome_maiusculo
   if !self.nome.blank?
@@ -81,10 +83,25 @@ end
 
   def alerta_ambiente
     funcionarios_sem_ambiente = self.local.funcionarios.where(:ambiente=>"").any_in(:situacao=>['Ativo','Acompanhado pela Casa do Professor','Ativo mas em sala ambiente perante perícia médica'])
-    if !funcionarios_sem_ambiente.none?
+    if !funcionarios_sem_ambiente.none? and self.local.escola?
       return true
     else
       return false
+    end
+  end
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      self.any_of({ :inep =>  /^#{Regexp.escape(login)}$/i }, { :cpf =>  /^#{Regexp.escape(login)}$/i }).first
+    else
+      super
+    end
+  end
+
+  def set_mudar_senha
+    if self.encrypted_password_changed?
+      self.mudar_senha = false
     end
   end
 

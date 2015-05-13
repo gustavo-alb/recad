@@ -34,3 +34,5 @@ $(document).ready(function() {
       
     } );
 } );
+
+$('#login_gestor').appendTo("body").modal('show');

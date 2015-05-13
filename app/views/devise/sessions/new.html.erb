@@ -1,24 +1,14 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4><%= t('.sign_in', :default => "Sign in") %></h4>
-  </div>
-  <div class="panel-body">
+<%content_for :header do%>
+<%= t('.sign_in', :default => "Sign in") %>
+<% end %>
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>
-      <div class="form-group">
-        <%= f.input :inep,label: "INEP", input_html: {autofocus: true, class: "form-control"} %>
-      </div>
-      <div class="form-group">
-        <%= f.input :password,:label=>"Senha", input_html: {autocomplete: "off", class: "form-control"} %>
-      </div>
+        <%= f.input :login,label: "INEP",:input_html=>{:value=>nil}%>
+        <%= f.input :password,:label=>"Senha" %>
       <% if devise_mapping.rememberable? %>
-        <div class="checkbox">
-          <label>
             <%= f.check_box :remember_me%>
             <%= f.label "Lembrar login?" %>
-          </label>
-        </div>
-        <% end %>
+        <% end %> <br/>
       <%= f.submit  t('.sign_in', :default => "Sign in"), class: "btn btn-primary" %>
     <% end %>
-  </div>
-</div>
+    <br/>
+

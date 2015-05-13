@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :usuarios
-  resources :funcionarios do
-    get :autocomplete_local_nome,:on=>:collection
-    get :funcionario_professor
-  end
+      devise_for :usuarios#, :controllers => {:registrations => "registrations"}
+    resources :funcionarios do
+      get :autocomplete_local_nome,:on=>:collection
+      get :funcionario_professor
+    end
+
 
   scope "/admin", as: "admin" do
     resources :disciplinas

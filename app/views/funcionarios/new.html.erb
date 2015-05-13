@@ -1,5 +1,6 @@
 <%- model_class = Funcionario -%>
-<div class="header">
-  <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
-</div>
-<%= render :partial => 'form' %>
+<%content_for :header do%>
+  <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %>
+<% end %>
+<%= render :partial => 'form_escola' if current_usuario.local.escola?%>
+<%= render :partial => 'form_secretaria' if !current_usuario.local.escola?%>

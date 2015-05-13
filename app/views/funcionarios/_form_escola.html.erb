@@ -17,7 +17,7 @@
 <div class="js-dependent-fields" data-select-id='funcionario_quadro' data-option-value='Estadual|Federal'>
 	<%= f.label "Diretor(a) ou Secretário(a) que está em sala de Aula ou Coordenação de Programas Federais/Estaduais" %>
 	<%= f.input :diretor_ou_secretario,label: "Este funcionário é Diretor ou Secretário e está em sala de aula ou cordenação de programas?",as: :boolean %>
-	<%= error_span(@funcionario[:nome]) %>
+	<%= error_span(@funcionario[:diretor_ou_secretario]) %>
 	<%= f.input :classe,:collection=>@classes %>
 	<%= error_span(@funcionario[:classe]) %>
 	<% if @funcionario.municipio_concurso%>
@@ -54,7 +54,7 @@
 </div>
 <div class="js-dependent-fields" data-select-id='funcionario_cargo' data-option-value='<%=((@cargos-['Professor']).join("|").html_safe)%>'>
 	<%= f.input :ambiente_nao_docente,:label=>"Ambiente",:collection=>@ambientes %>
-	<%= error_span(@funcionario[:ambiente]) %>
+	<%= error_span(@funcionario[:ambiente_nao_docente]) %>
 </div>
 
 <div class="js-dependent-fields" data-select-id='funcionario_ambiente' data-option-value='Sala de Aula'>

@@ -12,8 +12,9 @@ pt-BR:
   devise:
     failure:
       usuario:
+        invalid: "Senha incorreta."
         not_found_in_database: "INEP Inválido."
-        unauthenticated: "Entre com INEP e senha para acessar"
+        unauthenticated: "Entre com INEP e senha para acessar."
     confirmations:
       new:
         resend_confirmation_instructions: Reenviar instruções de confirmação

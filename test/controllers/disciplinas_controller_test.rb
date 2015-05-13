@@ -21,7 +21,7 @@ class DisciplinasControllerTest < ActionController::TestCase
       post :create, disciplina: {  }
     end
 
-    assert_redirected_to disciplina_path(assigns(:disciplina))
+    assert_redirected_to admin_disciplina_path(assigns(:disciplina))
   end
 
   test "should show disciplina" do
@@ -36,7 +36,7 @@ class DisciplinasControllerTest < ActionController::TestCase
 
   test "should update disciplina" do
     patch :update, id: @disciplina, disciplina: {  }
-    assert_redirected_to disciplina_path(assigns(:disciplina))
+    assert_redirected_to admin_disciplina_path(assigns(:disciplina))
   end
 
   test "should destroy disciplina" do
@@ -44,6 +44,6 @@ class DisciplinasControllerTest < ActionController::TestCase
       delete :destroy, id: @disciplina
     end
 
-    assert_redirected_to disciplinas_path
+    assert_redirected_to admin_disciplinas_path
   end
 end
