@@ -15,15 +15,15 @@
   <tbody>
     <% @disciplinas.each do |disciplina| %>
       <tr>
-        <td><%= link_to disciplina.id, disciplina_path(disciplina) %></td>
+        <td><%= link_to disciplina.id, admin_disciplina_path(disciplina) %></td>
         <td><%= disciplina.nome %></td>
         <td><%= disciplina.codigo %></td>
         <td><%=l disciplina.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_disciplina_path(disciplina), :class => 'btn btn-default btn-xs' %>
+                      edit_admin_disciplina_path(disciplina), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      disciplina_path(disciplina),
+                      admin_disciplina_path(disciplina),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>
@@ -34,5 +34,5 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_disciplina_path,
+            new_admin_disciplina_path,
             :class => 'btn btn-primary' %>
