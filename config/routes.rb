@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   scope "/admin", as: "admin" do
     resources :disciplinas
     resources :usuarios
+    resources :locals
   end
 
 
