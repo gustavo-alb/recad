@@ -33,7 +33,7 @@
 
     respond_to do |format|
       if @local.save
-        format.html { redirect_to @local, notice: 'Local was successfully created.' }
+        format.html { redirect_to admin_local_path(@local), notice: 'Local was successfully created.' }
         format.json { render :show, status: :created, location: @local }
       else
         format.html { render :new }
@@ -48,7 +48,7 @@
    @caminho = admin_local_path(@local)
    respond_to do |format|
     if @local.update(local_params)
-      format.html { redirect_to @local, notice: 'Local was successfully updated.' }
+      format.html { redirect_to admin_local_path(@local), notice: 'Local was successfully updated.' }
       format.json { render :show, status: :ok, location: @local }
     else
       format.html { render :edit }
