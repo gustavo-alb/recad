@@ -29,7 +29,7 @@ class Funcionario
   validates_presence_of :programa,if:  Proc.new { |a| a.cargo.include?("Programa") and a.situacao=="Ativo" },message: "Informação necessária"
   validate :validate_cadastro
   validate :cpf_valido
-  validate :validate_ambiente,:if=> Proc.new { |a| a.local.escola}
+  validate :validate_ambiente,if: Proc.new { |a| a.local.escola}
 
   #Validaçoes antigas
   #validates_presence_of :cadastro,if:  Proc.new { |a| !a.quadro=="Contrato Administrativo"},message: "Informação necessária"
@@ -47,8 +47,10 @@ class Funcionario
  end
 
  def validate_ambiente
-  if self.ambiente_nao_docente.blank? and self.ambiente.blank? and (self.situacao=="Ativo" or self.situacao=="Acompanhado pela Casa do Professor" or self.situacao=="Ativo mas em sala ambiente perante perícia médica")
-    errors.add(:ambiente, "Informação necessária")
+  if !self.cargo!="Professor" and self.ambiente_nao_docente.blank? and (self.situacao=="Ativo" or self.situacao=="Acompanhado pela Casa do Professor" or self.situacao=="Ativo mas em sala ambiente perante perícia médica")
+    errors.add(:ambiente_nao_docente, "Informação necessária")
+  elsif self.cargo=="Professor" and self.ambiente.blank? and (self.situacao=="Ativo" or self.situacao=="Acompanhado pela Casa do Professor" or self.situacao=="Ativo mas em sala ambiente perante perícia médica")
+     errors.add(:ambiente, "Informação necessária")
   end
 end
 
@@ -61,6 +63,8 @@ end
 def pos_ambiente
   if !self.ambiente_nao_docente.blank?
     self.ambiente = self.ambiente_nao_docente
+  else
+    self.ambiente = ""
   end
 end
 
