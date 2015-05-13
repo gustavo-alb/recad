@@ -83,7 +83,7 @@ end
 
   def alerta_ambiente
     funcionarios_sem_ambiente = self.local.funcionarios.where(:ambiente=>"").any_in(:situacao=>['Ativo','Acompanhado pela Casa do Professor','Ativo mas em sala ambiente perante perícia médica'])
-    if !funcionarios_sem_ambiente.none? and self.local.escola
+    if !funcionarios_sem_ambiente.none? and self.local.escola?
       return true
     else
       return false
