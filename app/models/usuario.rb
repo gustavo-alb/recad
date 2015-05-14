@@ -45,11 +45,17 @@ class Usuario
 
 
  before_save :nome_maiusculo
- #after_save :set_mudar_senha
+ after_save :setar_inep
 
  def nome_maiusculo
   if !self.nome.blank?
     self.nome = self.nome.upcase
+  end
+end
+
+def setar_inep
+  if self.local and self.local.escola?
+    self.inep = self.local.codigo
   end
 end
 
