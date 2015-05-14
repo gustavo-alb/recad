@@ -1,0 +1,16 @@
+<%= simple_form_for @local,:url=>@caminho, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :nome %>
+  <%= error_span(@local[:nome]) %>
+  <%= f.input :codigo %>
+  <%= error_span(@local[:codigo]) %>
+  <%= f.input :escola,:collection=>@boolean %>
+  <%= error_span(@local[:escola]) %>
+  <%= f.input :municipio,:collection=>@municipios %>
+  <%= error_span(@local[:municipio_id]) %>
+  <%= f.input :local_pai_id %>
+  <%= error_span(@local[:local_pai_id]) %>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                admin_locals_path, :class => 'btn btn-default' %>
+<% end %>

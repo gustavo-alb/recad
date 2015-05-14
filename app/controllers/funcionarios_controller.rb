@@ -74,20 +74,4 @@ class FuncionariosController < ApplicationController
     def funcionario_params
       params.require(:funcionario).permit([:nome, :cpf, :cadastro, :classe, :padrao, :turmas, :carga_horaria, :ambiente,:ambiente_nao_docente, :formacao, :ch_em_sala, :cargo, :quadro, :concurso, :area_concurso, :programa, :situacao, :local_id,:local, :disciplina_concurso, :disciplina_atuacao, :municipio_concurso])
     end
-
-    def dados
-      @classes = ["A","B","C","D","E","F","S","GAB","3ª"].sort
-      @padroes = ((1.upto(25).to_a)+[202,302,303,401,402,103]).sort
-      @locais = Local.asc(:nome).collect{|l|["#{l.nome.upcase} - #{l.codigo}",l.id]}
-      @ambientesprof = ["Portaria","Oficina de Artes","Laboratório de Ciências","Espaço Multimídia","TV Escola","Assessoria de Direção", "Biblioteca", "Coordenação Pedagógica - Assessor Pedagógico", "Coordenação Pedagógica - Orientação", "Coordenação Pedagógica - Supervisão", "Coordenação de Programa Estadual","Coordenação de Programa Federal", "LIED", "Sala de Aula", "Sala de Leitura", "Secretaria Escolar ","Sistema Modular de Ensino Médio","Sistema Modular de Ensino Fundamental","Sistema Modular de Ensino Médio Indígena","Sistema Modular de Ensino Fundamental Indígena","Atendimento de Ensino Especial"].sort
-      @ambientes = ["Portaria","Oficina de Artes","Laboratório de Ciências","Espaço Multimídia","TV Escola","Assessoria de Direção", "Biblioteca", "Coordenação Pedagógica - Assessor Pedagógico", "Coordenação Pedagógica - Orientação", "Coordenação Pedagógica - Supervisão", "Coordenação de Programa Estadual","Coordenação de Programa Federal", "LIED", "Sala de Leitura", "Secretaria Escolar","Atendimento de Ensino Especial"].sort
-      @disciplinas = Disciplina.asc(:nome).collect{|d|[d.nome,d.id]}
-      @formacoes = []
-      @cargas_horarias = ["20 Horas","40 Horas"]
-      @cargos = ["Cuidador","Intérprete","Agente de Portaria","Auxiliar Operacional de Serviços Diversos" ,"Especialista em Educaçao","Pedagogo","Auxiliar Educacional","Professor","Agente Administrativo","Datilógrafo","Auxiliar Administrativo"].sort
-      @quadros = ["Estadual","Federal","Contrato Administrativo","Contrato Horista"]
-      @concursos = ["Antes de 1989","1989","1992","1993","1994","1996","2000 (Ex-Ipesap)","2005","2012"]
-      @municipios = Municipio.asc(:nome).collect{|m|[m.nome,m.id]}
-      @situacoes = ["Ativo","Acompanhado pela Casa do Professor","Ativo mas em sala ambiente perante perícia médica","Licença Sem Vencimento","Licença Maternidade","Licença Médica (Junta Médica/AMPREV)","Licença para Estudos","Licença Prêmio Especial"]
-    end
 end
