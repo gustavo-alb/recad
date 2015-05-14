@@ -46,6 +46,10 @@ class UsuariosController < ApplicationController
   # PATCH/PUT /usuarios/1.json
   def update
     @caminho = admin_usuario_path(@usuario)
+    if @usuario.password.blank?
+      params[:usuario].delete(:password)
+      params[:usuario].delete(:password_confirmation)
+    end
     respond_to do |format|
       if @usuario.update(usuario_params)
         format.html { redirect_to admin_usuario_path(@usuario), notice: 'Usuario was successfully updated.' }
@@ -75,7 +79,7 @@ class UsuariosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def usuario_params
-      params.require(:usuario).permit([:nome,:cpf,:local,:mudar_senha,:admin,:password,:password_confirmation])
+      params.require(:usuario).permit([:nome,:cpf,:local,:mudar_senha,:admin,:password,:password_confirmation,:gestor_seed])
     end
 
     def dados

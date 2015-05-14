@@ -141,6 +141,7 @@ pt-BR:
       edit: "Editar"
       back: "Voltar"
       new: "Cadastrar Novo"
+      show: "Detalhes"
     select:
       prompt: Por favor selecione
     submit:

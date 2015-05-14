@@ -18,6 +18,8 @@ class Funcionario
   field :programa, type: String
   field :situacao, type: String
   field :diretor_ou_secretario,type: Boolean,default: false
+  scope :do_quadro, ->(quadro) { where(:quadro => quadro) }
+  scope :do_cargo, ->(cargo) { where(:cargo => cargo) }
   belongs_to :local
   belongs_to :disciplina_concurso,:class_name=>"Disciplina",:inverse_of=>:funcionarios
   belongs_to :disciplina_atuacao,:class_name=>"Disciplina",:inverse_of=>:funcionarios_atuando

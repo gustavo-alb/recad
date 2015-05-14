@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   get 'administracao/listagem_funcionarios'
 
-  get 'administracao/relatorio_quantitativo'
+  get 'administracao/relatorio_quantitativo_professor'
+  get 'administracao/relatorio_quantitativo_nao_docente'
 
   get 'administracao/relatorio_nominal'
 

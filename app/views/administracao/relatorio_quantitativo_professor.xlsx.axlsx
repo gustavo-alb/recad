@@ -1,0 +1,29 @@
+wb = xlsx_package.workbook
+styles = wb.styles
+title = styles.add_style(:sz => 15, :b => true, :u => true)
+header = styles.add_style(:bg_color => 'CCCCCC', :fg_color => '000000', :b => true,:border => Axlsx::STYLE_THIN_BORDER)
+headerc = styles.add_style(:bg_color => 'CCCCCC', :fg_color => '000000', :b => true,:border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :center,:vertical => :center})
+even = styles.add_style(:bg_color => 'AAAAAA', :fg_color => '000000',:border => Axlsx::STYLE_THIN_BORDER)
+odd = styles.add_style(:bg_color => 'FFFFFF', :fg_color => '000000',:border => Axlsx::STYLE_THIN_BORDER)
+money = styles.add_style(:format_code => '#,###,##0', 
+	:border => Axlsx::STYLE_THIN_BORDER)
+wb.add_worksheet(name: "Payments") do |sheet|
+	wb.add_defined_name("'repeated header'!$1:$1", :local_sheet_id => sheet.index, :name => '_xlnm.Print_Titles')
+	sheet.sheet_protection.password = '@#recad$%'
+	sheet.add_row ["Disciplina", "Efetivo","Federal","Contrato","Horista","Total"], :style => [header,headerc,headerc,headerc,headerc,headerc]
+	@disciplinas.each.with_index(1) do |disciplina,i|
+		if i.even?
+			sheet.add_row [disciplina.nome, disciplina.funcionarios.do_quadro("Estadual").count,disciplina.funcionarios.do_quadro("Federal").count,disciplina.funcionarios.do_quadro("Contrato Administrativo").count,disciplina.funcionarios.do_quadro("Contrato Horista").count,disciplina.funcionarios.count], :style => even
+		else
+			sheet.add_row [disciplina.nome, disciplina.funcionarios.do_quadro("Estadual").count,disciplina.funcionarios.do_quadro("Federal").count,disciplina.funcionarios.do_quadro("Contrato Administrativo").count,disciplina.funcionarios.do_quadro("Contrato Horista").count,disciplina.funcionarios.count], :style => odd
+		end
+		# if (i%30).zero?
+		# 	sheet.add_page_break("A#{i+2}")
+		# 	sheet.add_row ["Disciplina", "Efetivo","Contrato","Federal"], :style => [header,headerc,headerc,headerc]
+		# end
+		
+	end
+	sheet.column_widths 50, nil, nil, nil
+	sheet.add_row ["Total","=SUM(B2:B#{@disciplinas.count})","=SUM(C2:C#{@disciplinas.count})","=SUM(D2:D#{@disciplinas.count})","=SUM(E2:E#{@disciplinas.count})","=SUM(F2:F#{@disciplinas.count})"], :style => header
+	
+end

@@ -46,6 +46,9 @@
           <%= render 'devise/shared/menu' if usuario_signed_in?%>
           <%= render 'devise/shared/menu_login' if current_usuario.nil?%>
         </ul>
+         <ul class="nav navbar-nav navbar-fixed navbar-right" style="margin-right: 10px;">
+           <%= render 'shared/menu_relatorios' if usuario_signed_in? and current_usuario.gestor_seed?%>
+         </ul>
       </div>
     </div>
     <% if usuario_signed_in? and current_usuario.alerta_ambiente%>

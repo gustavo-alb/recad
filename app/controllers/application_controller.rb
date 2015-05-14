@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:login,:cpf, :email, :nome, :admin, :mudar_senha, :inep, :local_id,:current_password,:password,:password_confirmation) }
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:login,:cpf, :email, :nome, :admin, :mudar_senha, :inep, :local_id,:current_password,:password,:password_confirmation,:gestor_seed) }
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :inep, :cpf, :password, :remember_me) }
   end
 
@@ -57,8 +57,8 @@ class ApplicationController < ActionController::Base
       @classes = ["A","B","C","D","E","F","S","GAB","3ª"].sort
       @padroes = ((1.upto(25).to_a)+[202,302,303,401,402,103]).sort
       @locais = Local.asc(:nome).collect{|l|["#{l.nome.upcase} - #{l.codigo}",l.id]}
-      @ambientesprof = ["Portaria","Oficina de Artes","Laboratório de Ciências","Espaço Multimídia","TV Escola","Assessoria de Direção", "Biblioteca", "Coordenação Pedagógica - Assessor Pedagógico", "Coordenação Pedagógica - Orientação", "Coordenação Pedagógica - Supervisão", "Coordenação de Programa Estadual","Coordenação de Programa Federal", "LIED", "Sala de Aula", "Sala de Leitura", "Secretaria Escolar ","Sistema Modular de Ensino Médio","Sistema Modular de Ensino Fundamental","Sistema Modular de Ensino Médio Indígena","Sistema Modular de Ensino Fundamental Indígena","Atendimento de Ensino Especial"].sort
-      @ambientes = ["Portaria","Oficina de Artes","Laboratório de Ciências","Espaço Multimídia","TV Escola","Assessoria de Direção", "Biblioteca", "Coordenação Pedagógica - Assessor Pedagógico", "Coordenação Pedagógica - Orientação", "Coordenação Pedagógica - Supervisão", "Coordenação de Programa Estadual","Coordenação de Programa Federal", "LIED", "Sala de Leitura", "Secretaria Escolar","Atendimento de Ensino Especial"].sort
+      @ambientesprof = ["Projeto Estadual","Projeto Federal","Portaria","Oficina de Artes","Laboratório de Ciências","Espaço Multimídia","TV Escola","Assessoria de Direção", "Biblioteca", "Coordenação Pedagógica - Assessor Pedagógico", "Coordenação Pedagógica - Orientação", "Coordenação Pedagógica - Supervisão", "Coordenação de Programa Estadual","Coordenação de Programa Federal", "LIED", "Sala de Aula", "Sala de Leitura", "Secretaria Escolar ","Sistema Modular de Ensino Médio","Sistema Modular de Ensino Fundamental","Sistema Modular de Ensino Médio Indígena","Sistema Modular de Ensino Fundamental Indígena","Atendimento de Ensino Especial"].sort
+      @ambientes = ["Projeto Estadual","Projeto Federal","Oficina de Artes","Laboratório de Ciências","Espaço Multimídia","TV Escola","Assessoria de Direção", "Biblioteca", "Coordenação Pedagógica - Assessor Pedagógico", "Coordenação Pedagógica - Orientação", "Coordenação Pedagógica - Supervisão", "Coordenação de Programa Estadual","Coordenação de Programa Federal", "LIED", "Sala de Leitura", "Secretaria Escolar","Atendimento de Ensino Especial"].sort
       @disciplinas = Disciplina.asc(:nome).collect{|d|[d.nome,d.id]}
       @formacoes = []
       @cargas_horarias = ["20 Horas","40 Horas"]

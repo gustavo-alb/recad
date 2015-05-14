@@ -1,0 +1,23 @@
+wb = xlsx_package.workbook
+styles = wb.styles
+title = styles.add_style(:sz => 15, :b => true, :u => true)
+header = styles.add_style(:bg_color => 'CCCCCC', :fg_color => '000000', :b => true,:border => Axlsx::STYLE_THIN_BORDER)
+headerc = styles.add_style(:bg_color => 'CCCCCC', :fg_color => '000000', :b => true,:border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :center,:vertical => :center})
+even = styles.add_style(:bg_color => 'AAAAAA', :fg_color => '000000',:border => Axlsx::STYLE_THIN_BORDER)
+odd = styles.add_style(:bg_color => 'FFFFFF', :fg_color => '000000',:border => Axlsx::STYLE_THIN_BORDER)
+money = styles.add_style(:format_code => '#,###,##0', 
+	:border => Axlsx::STYLE_THIN_BORDER)
+wb.add_worksheet(name: "Payments") do |sheet|
+	wb.add_defined_name("'repeated header'!$1:$1", :local_sheet_id => sheet.index, :name => '_xlnm.Print_Titles')
+	sheet.add_row ["Cargo", "Efetivo","Federal","Contrato","Horista","Total"], :style => [header,headerc,headerc,headerc,headerc,headerc]
+	(@cargos-["Professor"]).each.with_index(1) do |cargo,i|
+		if i.even?
+			sheet.add_row [cargo,@funcionarios.do_cargo(cargo).do_quadro("Estadual").count,@funcionarios.do_cargo(cargo).do_quadro("Federal").count,@funcionarios.do_cargo(cargo).do_quadro("Contrato Administrativo").count,@funcionarios.do_cargo(cargo).do_quadro("Contrato Horista").count,@funcionarios.do_cargo(cargo).count], :style => even
+		else
+			sheet.add_row [cargo,@funcionarios.do_cargo(cargo).do_quadro("Estadual").count,@funcionarios.do_cargo(cargo).do_quadro("Federal").count,@funcionarios.do_cargo(cargo).do_quadro("Contrato Administrativo").count,@funcionarios.do_cargo(cargo).do_quadro("Contrato Horista").count,@funcionarios.do_cargo(cargo).count], :style => odd
+		end
+	end
+	sheet.column_widths 50, nil, nil, nil,nil
+	sheet.add_row ["Total","=SUM(B2:B#{@cargos.count})","=SUM(C2:C#{@cargos.count})","=SUM(D2:D#{@cargos.count})","=SUM(E2:E#{@cargos.count})","=SUM(F2:F#{@cargos.count})"], :style => header
+	
+end

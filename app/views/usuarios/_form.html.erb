@@ -5,6 +5,8 @@
   <%= error_span(@usuario[:nome]) %>
   <%= f.input :admin,:collection=>[["Sim",true],["Não",false]] %>
   <%= error_span(@usuario[:admin]) %>
+  <%= f.input :gestor_seed,:collection=>[["Sim",true],["Não",false]] %>
+  <%= error_span(@usuario[:gestor_seed]) %>
   <%= f.input :mudar_senha,:collection=>[["Sim",true],["Não",false]] %>
   <%= error_span(@usuario[:mudar_senha]) %>
   <% if @usuario.local %>
