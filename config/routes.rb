@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'administracao/listagem_funcionarios'
+
+  get 'administracao/relatorio_quantitativo'
+
+  get 'administracao/relatorio_nominal'
+
       devise_for :usuarios#, :controllers => {:registrations => "registrations"}
     resources :funcionarios do
       get :autocomplete_local_nome,:on=>:collection

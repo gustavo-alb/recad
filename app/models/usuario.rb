@@ -56,7 +56,6 @@ end
 def setar_inep
   if self.local and self.local.escola?
     self.inep = self.local.codigo
-    self.save
   end
 end
 
