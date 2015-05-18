@@ -8,7 +8,6 @@ odd = styles.add_style(:bg_color => 'FFFFFF', :fg_color => '000000',:border => A
 money = styles.add_style(:format_code => '#,###,##0', 
 	:border => Axlsx::STYLE_THIN_BORDER)
 wb.add_worksheet(name: "Payments") do |sheet|
-	wb.add_defined_name("'repeated header'!$1:$1", :local_sheet_id => sheet.index, :name => '_xlnm.Print_Titles')
 	sheet.sheet_protection.password = '@#recad$%'
 	sheet.add_row ["Disciplina", "Efetivo","Federal","Contrato","Horista","Total"], :style => [header,headerc,headerc,headerc,headerc,headerc]
 	@disciplinas.each.with_index(1) do |disciplina,i|
@@ -25,5 +24,6 @@ wb.add_worksheet(name: "Payments") do |sheet|
 	end
 	sheet.column_widths 50, nil, nil, nil
 	sheet.add_row ["Total","=SUM(B2:B#{@disciplinas.count})","=SUM(C2:C#{@disciplinas.count})","=SUM(D2:D#{@disciplinas.count})","=SUM(E2:E#{@disciplinas.count})","=SUM(F2:F#{@disciplinas.count})"], :style => header
+	wb.add_defined_name("'repeated header'!$1:$1", :local_sheet_id => sheet.index,:function=>false,:hidden=>false,:vbprocedures=>false,:name => '_xlnm.Print_Titles')
 	
 end
