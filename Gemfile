@@ -5,8 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 gem "bson_ext"
 gem "brazilian-rails"
-gem 'axlsx'
-gem "axlsx_rails"
+gem "thinreports"
+gem "rubyXL"
 gem 'rails-jquery-autocomplete'
 gem 'dependent-fields-rails'
 gem 'underscore-rails'

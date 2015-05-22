@@ -29,6 +29,7 @@ class Usuario
 
   field :nome, type: String
   field :admin,type: Boolean, default: false
+  field :gestor_setorial,type: Boolean, default: false
   field :gestor_seed,type: Boolean, default: false
   field :mudar_senha, type: Boolean, default: true
   field :inep,type: String,default: ""
