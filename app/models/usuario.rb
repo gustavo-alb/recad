@@ -107,6 +107,11 @@ end
     end
   end
 
+   def active_for_authentication?
+    admin?
+  end
+
+
   def set_mudar_senha
     if self.encrypted_password_changed?
       self.mudar_senha = false
