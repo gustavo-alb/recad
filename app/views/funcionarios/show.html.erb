@@ -47,6 +47,10 @@
   <%if @funcionario.local.escola?%>
   <dt><strong><%= model_class.human_attribute_name(:disciplina_atuacao_id) %>:</strong></dt>
   <dd><%= objeto_valor(@funcionario.disciplina_atuacao) %></dd>
+  <% if @funcionario.disciplina_atuacao and @funcionario.disciplina_atuacao.nome=="Educação Profissional"%>
+  <dt><strong><%= model_class.human_attribute_name(:nome) %>:</strong></dt>
+  <dd><%= objeto_valor(@funcionario.componente_curricular) %></dd>
+  <%end%>
   <dt><strong><%= model_class.human_attribute_name(:turmas) %>:</strong></dt>
   <dd><%= @funcionario.turmas %></dd>
   <dt><strong><%= model_class.human_attribute_name(:ch_em_sala) %>:</strong></dt>

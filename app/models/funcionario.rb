@@ -18,6 +18,7 @@ class Funcionario
   field :programa, type: String
   field :situacao, type: String
   field :diretor_ou_secretario,type: Boolean,default: false
+  field :componente_curricular
   scope :do_quadro, ->(quadro) { where(:quadro => quadro) }
   scope :do_cargo, ->(cargo) { where(:cargo => cargo) }
   belongs_to :local

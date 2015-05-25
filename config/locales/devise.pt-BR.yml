@@ -14,7 +14,7 @@ pt-BR:
       usuario:
         inactive: "Cadastro encerrado."
         invalid: "Senha incorreta."
-        not_found_in_database: "INEP Inválido."
+        not_found_in_database: "Dados Inválidos."
         unauthenticated: "Entre com INEP e senha para acessar."
     confirmations:
       new:

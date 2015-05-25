@@ -6,7 +6,7 @@
 <%= error_span(@funcionario[:nome]) %>
 <%= f.input :cpf,:label=>"CPF",:input_html=>{:class=>"cpf"} %>
 <%= error_span(@funcionario[:cpf]) %>
-<%= f.label "Cadastro¹"%> <i>¹não é necessário para Contrato Administrativo e Horista</i>
+<%= f.label "Cadastro¹"%> <i>¹não é necessário preencher este campo para o Contrato Administrativo.</i>
 <%= f.input :cadastro,:label=>false%>
 <%= error_span(@funcionario[:cadastro]) %>
 <%= f.input :cargo,:collection=>@cargos,:label=>"Cargo"%>
@@ -65,6 +65,10 @@
 	<%end%>
 	
 	<%= error_span(@funcionario[:disciplina_atuacao]) %>
+	<div class="js-dependent-fields" data-select-id='funcionario_disciplina_atuacao' data-option-value='<%= Disciplina.where(:nome=>"Educação Profissional").first.id%>'>
+		<%= f.label "Componente Curricular²"%> <i>² Somente para educação Profissional</i>
+		<%= f.input :componente_curricular,:label=>false%>
+	</div>
 	<%= f.input :turmas,:label=>"Numero de Turmas",:as=>:integer %>
 	<%= error_span(@funcionario[:turmas]) %>
 	<%= f.input :ch_em_sala,:label=>"Carga Horária em sala",:as=>:integer %>
