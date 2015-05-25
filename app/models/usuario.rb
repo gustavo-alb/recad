@@ -107,15 +107,29 @@ end
     end
   end
 
-   def active_for_authentication?
-    admin?
-  end
 
-
-  def set_mudar_senha
-    if self.encrypted_password_changed?
-      self.mudar_senha = false
+  def active_for_authentication?
+   ativo = false
+   Configuracao.where(:ativa=>true).each do |c|
+    if c.aberto_escolas? and self.local.escola? and ((Time.now > c.periodo_inicio) and (Time.now < c.periodo_fim))
+      ativo = true
+    end
+    if c.aberto_departamento? and !self.local.escola? and ((Time.now > c.periodo_inicio) and (Time.now < c.periodo_fim))
+      ativo = true
     end
   end
+  if self.gestor_seed? or self.admin?
+    ativo = true
+  end
+  return ativo
+end
+
+
+
+def set_mudar_senha
+  if self.encrypted_password_changed?
+    self.mudar_senha = false
+  end
+end
 
 end

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  periodo_inicio: 
+  periodo_fim: 
+  aberto_escolas: false
+  aberto_departamento: false
+
+two:
+  periodo_inicio: 
+  periodo_fim: 
+  aberto_escolas: false
+  aberto_departamento: false

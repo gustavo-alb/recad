@@ -1,6 +1,6 @@
  class LocalsController < ApplicationController
   before_action :set_local, only: [:show, :edit, :update, :destroy]
-  before_action :dados
+  before_action :dados,:admin
 
   # GET /locals
   # GET /locals.json

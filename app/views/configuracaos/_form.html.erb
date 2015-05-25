@@ -1,0 +1,24 @@
+<%= simple_form_for @configuracao, :html => { :class => 'form-horizontal' } do |f| %>
+  <% if !@configuracao.periodo_inicio.blank?%>
+  <%= f.input :periodo_inicio,input_html: {class:"datetime",value: @configuracao.periodo_inicio.strftime("%d/%m/%Y %T")} %>
+  <% else %>
+  <%= f.input :periodo_inicio,input_html: {class:"datetime",value: @configuracao.periodo_inicio.strftime("%d/%m/%Y %T")} %>
+  <% end %>
+  <%= error_span(@configuracao[:periodo_inicio]) %>
+   <% if !@configuracao.periodo_inicio.blank?%>
+  <%= f.input :periodo_fim,input_html: {class:"datetime",value: @configuracao.periodo_fim.strftime("%d/%m/%Y %T")} %>
+  <% else %>
+  <%= f.input :periodo_fim,input_html: {class:"datetime",value: @configuracao.periodo_fim.strftime("%d/%m/%Y %T")} %>
+  <% end %>
+  <%= error_span(@configuracao[:periodo_fim]) %>
+  <%= f.input :aberto_escolas,:collection=>@boolean %>
+  <%= error_span(@configuracao[:aberto_escolas]) %>
+  <%= f.input :aberto_departamento,:collection=>@boolean%>
+  <%= error_span(@configuracao[:aberto_departamento]) %>
+   <%= f.input :ativa,:collection=>@boolean%>
+  <%= error_span(@configuracao[:ativa]) %>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                configuracaos_path, :class => 'btn btn-default' %>
+<% end %>

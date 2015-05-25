@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :configuracaos
+
   get 'administracao/listagem_funcionarios'
 
   get 'administracao/relatorio_quantitativo_professor'
