@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:login,:cpf, :email, :nome, :admin, :mudar_senha, :inep, :local_id,:current_password,:password,:password_confirmation,:gestor_seed) }
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:editor,:login,:cpf, :email, :nome, :admin, :mudar_senha, :inep, :local_id,:current_password,:password,:password_confirmation,:gestor_seed) }
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :inep, :cpf, :password, :remember_me) }
   end
 
@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
       @formacoes = []
       @cargas_horarias = ["20 Horas","40 Horas"]
       @cargos = ["Diretor","Secretarário","Diretor Adjunto","Cuidador","Intérprete","Agente de Portaria","Auxiliar Operacional de Serviços Diversos" ,"Especialista em Educaçao","Pedagogo","Auxiliar Educacional","Professor","Agente Administrativo","Datilógrafo","Auxiliar Administrativo"].sort
-      @quadros = ["Cargo Comissionado Sem Vínculo","Estadual","Federal","Contrato Administrativo","Contrato Horista"]
+      @quadros = ["Cargo Comissionado Sem Vínculo","Estadual","Federal","Contrato Administrativo"]
       @concursos = ["Antes de 1989","1989","1992","1993","1994","1996","2000 (Ex-Ipesap)","2005","2012"]
       @municipios = Municipio.asc(:nome).collect{|m|[m.nome,m.id]}
       @situacoes = ["Ativo","Acompanhado pela Casa do Professor","Ativo mas em sala ambiente perante perícia médica","Licença Sem Vencimento","Licença Maternidade","Licença Médica (Junta Médica/AMPREV)","Licença para Estudos","Licença Prêmio Especial"]

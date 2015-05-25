@@ -75,6 +75,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def local_params
-      params.require(:local).permit([:nome,:codigo,:municipio,:escola,:local_pai])
+      params.require(:local).permit([:nome,:codigo,:municipio,:escola,:setorial,:secretaria,:local_pai])
     end
   end

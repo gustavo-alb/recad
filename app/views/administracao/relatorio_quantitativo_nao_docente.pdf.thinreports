@@ -1,0 +1,17 @@
+report.start_new_page
+@cargos.each.with_index(1) do |cargo,i|
+	report.page.list(:lista).add_row do |row|
+		row.item(:col1).value cargo
+		row.item(:col2).value @funcionarios.do_cargo(cargo).do_quadro("Estadual").count
+		row.item(:col3).value @funcionarios.do_cargo(cargo).do_quadro("Federal").count
+		row.item(:col4).value @funcionarios.do_cargo(cargo).do_quadro("Contrato Administrativo").count
+		row.item(:col5).value @funcionarios.do_cargo(cargo).count
+	end
+end
+report.page.list(:lista).add_row do |row|
+	row.item(:col1).value "Total"
+	row.item(:col2).value @funcionarios.do_quadro("Estadual").count
+	row.item(:col3).value @funcionarios.do_quadro("Federal").count
+	row.item(:col4).value @funcionarios.do_quadro("Contrato Administrativo").count
+	row.item(:col5).value @funcionarios.count
+end

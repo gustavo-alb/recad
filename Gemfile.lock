@@ -200,8 +200,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
-    rails-jquery-autocomplete (1.0.0)
-      rails (>= 4.0)
+    rails4-autocomplete (1.1.1)
+      rails (>= 3.0)
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
@@ -299,7 +299,7 @@ DEPENDENCIES
   less-rails
   mongoid!
   rails (= 4.2.0)
-  rails-jquery-autocomplete
+  rails4-autocomplete
   rails_12factor
   ransack
   rubyXL
@@ -308,6 +308,7 @@ DEPENDENCIES
   simple_form
   spring
   therubyracer (~> 0.10.2)
+  thinreports
   thinreports-rails!
   twitter-bootstrap-rails
   uglifier (>= 1.3.0)

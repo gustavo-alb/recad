@@ -68,3 +68,7 @@ Funcionario.where(:quadro=>/Contrato/,:disciplina_concurso.ne=>nil).each do |f|
 	f.disciplina_concurso = nil
 	f.save(validate: false)
 end
+
+Departamento.where(:hierarquia=>nil).each do |d|
+Local.create(:nome=>d.nome,:codigo=>d.sigla,:secretaria=>true)
+end

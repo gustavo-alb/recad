@@ -7,8 +7,12 @@
   <%= error_span(@local[:escola]) %>
   <%= f.input :municipio,:collection=>@municipios %>
   <%= error_span(@local[:municipio_id]) %>
-  <%= f.input :local_pai_id %>
-  <%= error_span(@local[:local_pai_id]) %>
+  <%= f.input :secretaria,:collection=>@boolean %>
+  <%= error_span(@local[:secretaria]) %>
+  <%= f.input :setorial,:collection=>@boolean %>
+  <%= error_span(@local[:setorial]) %>
+  <%#= f.input :local_pai_id %>
+  <%#= error_span(@local[:local_pai_id]) %>
 
   <%= f.button :submit, :class => 'btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

@@ -2,24 +2,28 @@ Rails.application.routes.draw do
   resources :configuracaos
 
   get 'administracao/listagem_funcionarios'
-
+  get 'administracao/criar_funcionario'
+  get 'administracao/editar_funcionario'
+  post 'administracao/salvar_funcionario'
+  post 'administracao/atualizar_funcionario'
+  get 'administracao/detalhes_funcionario'
   get 'administracao/relatorio_quantitativo_professor'
   get 'administracao/relatorio_quantitativo_nao_docente'
-
   get 'administracao/relatorio_nominal'
+  get "administracao/autocomplete_local_nome"
 
       devise_for :usuarios#, :controllers => {:registrations => "registrations"}
-    resources :funcionarios do
-      get :autocomplete_local_nome,:on=>:collection
-      get :funcionario_professor
-    end
+      resources :funcionarios do
+        get :autocomplete_local_nome,:on=>:collection
+        get :funcionario_professor
+      end
 
 
-  scope "/admin", as: "admin" do
-    resources :disciplinas
-    resources :usuarios
-    resources :locals
-  end
+      scope "/admin", as: "admin" do
+        resources :disciplinas
+        resources :usuarios
+        resources :locals
+      end
 
 
   # The priority is based upon order of creation: first created -> highest priority.

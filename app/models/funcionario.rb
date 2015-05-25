@@ -22,6 +22,7 @@ class Funcionario
   scope :do_quadro, ->(quadro) { where(:quadro => quadro) }
   scope :do_cargo, ->(cargo) { where(:cargo => cargo) }
   belongs_to :local
+  belongs_to :usuario
   belongs_to :disciplina_concurso,:class_name=>"Disciplina",:inverse_of=>:funcionarios
   belongs_to :disciplina_atuacao,:class_name=>"Disciplina",:inverse_of=>:funcionarios_atuando
   belongs_to :municipio_concurso,:class_name=>"Municipio"
@@ -33,6 +34,7 @@ class Funcionario
   validate :validate_cadastro
   validate :cpf_valido
   validate :validate_ambiente,if: Proc.new { |a| a.local.escola}
+  delegate :nome, to: :local, prefix: true
 
   #Validaçoes antigas
   #validates_presence_of :cadastro,if:  Proc.new { |a| !a.quadro=="Contrato Administrativo"},message: "Informação necessária"
