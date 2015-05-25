@@ -35,20 +35,17 @@ end
 end
 
 
-f = File.open("/home/udes/Documentos/cadastro.csv")
+f = File.open("usuarios.csv")
 a = f.readlines
 a.each do |u|
 user = Usuario.new
 u = u.split(';')
-user.nome = u[0]
-user.cpf = Cpf.new(u[1]).numero
-user.password = user.password_confirmation = u[1]
-user.gestor_setorial = true
-user.save(:validate=>false)
+l = Local.where(:codigo=>u[2]).first
+puts u[2]
 end
 
 array
-f = File.open("/home/udes/Documentos/cadastro.csv")
+f = File.open("cadastro.csv")
 a = f.readlines
 a.each do |u|
 u = u.split(";")
