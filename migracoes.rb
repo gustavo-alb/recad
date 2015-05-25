@@ -34,14 +34,24 @@ b << l.nome
 end
 end
 
-
+nao = []
 f = File.open("usuarios.csv")
 a = f.readlines
 a.each do |u|
 user = Usuario.new
+u = u.gsub("\r\n","")
 u = u.split(';')
 l = Local.where(:codigo=>u[2]).first
-puts u[2]
+if l
+user.nome = u[0]
+user.cpf = Cpf.new(u[1]).numero
+user.password = user.password_confirmation = u[1]
+user.gestor_setorial = true
+user.local = l
+user.save(:validate=>false)
+else
+nao << u[2]
+end
 end
 
 array
