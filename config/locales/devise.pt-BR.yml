@@ -12,7 +12,7 @@ pt-BR:
   devise:
     failure:
       usuario:
-        inactive: "Cadastro encerrado para as escolas."
+        inactive: "Cadastro encerrado."
         invalid: "Senha incorreta."
         not_found_in_database: "INEP Inválido."
         unauthenticated: "Entre com INEP e senha para acessar."
