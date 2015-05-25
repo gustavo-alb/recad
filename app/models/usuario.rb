@@ -107,7 +107,7 @@ end
     end
   end
 
-
+#checa as configurações no banco, para depois dizer se é ativo ou não
   def active_for_authentication?
    ativo = false
    Configuracao.where(:ativa=>true).each do |c|
