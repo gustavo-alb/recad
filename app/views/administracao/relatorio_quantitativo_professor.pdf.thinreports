@@ -1,0 +1,35 @@
+report.start_new_page
+a = 0
+b = 0
+c = 0
+d = 0
+@disciplinas.each.with_index(1) do |disciplina,i|
+	report.page.list(:lista).add_row do |row|
+		row.item(:col1).value disciplina.nome
+		row.item(:col2).value disciplina.funcionarios.where(:cargo=>"Professor",:quadro=>"Estadual").count
+		row.item(:col3).value disciplina.funcionarios.where(:cargo=>"Professor",:quadro=>"Federal").count
+		row.item(:col4).value disciplina.funcionarios_atuando.where(:cargo=>"Professor",:quadro=>"Contrato Administrativo").count
+		row.item(:col5).value (disciplina.funcionarios.where(:cargo=>"Professor")+disciplina.funcionarios_atuando.where(:cargo=>"Professor").do_quadro(/Contrato/)).uniq.count
+	end
+	disciplina.funcionarios.each do |f|
+		if f.quadro == "Estadual"
+			a+=1
+		elsif f.quadro == "Federal"
+			b+=1
+		end
+	end
+	disciplina.funcionarios_atuando.each do |f|
+		if f.quadro == "Contrato Administrativo"
+			c+=1
+		elsif f.quadro == "Contrato Horista"
+			d+=1
+		end
+	end
+end
+report.page.list(:lista).add_row do |row|
+	row.item(:col1).value "Total"
+	row.item(:col2).value a
+	row.item(:col3).value b
+	row.item(:col4).value c
+	row.item(:col5).value Funcionario.do_cargo("Professor").count
+end

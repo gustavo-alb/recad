@@ -56,3 +56,8 @@ if u[1].length!=11
 array << u[1]
 end
 end
+
+Funcionario.where(:quadro=>/Contrato/,:disciplina_concurso.ne=>nil).each do |f|
+	f.disciplina_concurso = nil
+	f.save(validate: false)
+end

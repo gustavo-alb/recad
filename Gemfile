@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 gem "bson_ext"
 gem "brazilian-rails"
-gem "thinreports"
+gem "thinreports-rails",git: "https://github.com/takeshinoda/thinreports-rails.git"
 gem "rubyXL"
 gem 'rails-jquery-autocomplete'
 gem 'dependent-fields-rails'
