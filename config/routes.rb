@@ -73,6 +73,9 @@ Rails.application.routes.draw do
   #   end
   #   resources :posts, concerns: :toggleable
   #   resources :photos, concerns: :toggleable
+  get '/', :to => 'administracao#listagem_funcionarios',:constraints => lambda{|req| req.env['warden'].user.try(:editor?)}
+  get '/', :to => 'administracao#listagem_funcionarios',:constraints => lambda{|req| req.env['warden'].user.try(:gestor_seed?)}
+  get '/', :to => 'administracao#listagem_funcionarios',:constraints => lambda{|req| req.env['warden'].user.try(:admin?)}
   root :to => 'funcionarios#index'
 
   # Example resource route within a namespace:

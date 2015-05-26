@@ -39,10 +39,10 @@
         <td>
         <%= link_to t('.show', :default => t("helpers.links.show")),
        administracao_detalhes_funcionario_path(:funcionario_id=>funcionario), :class => 'btn btn-default btn-xs' if current_usuario.editor? or current_usuario.admin?%>
-        <%#= link_to t('.edit', :default => t("helpers.links.edit")),
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
         administracao_editar_funcionario_path(:funcionario_id=>funcionario), :class => 'btn btn-default btn-xs' if current_usuario.editor? or current_usuario.admin?%>
-        <%#= link_to t('.destroy', :default => t("helpers.links.destroy")),
-        administracao_funcionario_path(funcionario),
+        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+        funcionario_path(funcionario),
         :method => :delete,
         :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
         :class => 'btn btn-xs btn-danger' if current_usuario.admin?%>

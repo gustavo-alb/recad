@@ -8,8 +8,8 @@ gem "brazilian-rails"
 gem "thinreports-rails",git: "https://github.com/takeshinoda/thinreports-rails.git"
 gem 'thinreports'
 gem "rubyXL"
-#gem 'rails-jquery-autocomplete'
-gem "rails4-autocomplete"
+gem 'rails-jquery-autocomplete'
+#gem "rails4-autocomplete"
 gem 'dependent-fields-rails'
 gem 'underscore-rails'
 gem 'devise-bootstrap-views'

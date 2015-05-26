@@ -53,6 +53,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def gestores
+    if !current_usuario.admin? and !current_usuario.editor? and !current_usuario.gestor_seed?
+      redirect_to :root,:alert=>"Você não tem acesso a esta área"
+    end
+  end
+
+  def redir_editores
+    if current_usuario.editor?
+      redirect_to :root,:alert=>"Você não tem acesso a esta área"
+    end
+  end
+
+
       def dados
       @classes = ["A","B","C","D","E","F","S","GAB","3ª"].sort
       @padroes = ((1.upto(25).to_a)+[202,302,303,401,402,103]).sort

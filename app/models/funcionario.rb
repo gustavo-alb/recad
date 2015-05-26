@@ -17,6 +17,7 @@ class Funcionario
   field :area_concurso, type: String
   field :programa, type: String
   field :situacao, type: String
+  field :documento, type: String
   field :diretor_ou_secretario,type: Boolean,default: false
   field :componente_curricular
   scope :do_quadro, ->(quadro) { where(:quadro => quadro) }
@@ -26,6 +27,7 @@ class Funcionario
   belongs_to :disciplina_concurso,:class_name=>"Disciplina",:inverse_of=>:funcionarios
   belongs_to :disciplina_atuacao,:class_name=>"Disciplina",:inverse_of=>:funcionarios_atuando
   belongs_to :municipio_concurso,:class_name=>"Municipio"
+  validate :validar_local
   validates_presence_of :nome,:cpf,:cargo,:carga_horaria,:quadro,message: "Informação necessária"
   validates_presence_of :classe,:municipio_concurso,:situacao,:concurso,if:  Proc.new { |a| self.quadro=="Estadual"},message: "Informação necessária"
   validates_presence_of :disciplina_concurso,if:  Proc.new { |a| a.cargo=="Professor" and (self.quadro=="Estadual" or self.quadro=="Federal")},message: "Informação necessária"
@@ -33,8 +35,8 @@ class Funcionario
   validates_presence_of :programa,if:  Proc.new { |a| a.cargo.include?("Programa") and a.situacao=="Ativo" },message: "Informação necessária"
   validate :validate_cadastro
   validate :cpf_valido
-  validate :validate_ambiente,if: Proc.new { |a| a.local.escola}
-  delegate :nome, to: :local, prefix: true
+  validate :validate_ambiente,if: Proc.new { |a| a.local and a.local.escola}
+  delegate :nome, to: :local, prefix: true, :allow_nil => true
 
   #Validaçoes antigas
   #validates_presence_of :cadastro,if:  Proc.new { |a| !a.quadro=="Contrato Administrativo"},message: "Informação necessária"
@@ -49,6 +51,12 @@ class Funcionario
     if !cpf.valido?
      errors.add(:cpf, "não é valido")
    end
+ end
+
+ def validar_local
+  if self.local.nil?
+    errors.add(:local_nome, "Informação necessária")
+  end
  end
 
  def validate_ambiente

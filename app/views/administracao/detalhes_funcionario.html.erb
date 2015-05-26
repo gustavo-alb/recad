@@ -8,10 +8,22 @@
   <dd><%= objeto_valor(@funcionario.nome) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:cpf) %>:</strong></dt>
   <dd><%= objeto_valor(@funcionario.cpf) %></dd>
+  <%if @funcionario.quadro!="Contrato Administrativo"%>
   <dt><strong><%= model_class.human_attribute_name(:cadastro) %>:</strong></dt>
   <dd><%= objeto_valor(@funcionario.cadastro) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:classe) %>:</strong></dt>
   <dd><%= objeto_valor(@funcionario.classe) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:concurso) %>:</strong></dt>
+  <dd><%= objeto_valor(@funcionario.concurso) %></dd>
+  <%if !@funcionario.area_concurso.blank?%>
+  <dt><strong><%= model_class.human_attribute_name(:area_concurso) %>:</strong></dt>
+  <dd><%= objeto_valor(@funcionario.area_concurso) %></dd>
+  <%end%>
+  <dt><strong><%= model_class.human_attribute_name(:situacao) %>:</strong></dt>
+  <dd><%= objeto_valor(@funcionario.situacao) %></dd>
+  <dt><strong><%= model_class.human_attribute_name("Município de Concurso") %>:</strong></dt>
+  <dd><%= objeto_valor(@funcionario.municipio_concurso) %></dd>
+  <%end%>
   <dt><strong><%= model_class.human_attribute_name(:carga_horaria) %>:</strong></dt>
   <dd><%= objeto_valor(@funcionario.carga_horaria) %></dd>
   <%if current_usuario.local.escola%>
@@ -24,22 +36,12 @@
   <dd><%= objeto_valor(@funcionario.cargo) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:quadro) %>:</strong></dt>
   <dd><%= objeto_valor(@funcionario.quadro) %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:concurso) %>:</strong></dt>
-  <dd><%= objeto_valor(@funcionario.concurso) %></dd>
-  <%if !@funcionario.area_concurso.blank?%>
-  <dt><strong><%= model_class.human_attribute_name(:area_concurso) %>:</strong></dt>
-  <dd><%= objeto_valor(@funcionario.area_concurso) %></dd>
-  <% end %>
   <% if @funcionario.cargo.include?("Programa")%>
   <dt><strong><%= model_class.human_attribute_name(:programa) %>:</strong></dt>
   <dd><%= objeto_valor(@funcionario.programa) %></dd>
   <% end %>
-  <dt><strong><%= model_class.human_attribute_name(:situacao) %>:</strong></dt>
-  <dd><%= objeto_valor(@funcionario.situacao) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:local_id) %>:</strong></dt>
   <dd><%= objeto_valor(@funcionario.local) %></dd>
-  <dt><strong><%= model_class.human_attribute_name("Município de Concurso") %>:</strong></dt>
-  <dd><%= objeto_valor(@funcionario.municipio_concurso) %></dd>
   <%if @funcionario.cargo=="Professor"%>
   <dt><strong><%= model_class.human_attribute_name(:disciplina_concurso_id) %>:</strong></dt>
   <dd><%= objeto_valor(@funcionario.disciplina_concurso) %></dd>
@@ -61,10 +63,10 @@
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
 administracao_listagem_funcionarios_path, :class => 'btn btn-default'  %>
-<%#= link_to t('.edit', :default => t("helpers.links.edit")),
-administracao_editar_funcionario_path(:funcionario_id=>@funcionario), :class => 'btn btn-default' %>
-<%#= link_to t('.destroy', :default => t("helpers.links.destroy")),
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+administracao_editar_funcionario_path(:funcionario_id=>@funcionario), :class => 'btn btn-default' if current_usuario.editor? or current_usuario.admin?%>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
 funcionario_path(@funcionario),
 :method => 'delete',
 :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-:class => 'btn btn-danger' %>
+:class => 'btn btn-danger' if current_usuario.admin?%>

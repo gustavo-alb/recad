@@ -12,5 +12,9 @@ class Local
   has_many :locais_filhos,:class_name=>"Local"
   has_many :usuarios
   has_many :funcionarios
-  scope :secretarias, ->(sec) { where(:secretaria => true) }
+  scope :secretarias, -> do where(:secretaria => true) end
+
+   def nome_sigla
+    "#{self.nome} - #{self.codigo}"
+  end
 end

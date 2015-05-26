@@ -119,7 +119,7 @@ end
       ativo = true
     end
   end
-  if self.gestor_seed? or self.admin?
+  if self.gestor_seed? or self.admin? or self.editor?
     ativo = true
   end
   return ativo

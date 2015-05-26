@@ -2,6 +2,7 @@ class FuncionariosController < ApplicationController
   before_action :set_funcionario, only: [:show, :edit, :update, :destroy]
   before_action :mudar_senha
   before_filter :dados
+  before_filter :redir_editores
   #autocomplete :local,:nome,:full=>true
 
   # GET /funcionarios
