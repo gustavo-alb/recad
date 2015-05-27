@@ -85,7 +85,7 @@ def detalhes_funcionario
   @funcionario = Funcionario.find(params[:funcionario_id])
 end
 def funcionario_params
-  params.require(:funcionario).permit([:documento,:usuario_id,:componente_curricular,:nome, :cpf, :cadastro, :classe, :padrao, :turmas, :carga_horaria, :ambiente,:ambiente_nao_docente, :formacao, :ch_em_sala, :cargo, :quadro, :concurso, :area_concurso, :programa, :situacao, :local_id,:local,:local_nome, :disciplina_concurso, :disciplina_atuacao, :municipio_concurso])
+  params.require(:funcionario).permit([:local_id,:local_nome,:documento,:usuario_id,:componente_curricular,:nome, :cpf, :cadastro, :classe, :padrao, :turmas, :carga_horaria, :ambiente,:ambiente_nao_docente, :formacao, :ch_em_sala, :cargo, :quadro, :concurso, :area_concurso, :programa, :situacao, :local_id,:local, :disciplina_concurso, :disciplina_atuacao, :municipio_concurso])
 end
 
 end

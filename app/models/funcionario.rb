@@ -42,7 +42,9 @@ class Funcionario
   #validates_presence_of :cadastro,if:  Proc.new { |a| !a.quadro=="Contrato Administrativo"},message: "Informação necessária"
   #validates_presence_of :ambiente,message: "Informação necessária",:if=>Proc.new{|a|a.ambiente_nao_docente.blank? or (a.situacao.include?("Ativo") or a.situacao.include?("Acompanhado"))}
   
-  validates_uniqueness_of :cadastro,scope: :local,:if=>Proc.new { |a|!a.quadro.include?("Contrato")}
+  validates_uniqueness_of :cadastro,scope: :local,:if=>Proc.new { |a|!a.quadro.include?("Contrato")},message: "Já está cadastrado"
+  validates_uniqueness_of :cpf,scope: :cadastro,:if=>Proc.new { |a|!a.quadro.include?("Contrato")},message: "Já está cadastrado"
+  validates_uniqueness_of :cpf,:if=>Proc.new { |a|a.quadro.include?("Contrato")},message: "Já está cadastrado"
   before_save :pos_ambiente
   before_save :nome_maiusculo
 

@@ -36,6 +36,7 @@ class Usuario
   field :inep,type: String,default: ""
   attr_accessor :login,:tipo_local
   belongs_to :local
+  delegate :nome, to: :local, prefix: true, :allow_nil => true
   validates_presence_of :cpf,:nome,:on=>:update,:message=>"Informação Necessária"
   validate :cpf_valido
 

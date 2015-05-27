@@ -30,7 +30,6 @@ class UsuariosController < ApplicationController
   def create
     @usuario = Usuario.new(usuario_params)
     @caminho = admin_usuarios_path
-
     respond_to do |format|
       if @usuario.save
         format.html { redirect_to admin_usuario_path(@usuario), notice: 'Usuario was successfully created.' }
@@ -79,7 +78,7 @@ class UsuariosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def usuario_params
-      params.require(:usuario).permit([:editor,:nome,:cpf,:local,:mudar_senha,:admin,:password,:password_confirmation,:gestor_seed])
+      params.require(:usuario).permit([:editor,:gestor_setorial,:nome,:cpf,:local_id,:mudar_senha,:admin,:password,:password_confirmation,:gestor_seed])
     end
 
     def dados
