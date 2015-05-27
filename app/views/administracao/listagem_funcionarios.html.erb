@@ -16,11 +16,9 @@
       <th><%= model_class.human_attribute_name(:cpf) %></th>
       <th><%= model_class.human_attribute_name(:cadastro) %></th>
       <th><%= model_class.human_attribute_name(:carga_horaria) %></th>
-      <th><%= model_class.human_attribute_name(:ambiente) %></th>
       <th><%= model_class.human_attribute_name(:cargo) %></th>
       <th><%= model_class.human_attribute_name(:quadro) %></th>
       <th><%= model_class.human_attribute_name(:lotação) %></th>
-      <th><%= model_class.human_attribute_name(:disciplina_concurso_id) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -31,11 +29,9 @@
         <td><%= objeto_valor(funcionario.cpf) %></td>
         <td><%= objeto_valor(funcionario.cadastro) %></td>
         <td><%= objeto_valor(funcionario.carga_horaria) %></td>
-        <td><%= ambiente_alerta(funcionario) %></td>
         <td><%= objeto_valor(funcionario.cargo) %></td>
         <td><%= objeto_valor(funcionario.quadro) %></td>
         <td><%= objeto_valor(funcionario.local).upcase %></td>
-        <td><%= objeto_valor(funcionario.disciplina_concurso) %></td>
         <td>
         <%= link_to t('.show', :default => t("helpers.links.show")),
        administracao_detalhes_funcionario_path(:funcionario_id=>funcionario), :class => 'btn btn-default btn-xs' if current_usuario.editor? or current_usuario.admin?%>

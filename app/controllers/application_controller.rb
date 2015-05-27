@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:editor,:login,:cpf, :email, :nome, :admin, :mudar_senha, :inep, :local_id,:current_password,:password,:password_confirmation,:gestor_seed) }
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:gestor_setorial,:editor,:login,:cpf, :email, :nome, :admin, :mudar_senha, :inep, :local_id,:current_password,:password,:password_confirmation,:gestor_seed) }
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :inep, :cpf, :password, :remember_me) }
   end
 

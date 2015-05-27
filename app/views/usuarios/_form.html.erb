@@ -7,7 +7,9 @@
   <%= error_span(@usuario[:admin]) %>
   <%= f.input :gestor_seed,:collection=>[["Sim",true],["Não",false]] %>
   <%= error_span(@usuario[:gestor_seed]) %>
-  <%= f.input :editor,:collection=>[["Sim",true],["Não",false]] %>
+  <%= f.input :gestor_setorial,:collection=>[["Sim",true],["Não",false]] %>
+  <%= error_span(@usuario[:gestor_setorial]) %>
+   <%= f.input :editor,:collection=>[["Sim",true],["Não",false]] %>
   <%= error_span(@usuario[:editor]) %>
   <% if @usuario.local %>
   <%= f.input :local,:collection=>@locais,:selected=>@usuario.local_id%>
