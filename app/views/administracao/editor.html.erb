@@ -48,7 +48,7 @@
 <%= f.input :carga_horaria,:collection=>@cargas_horarias,:label=>"Carga Horária do vínculo" %>
 <%= error_span(@funcionario[:carga_horaria]) %>
 <%= f.label "Lotação"%> <i>Digite parte do nome do orgão que procura, e clique em cima do resultado desejado.</i>
-<%= f.input :local_nome,:label=>false, :url => administracao_autocomplete_local_nome_path, :as => :autocomplete, :id_element => '#usuario_local_id',:input_html=>{:class=>"string form-control",:style=>"width: 100%",'data-auto-focus' => true},:wrapper_html=>{:class=>"string"}%>
+<%= f.input :local_nome,:label=>false, :url => administracao_autocomplete_local_nome_path, :as => :autocomplete, :id_element => '#funcionario_local_id',:input_html=>{:class=>"string form-control",:style=>"width: 100%",'data-auto-focus' => true},:wrapper_html=>{:class=>"string"}%>
 <%= f.input :local_id,:as=>:hidden%>
 <%= f.input :documento,:label=>"Documento que orientou a movimentação" %>
 <%= error_span(@funcionario[:documento]) %>
