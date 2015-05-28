@@ -33,6 +33,7 @@ class Usuario
   field :gestor_seed,type: Boolean, default: false
   field :editor ,type: Boolean, default: false
   field :mudar_senha, type: Boolean, default: true
+  field :ativo, type: Boolean, default: false
   field :inep,type: String,default: ""
   attr_accessor :login,:tipo_local
   belongs_to :local
@@ -110,7 +111,8 @@ end
   end
 
 #checa as configurações no banco, para depois dizer se é ativo ou não
-  def active_for_authentication?
+def active_for_authentication?
+  if self.ativo==true
    ativo = false
    Configuracao.where(:ativa=>true).each do |c|
     if c.aberto_escolas? and self.local.escola? and ((Time.now > c.periodo_inicio) and (Time.now < c.periodo_fim))
@@ -124,6 +126,9 @@ end
     ativo = true
   end
   return ativo
+end
+else 
+  return false
 end
 
 

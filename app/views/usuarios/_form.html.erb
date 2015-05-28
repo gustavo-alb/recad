@@ -3,6 +3,8 @@
 <%= error_span(@usuario[:cpf]) %>
 <%= f.input :nome %>
 <%= error_span(@usuario[:nome]) %>
+<%= f.input :ativo,:collection=>[["Sim",true],["Não",false]] %>
+<%= error_span(@usuario[:ativo]) %>
 <%= f.input :admin,:collection=>[["Sim",true],["Não",false]] %>
 <%= error_span(@usuario[:admin]) %>
 <%= f.input :gestor_seed,:collection=>[["Sim",true],["Não",false]] %>
