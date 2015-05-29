@@ -18,7 +18,7 @@
 <%= f.input :password,:label=>"Confirmação de Senha" %>
 <%= error_span(@usuario[:password]) %>
 <%= f.label "Lotação"%><i>Digite parte do nome do orgão que procura, e clique em cima do resultado desejado.</i>
-<%= f.input :local_nome,:label=>false, :url =>  autocomplete_local_nome_admin_usuario_path, :as => :autocomplete, :id_element => '#usuario_local_id',:input_html=>{:class=>"string form-control",:style=>"width: 100%",'data-auto-focus' => true},:wrapper_html=>{:class=>"string"}%>
+<%= f.input :local_nome,:label=>false, :url =>  autocomplete_local_nome_admin_usuarios_path, :as => :autocomplete, :id_element => '#usuario_local_id',:input_html=>{:class=>"string form-control",:style=>"width: 100%",'data-auto-focus' => true},:wrapper_html=>{:class=>"string"}%>
 <%= f.input :local_id,:as=>:hidden%>
 <%= error_span(@usuario[:local]) %>
 
