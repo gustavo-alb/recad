@@ -2,6 +2,10 @@ class UsuariosController < ApplicationController
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
   before_action :dados
   before_action :admin
+   def get_autocomplete_items(parameters)
+    searchterm = params[:term]
+    items = Local.any_of({nome: Regexp.new(searchterm,Regexp::IGNORECASE) },{codigo: Regexp.new(searchterm,Regexp::IGNORECASE) })
+  end
   # GET /usuarios
   # GET /usuarios.json
   def index
