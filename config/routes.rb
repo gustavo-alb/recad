@@ -24,7 +24,10 @@ Rails.application.routes.draw do
         resources :usuarios do
           get :autocomplete_local_nome,:on=>:collection
         end
-        resources :locals
+        resources :locals do
+          get 'resumo_escola_docente'
+          get 'resumo_escola_nao_docente'
+        end
       end
 
 

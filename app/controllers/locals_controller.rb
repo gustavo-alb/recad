@@ -14,6 +14,26 @@
   def show
   end
 
+  def resumo_escola_docente
+   @escola = Local.find(params[:local_id])
+    @funcionarios = @escola.funcionarios.where(:cargo.ne=>"Professor").asc(:nome)
+   respond_to do |format|
+    format.pdf { 
+      send_data render_to_string, filename: 'foo.pdf', type: 'application/pdf', disposition: 'attachment'
+    }
+  end
+end
+
+  def resumo_escola_nao_docente
+   @escola = Local .find(params[:local_id])
+   @funcionarios = @escola.funcionarios.where(:cargo.ne=>"Professor").asc(:nome)
+   respond_to do |format|
+    format.pdf { 
+      send_data render_to_string, filename: 'foo.pdf', type: 'application/pdf', disposition: 'attachment'
+    }
+  end
+end
+
   # GET /locals/new
   def new
     @local = Local.new

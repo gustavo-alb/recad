@@ -12,8 +12,20 @@ module FuncionariosHelper
 			return raw "<b style='color: red;'>Nada cadastrado</b>"
 		elsif !obj.ambiente.blank?
 			return obj.ambiente
-			else
-				return "Nada Cadastrado"
+		else
+			return "Nada Cadastrado"
 		end
+	end
+	def ch_turmas(obj)
+		if !obj.ch_em_sala.nil? and !obj.turmas.nil?
+			return "#{obj.ch_em_sala} H/Aula"
+		elsif !obj.ch_em_sala.nil? and obj.turmas.nil?
+			return "#{obj.ch_em_sala} H/Aula"
+		elsif obj.ch_em_sala.nil? and !obj.turmas.nil?
+			return "#{obj.turmas} Turmas"
+		else
+			return "N/A"
+		end
+
 	end
 end
