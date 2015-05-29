@@ -21,7 +21,9 @@ Rails.application.routes.draw do
 
       scope "/admin", as: "admin" do
         resources :disciplinas
-        resources :usuarios
+        resources :usuarios do
+          get :autocomplete_local_nome,:on=>:collection
+        end
         resources :locals
       end
 
