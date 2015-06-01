@@ -1,4 +1,5 @@
  class LocalsController < ApplicationController
+  include ApplicationHelper
   before_action :set_local, only: [:show, :edit, :update, :destroy]
   before_action :dados,:admin
 
@@ -14,25 +15,43 @@
   def show
   end
 
-  def resumo_escola_docente
+  def resumo_escola
    @escola = Local.find(params[:local_id])
-    @funcionarios = @escola.funcionarios.where(:cargo.ne=>"Professor").asc(:nome)
-   respond_to do |format|
-    format.pdf { 
-      send_data render_to_string, filename: 'foo.pdf', type: 'application/pdf', disposition: 'attachment'
-    }
+   @funcionarios = @escola.funcionarios.where(:cargo.ne=>"Professor").asc(:nome)
+   @professores = @escola.funcionarios.where(:cargo=>"Professor").asc(:nome)
+   report = ODFReport::Report.new("#{Rails.root}/app/relatorios/resumo_escola.odt") do |r|
+
+    r.add_field "USER", current_usuario.nome
+    r.add_field "DATA", Date.today.to_s_br
+    r.add_field "HORA", Time.now.strftime("%H:%M:%S")
+    r.add_field "ESC", @escola.nome
+
+    r.add_table("docentes", @professores, :header=>true) do |t|
+      t.add_column(:NOME) { |funcionario| "#{funcionario.nome}" }
+      t.add_column(:CAD) { |funcionario| "#{funcionario.cadastro}" }
+      t.add_column(:QUADRO) { |funcionario| "#{funcionario.quadro}/#{funcionario.carga_horaria}" }
+      t.add_column(:DISCORIG) { |funcionario| "#{objeto_valor(funcionario.disciplina_concurso)}" }
+      t.add_column(:AMBIENTE) { |funcionario| "#{ambiente(funcionario)}" }
+      t.add_column(:DISCATUACAO) { |funcionario| "#{objeto_valor(funcionario.disciplina_atuacao)}" }
+      t.add_column(:TURMAS) { |funcionario| "#{objeto_valor(funcionario.turmas)}" }
+      t.add_column(:HORASAULA) { |funcionario| "#{objeto_valor(funcionario.ch_em_sala)}" }
+      t.add_column(:SITUACAO) { |funcionario| "#{objeto_valor(funcionario.situacao)}" }
+    end
+    r.add_table("nao_docentes", @funcionarios, :header=>true) do |t|
+      t.add_column(:NOME) { |funcionario| "#{funcionario.nome}" }
+      t.add_column(:CAD) { |funcionario| "#{funcionario.cadastro}" }
+      t.add_column(:QUADRO) { |funcionario| "#{funcionario.quadro}/#{funcionario.carga_horaria}" }
+      t.add_column(:CARGO) { |funcionario| "#{funcionario.cargo}" }
+      t.add_column(:AMBIENTE) { |funcionario| "#{ambiente(funcionario)}" }
+      t.add_column(:SITUACAO) { |funcionario| "#{objeto_valor(funcionario.situacao)}" }
+    end
+
   end
+  send_data report.generate, type: 'application/vnd.oasis.opendocument.text',
+  disposition: 'attachment',
+  filename: "Resumo da escola #{objeto_valor(@escola)}"
 end
 
-  def resumo_escola_nao_docente
-   @escola = Local .find(params[:local_id])
-   @funcionarios = @escola.funcionarios.where(:cargo.ne=>"Professor").asc(:nome)
-   respond_to do |format|
-    format.pdf { 
-      send_data render_to_string, filename: 'foo.pdf', type: 'application/pdf', disposition: 'attachment'
-    }
-  end
-end
 
   # GET /locals/new
   def new

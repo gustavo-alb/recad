@@ -24,4 +24,14 @@ module ApplicationHelper
 		direction = column == sort_column(model, default) && sort_direction == "asc" ? "desc" : "asc"
 		link_to title, {:sort => column, :direction => direction}, {:class => css_class}
 	end 
+
+	def ambiente(obj)
+		if !obj.blank? and obj.ambiente.include?("Programa")
+			return "#{obj.ambiente}/#{obj.programa}"
+		elsif !obj.blank? and !obj.ambiente.include?("Programa")
+			return "#{obj.ambiente}"
+		else
+			return "Nada Cadastrado"
+		end
+	end
 end

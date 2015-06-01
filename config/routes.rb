@@ -8,9 +8,10 @@ Rails.application.routes.draw do
   post 'administracao/atualizar_funcionario'
   get 'administracao/detalhes_funcionario'
   get 'administracao/relatorio_quantitativo_professor'
-  get 'administracao/relatorio_quantitativo_nao_docente'
+  get 'administracao/relatorio_quantitativo'
   get 'administracao/relatorio_nominal'
   get "administracao/autocomplete_local_nome"
+  get "administracao/relatorio_sem_cadastro"
 
       devise_for :usuarios#, :controllers => {:registrations => "registrations"}
       resources :funcionarios do
@@ -25,8 +26,7 @@ Rails.application.routes.draw do
           get :autocomplete_local_nome,:on=>:collection
         end
         resources :locals do
-          get 'resumo_escola_docente'
-          get 'resumo_escola_nao_docente'
+          get 'resumo_escola'
         end
       end
 

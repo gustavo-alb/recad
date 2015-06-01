@@ -28,10 +28,8 @@
       <td><%= objeto_valor(local.escola) %></td>
       <td><%= objeto_valor(local.municipio)%></td>
       <td>
-       <%= link_to "Resumo - Docente",
-       admin_local_resumo_escola_docente_path(local,:format=>:pdf),:class => 'btn btn-default btn-xs' if local.escola?%>
-       <%= link_to "Resumo - Não Docente",
-       admin_local_resumo_escola_nao_docente_path(local,:format=>:pdf), :class => 'btn btn-default btn-xs' if local.escola?%>
+       <%= link_to "Resumo do Quadro da Escola",
+       admin_local_resumo_escola_path(local),:class => 'btn btn-default btn-xs' if local.escola?%>
        <%= link_to t('.edit', :default => t("helpers.links.edit")),
        edit_admin_local_path(local), :class => 'btn btn-default btn-xs' %>
        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

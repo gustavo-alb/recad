@@ -7,7 +7,7 @@ gem "bson_ext"
 gem "brazilian-rails"
 gem "thinreports-rails",git: "https://github.com/takeshinoda/thinreports-rails.git"
 gem 'thinreports'
-gem "rubyXL"
+gem 'odf-report'
 gem 'rails-jquery-autocomplete'
 #gem "rails4-autocomplete"
 gem 'dependent-fields-rails'

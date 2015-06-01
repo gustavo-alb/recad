@@ -1,5 +1,6 @@
 class AdministracaoController < ApplicationController
-	before_action :dados,:gestores,:mudar_senha
+  include ApplicationHelper
+  before_action :dados,:gestores,:mudar_senha
   autocomplete :local, :nome, full: true
   def get_autocomplete_items(parameters)
     searchterm = params[:term]
@@ -16,25 +17,76 @@ class AdministracaoController < ApplicationController
     @funcionarios = @q.result(distinct: true).asc.paginate(:page=>params[:page],:per_page=>10)
   end
 
-  def relatorio_quantitativo_professor
-   @disciplinas = Disciplina.asc(:nome)
-   respond_to do |format|
-    format.pdf { 
-      send_data render_to_string, filename: 'foo.pdf', type: 'application/pdf', disposition: 'attachment'
-    }
+  def relatorio_quantitativo
+    @discs = Disciplina.all.asc(:nome)
+    @cargos = @cargos - ["Professor"]
+    report = ODFReport::Report.new("#{Rails.root}/app/relatorios/relatorio_quantitativo.odt") do |r|
+
+      r.add_field "USER", current_usuario.nome
+      r.add_field "DATA", Date.today.to_s_br
+      r.add_field "HORA", Time.now.strftime("%H:%M:%S")
+
+      r.add_table("disciplinas", @discs, :header=>true) do |t|
+        t.add_column(:DISCIPLINA) { |d| "#{d.nome.upcase}" }
+        t.add_column(:EST) { |d| "#{d.funcionarios.where(:quadro=>'Estadual').count}" }
+        t.add_column(:FED) { |d| "#{d.funcionarios.where(:quadro=>'Federal').count}" }
+        t.add_column(:CONT) { |d| "#{d.funcionarios_atuando.where(:quadro=>'Contrato Administrativo').count}" }
+        t.add_column(:TOTDISC) {|d|"#{d.funcionarios.count+d.funcionarios_atuando.where(:quadro=>'Contrato Administrativo').count}"}
+        r.add_field "TOTEST",Funcionario.where(:cargo=>"Professor",:disciplina_concurso.ne=>nil,:quadro=>"Estadual").count
+        r.add_field "TOTFED",Funcionario.where(:cargo=>"Professor",:disciplina_concurso.ne=>nil,:quadro=>"Federal").count
+        r.add_field "TOTCONT",Funcionario.where(:cargo=>"Professor",:disciplina_atuacao.ne=>nil,:quadro=>"Contrato Administrativo").count
+        r.add_field "TOTPROF",Funcionario.where(:cargo=>"Professor").count
+      end
+
+      r.add_table("cargos", @cargos, :header=>true) do |t|
+        t.add_column(:CARGO) { |d| "#{d.upcase}" }
+        t.add_column(:EST) { |d| "#{Funcionario.where(:quadro=>'Estadual',:cargo=>d).count}" }
+        t.add_column(:FED) { |d| "#{Funcionario.where(:quadro=>'Federal',:cargo=>d).count}" }
+        t.add_column(:CONT) { |d| "#{Funcionario.where(:quadro=>'Contrato Administrativo',:cargo=>d).count}" }
+        t.add_column(:CARGOC) {|d|"#{Funcionario.where(:quadro=>'Cargo Comissionado Sem Vínculo',:cargo=>d).count}" }
+        t.add_column(:TOTCARGO) {|d|"#{Funcionario.where(:cargo=>d).count}"}
+        r.add_field "TOTESTC",Funcionario.where(:cargo.ne=>"Professor",:quadro=>"Estadual").count
+        r.add_field "TOTFEDC",Funcionario.where(:cargo.ne=>"Professor",:quadro=>"Federal").count
+        r.add_field "TOTCONTC",Funcionario.where(:cargo.ne=>"Professor",:quadro=>"Contrato Administrativo").count
+        r.add_field "TOTCARGO",Funcionario.where(:cargo.ne=>"Professor",:quadro=>"Cargo Comissionado Sem Vínculo").count
+        r.add_field "TOTALC",Funcionario.where(:cargo.ne=>"Professor").count
+      end
+
+
+    end
+    send_data report.generate, type: 'application/vnd.oasis.opendocument.text',
+    disposition: 'attachment',
+    filename: "Resumo Quantitativo Geral"
   end
-end
 
-def relatorio_quantitativo_nao_docente
- @funcionarios = Funcionario.where(:cargo.ne=>"Professor")
- respond_to do |format|
-  format.pdf { 
-    send_data render_to_string, filename: 'foo.pdf', type: 'application/pdf', disposition: 'attachment'
-  }
-end
-end
 
-def relatorio_nominal
+
+  def relatorio_nominal
+  end
+
+  def relatorio_sem_cadastro
+   @escolas = Local.where(:escola=>true).asc(:nome)
+   @setoriais = Local.where(:setorial=>true).asc(:nome)
+
+   report = ODFReport::Report.new("#{Rails.root}/app/relatorios/locais_sem_cadastro.odt") do |r|
+
+    r.add_field "USER", current_usuario.nome
+    r.add_field "DATA", Date.today.to_s_br
+    r.add_field "HORA", Time.now.strftime("%H:%M:%S")
+
+    r.add_table("escolas", @escolas, :header=>true) do |t|
+      t.add_column(:NOME) { |local| "#{local.nome.upcase}" }
+      t.add_column(:CODIGO) { |local| "#{local.codigo}" }
+    end
+
+    r.add_table("setoriais", @setoriais, :header=>true) do |t|
+      t.add_column(:NOME) { |local| "#{local.nome.upcase}" }
+      t.add_column(:CODIGO) { |local| "#{local.codigo}" }
+    end
+  end
+  send_data report.generate, type: 'application/vnd.oasis.opendocument.text',
+  disposition: 'attachment',
+  filename: "Resumo da escola #{objeto_valor(@escola)}"
 end
 
 def criar_funcionario
