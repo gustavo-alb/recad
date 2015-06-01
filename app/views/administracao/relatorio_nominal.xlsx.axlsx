@@ -1,0 +1,58 @@
+wb = xlsx_package.workbook
+styles = wb.styles
+title = styles.add_style(:sz => 15, :b => true, :u => true)
+header = styles.add_style(:bg_color => 'CCCCCC', :fg_color => '000000', :b => true,:border => Axlsx::STYLE_THIN_BORDER)
+headerc = styles.add_style(:bg_color => 'CCCCCC', :fg_color => '000000', :b => true,:border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :center,:vertical => :center})
+even = styles.add_style(:bg_color => 'AAAAAA', :fg_color => '000000',:border => Axlsx::STYLE_THIN_BORDER,:alignment=>{:vertical => :bottom})
+evenc = styles.add_style(:bg_color => 'AAAAAA', :fg_color => '000000',:border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :center,:vertical => :bottom})
+odd = styles.add_style(:bg_color => 'FFFFFF', :fg_color => '000000',:border => Axlsx::STYLE_THIN_BORDER,:alignment=>{:vertical => :bottom})
+oddc = styles.add_style(:bg_color => 'FFFFFF', :fg_color => '000000',:border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :center,:vertical => :bottom})
+header_footer = {:different_first => false, :odd_header => "&G&CGoverno do Estado do Amapá\nSecretaria de Estado da Educação\nCoordenadoria de Administração\nNúcleo de Informática", :odd_footer => '&L&Pde&N',:style=>title}
+wb.add_worksheet(name: "Prof. Estaduais em sala",:header_footer=>header_footer,:page_margins=>{top: 1.5, bottom: 0.6},:alignment=>{:horizontal => :center}) do |sheet|
+	sheet.page_setup.fit_to :width => 1
+	sheet.add_row ["NOME", "CPF","CADASTRO"], :style => [header,headerc,headerc]
+	@professores_em_sala_estadual.each.with_index(1) do |p,i|
+		if i.even?
+			sheet.add_row [p.nome,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro)], :style => [odd,oddc,oddc]
+		else
+			sheet.add_row [p.nome,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro)], :style => [odd,oddc,oddc]
+		end
+	end
+	sheet.column_widths 60, 14, 25
+	sheet.auto_filter = 'A1:C1'
+	#sheet.add_row ["Total","=SUM(B2:B#{@disciplinas.count})","=SUM(C2:C#{@disciplinas.count})","=SUM(D2:D#{@disciplinas.count})","=SUM(E2:E#{@disciplinas.count})","=SUM(F2:F#{@disciplinas.count})"], :style => header
+	wb.add_defined_name("'Prof. Estaduais em sala'!$1:$1", :local_sheet_id => sheet.index, :name => '_xlnm.Print_Titles')
+end
+
+wb.add_worksheet(name: "Prof. Estaduais fora de sala",:header_footer=>header_footer,:page_margins=>{top: 1.5, bottom: 0.6},:alignment=>{:horizontal => :center}) do |sheet|
+	sheet.page_setup.fit_to :width => 1
+	sheet.add_row ["NOME", "CPF","CADASTRO","AMBIENTE"], :style => [header,headerc,headerc,headerc]
+	 @professores_fora_de_sala_estadual.each.with_index(1) do |p,i|
+		if i.even?
+			sheet.add_row [p.nome,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.ambiente)], :style => [odd,oddc,oddc,oddc]
+		else
+			sheet.add_row [p.nome,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.ambiente)], :style => [odd,oddc,oddc,oddc]
+		end
+	end
+	sheet.column_widths 60, 14, 25,44.75
+	sheet.auto_filter = 'A1:D1'
+	#sheet.add_row ["Total","=SUM(B2:B#{@disciplinas.count})","=SUM(C2:C#{@disciplinas.count})","=SUM(D2:D#{@disciplinas.count})","=SUM(E2:E#{@disciplinas.count})","=SUM(F2:F#{@disciplinas.count})"], :style => header
+	wb.add_defined_name("'Prof. Estaduais fora de sala'!$1:$1", :local_sheet_id => sheet.index, :name => '_xlnm.Print_Titles')
+end
+
+wb.add_worksheet(name: "Estaduais Não Docentes",:header_footer=>header_footer,:page_margins=>{top: 1.5, bottom: 0.6},:alignment=>{:horizontal => :center}) do |sheet|
+	sheet.page_setup.fit_to :width => 1
+	sheet.add_row ["NOME", "CPF","CARGO","CADASTRO","AMBIENTE"], :style => [header,headerc,headerc,headerc,headerc]
+	 @nao_docente_estadual.each.with_index(1) do |p,i|
+		if i.even?
+			sheet.add_row [p.nome,Cpf.new(p.cpf).numero,objeto_valor(p.cargo),objeto_valor(p.cadastro),objeto_valor(p.ambiente)], :style => [odd,oddc,oddc,oddc,oddc]
+		else
+			sheet.add_row [p.nome,Cpf.new(p.cpf).numero,objeto_valor(p.cargo),objeto_valor(p.cadastro),objeto_valor(p.ambiente)], :style => [odd,oddc,oddc,oddc,oddc]
+		end
+	end
+	sheet.column_widths 60, 14, 25,44.75
+	sheet.auto_filter = 'A1:D1'
+	#sheet.add_row ["Total","=SUM(B2:B#{@disciplinas.count})","=SUM(C2:C#{@disciplinas.count})","=SUM(D2:D#{@disciplinas.count})","=SUM(E2:E#{@disciplinas.count})","=SUM(F2:F#{@disciplinas.count})"], :style => header
+	wb.add_defined_name("'Prof. Estaduais em sala'!$1:$1", :local_sheet_id => sheet.index, :name => '_xlnm.Print_Titles')
+end
+

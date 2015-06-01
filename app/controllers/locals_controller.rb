@@ -49,7 +49,7 @@
   end
   send_data report.generate, type: 'application/vnd.oasis.opendocument.text',
   disposition: 'attachment',
-  filename: "Resumo da escola #{objeto_valor(@escola)}"
+  filename: "Resumo da escola #{objeto_valor(@escola)}.odt"
 end
 
 

@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
       @disciplinas = Disciplina.asc(:nome).collect{|d|[d.nome,d.id]}
       @formacoes = []
       @cargas_horarias = ["20 Horas","40 Horas"]
-      @cargos = ["Diretor","Secretarário","Diretor Adjunto","Cuidador","Intérprete","Agente de Portaria","Auxiliar Operacional de Serviços Diversos" ,"Especialista em Educaçao","Pedagogo","Auxiliar Educacional","Professor","Agente Administrativo","Datilógrafo","Auxiliar Administrativo"].sort
+      @cargos = ["Assessor","Diretor","Secretarário","Diretor Adjunto","Cuidador","Intérprete","Agente de Portaria","Auxiliar Operacional de Serviços Diversos" ,"Especialista em Educaçao","Pedagogo","Auxiliar Educacional","Professor","Agente Administrativo","Datilógrafo","Auxiliar Administrativo"].sort
       @quadros = ["Cargo Comissionado Sem Vínculo","Estadual","Federal","Contrato Administrativo"]
       @concursos = ["Antes de 1989","1989","1992","1993","1994","1996","2000 (Ex-Ipesap)","2005","2012"]
       @municipios = Municipio.asc(:nome).collect{|m|[m.nome,m.id]}

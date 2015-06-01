@@ -26,9 +26,9 @@ module ApplicationHelper
 	end 
 
 	def ambiente(obj)
-		if !obj.blank? and obj.ambiente.include?("Programa")
+		if !obj.blank? and obj.ambiente and obj.ambiente.include?("Programa")
 			return "#{obj.ambiente}/#{obj.programa}"
-		elsif !obj.blank? and !obj.ambiente.include?("Programa")
+		elsif !obj.blank? and obj.ambiente and !obj.ambiente.include?("Programa")
 			return "#{obj.ambiente}"
 		else
 			return "Nada Cadastrado"
