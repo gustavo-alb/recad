@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
       @ambientes = ["Coordenação de Projetos","Projeto Estadual","Projeto Federal","Oficina de Artes","Laboratório de Ciências","Espaço Multimídia","TV Escola","Assessoria de Direção", "Biblioteca", "Coordenação Pedagógica - Assessor Pedagógico", "Coordenação Pedagógica - Orientação", "Coordenação Pedagógica - Supervisão", "Coordenação de Programa Estadual","Coordenação de Programa Federal", "LIED", "Sala de Leitura", "Secretaria Escolar","Atendimento de Ensino Especial"].sort
       @disciplinas = Disciplina.asc(:nome).collect{|d|[d.nome,d.id]}
       @formacoes = []
-      @cargas_horarias = ["20 Horas","40 Horas"]
+      @cargas_horarias = ["20 Horas","30 Horas","40 Horas"]
       @cargos = ["Assessor","Diretor","Secretarário","Diretor Adjunto","Cuidador","Intérprete","Agente de Portaria","Auxiliar Operacional de Serviços Diversos" ,"Especialista em Educaçao","Pedagogo","Auxiliar Educacional","Professor","Agente Administrativo","Datilógrafo","Auxiliar Administrativo"].sort
       @quadros = ["Cargo Comissionado Sem Vínculo","Estadual","Federal","Contrato Administrativo"]
       @concursos = ["Antes de 1989","1989","1992","1993","1994","1996","2000 (Ex-Ipesap)","2005","2012"]

@@ -121,6 +121,9 @@ def active_for_authentication?
     if c.aberto_departamento? and !self.local.escola? and ((Time.now > c.periodo_inicio) and (Time.now < c.periodo_fim))
       ativo = true
     end
+    if c.aberto_escolas_inadimplentes? and self.local.escola? and ((Time.now > c.periodo_inicio) and (Time.now < c.periodo_fim)) and self.local.funcionarios.none?
+      ativo = true
+    end
   end
   if self.gestor_seed? or self.admin? or self.editor?
     ativo = true
