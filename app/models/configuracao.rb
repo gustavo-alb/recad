@@ -4,6 +4,6 @@ class Configuracao
 	field :periodo_fim, type: DateTime
 	field :aberto_escolas, type: Mongoid::Boolean
 	field :aberto_departamento, type: Mongoid::Boolean
-	field :aberto_escolas_inadimplentes,Mongoid::Boolean
+	field :aberto_escolas_inadimplentes,type: Mongoid::Boolean
 	field :ativa,type: Mongoid::Boolean
 end
