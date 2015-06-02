@@ -62,10 +62,10 @@ class AdministracaoController < ApplicationController
 
 
   def relatorio_nominal
-    @professores_em_sala_estadual = Funcionario.where(:cargo=>"Professor",:quadro=>"Estadual",:ambiente=>"Sala de Aula").asc(:nome)
+     @professores_em_sala_estadual = Funcionario.where(:cargo=>"Professor",:quadro=>"Estadual",:ambiente=>"Sala de Aula").asc(:nome)
      @professores_em_sala_contrato = Funcionario.where(:cargo=>"Professor",:quadro=>"Contrato Administrativo",:ambiente=>"Sala de Aula").asc(:nome)
      @professores_em_sala_federal = Funcionario.where(:cargo=>"Professor",:quadro=>"Federal",:ambiente=>"Sala de Aula").asc(:nome)
-     @professores_fora_de_sala_estadual = Funcionario.where(:cargo=>"Professor",:quadro=>"Estadual",:ambiente.ne=>"Sala de Aula").asc(:nome)
+     @professores_fora_de_sala_estadual = Funcionario.where(:cargo=>"Professor",:quadro=>"Estadual",:ambiente.in=>@ambientes,:ambiente.ne=>"Sala de Aula").asc(:nome)
      @professores_fora_de_sala_contrato = Funcionario.where(:cargo=>"Professor",:quadro=>"Contrato Administrativo",:ambiente.ne=>"Sala de Aula").asc(:nome)
      @professores_fora_de_sala_federal = Funcionario.where(:cargo=>"Professor",:quadro=>"Contrato Administrativo",:ambiente.ne=>"Sala de Aula").asc(:nome)
      @nao_docente_estadual = Funcionario.where(:cargo.ne=>"Professor",:quadro=>"Estadual").asc(:nome)
