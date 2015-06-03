@@ -19,40 +19,43 @@ class AdministracaoController < ApplicationController
 
   def relatorio_quantitativo
     @discs = Disciplina.all.asc(:nome)
-    @cargos = @cargos - ["Professor"]
+    @cargos = ["Cuidador","Intérprete","Agente de Portaria","Auxiliar Operacional de Serviços Diversos" ,"Especialista em Educaçao","Pedagogo","Auxiliar Educacional","Professor","Agente Administrativo","Datilógrafo","Auxiliar Administrativo"].sort
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "file_name"   # Excluding ".pdf" extension.
+      end
+    end
+  end
+
+  def relatorio_quantitativo_em_sala
+    @discs = Disciplina.all.asc(:nome)
     report = ODFReport::Report.new("#{Rails.root}/app/relatorios/relatorio_quantitativo.odt") do |r|
 
       r.add_field "USER", current_usuario.nome
       r.add_field "DATA", Date.today.to_s_br
       r.add_field "HORA", Time.now.strftime("%H:%M:%S")
 
+
+      r.add_table("AMBIENTE", (@ambientes+["Sala de Aula"]), :header=>true) do |t|
+        t.add_column(:AMBIENTE) { |a| "#{a.upcase}" }
+        t.add_column(:EST) { |d| "#{Funcionario.where(:ambiente=>d,:quadro=>"Estadual")}.count" }
+        t.add_column(:FED) { |d| "#{d.funcionarios_atuando.where(:quadro=>'Federal').count}" }
+        t.add_column(:CONT) { |d| "#{d.funcionarios_atuando.where(:quadro=>'Contrato Administrativo').count}" }
+        t.add_column(:TOTDISC) {|d|"#{d.funcionarios_atuando.count}"}
+      end
+
       r.add_table("disciplinas", @discs, :header=>true) do |t|
         t.add_column(:DISCIPLINA) { |d| "#{d.nome.upcase}" }
-        t.add_column(:EST) { |d| "#{d.funcionarios.where(:quadro=>'Estadual').count}" }
-        t.add_column(:FED) { |d| "#{d.funcionarios.where(:quadro=>'Federal').count}" }
+        t.add_column(:EST) { |d| "#{d.funcionarios_atuando.where(:quadro=>'Estadual').count}" }
+        t.add_column(:FED) { |d| "#{d.funcionarios_atuando.where(:quadro=>'Federal').count}" }
         t.add_column(:CONT) { |d| "#{d.funcionarios_atuando.where(:quadro=>'Contrato Administrativo').count}" }
-        t.add_column(:TOTDISC) {|d|"#{d.funcionarios.count+d.funcionarios_atuando.where(:quadro=>'Contrato Administrativo').count}"}
-        r.add_field "TOTEST",Funcionario.where(:cargo=>"Professor",:disciplina_concurso.ne=>nil,:quadro=>"Estadual").count
-        r.add_field "TOTFED",Funcionario.where(:cargo=>"Professor",:disciplina_concurso.ne=>nil,:quadro=>"Federal").count
+        t.add_column(:TOTDISC) {|d|"#{d.funcionarios_atuando.count}"}
+        r.add_field "TOTEST",Funcionario.where(:cargo=>"Professor",:disciplina_atuacao.ne=>nil,:quadro=>"Estadual").count
+        r.add_field "TOTFED",Funcionario.where(:cargo=>"Professor",:disciplina_atuacao.ne=>nil,:quadro=>"Federal").count
         r.add_field "TOTCONT",Funcionario.where(:cargo=>"Professor",:disciplina_atuacao.ne=>nil,:quadro=>"Contrato Administrativo").count
         r.add_field "TOTPROF",Funcionario.where(:cargo=>"Professor").count
       end
-
-      r.add_table("cargos", @cargos, :header=>true) do |t|
-        t.add_column(:CARGO) { |d| "#{d.upcase}" }
-        t.add_column(:EST) { |d| "#{Funcionario.where(:quadro=>'Estadual',:cargo=>d).count}" }
-        t.add_column(:FED) { |d| "#{Funcionario.where(:quadro=>'Federal',:cargo=>d).count}" }
-        t.add_column(:CONT) { |d| "#{Funcionario.where(:quadro=>'Contrato Administrativo',:cargo=>d).count}" }
-        t.add_column(:CARGOC) {|d|"#{Funcionario.where(:quadro=>'Cargo Comissionado Sem Vínculo',:cargo=>d).count}" }
-        t.add_column(:TOTCARGO) {|d|"#{Funcionario.where(:cargo=>d).count}"}
-        r.add_field "TOTESTC",Funcionario.where(:cargo.ne=>"Professor",:quadro=>"Estadual").count
-        r.add_field "TOTFEDC",Funcionario.where(:cargo.ne=>"Professor",:quadro=>"Federal").count
-        r.add_field "TOTCONTC",Funcionario.where(:cargo.ne=>"Professor",:quadro=>"Contrato Administrativo").count
-        r.add_field "TOTCARGO",Funcionario.where(:cargo.ne=>"Professor",:quadro=>"Cargo Comissionado Sem Vínculo").count
-        r.add_field "TOTALC",Funcionario.where(:cargo.ne=>"Professor").count
-      end
-
-
     end
     send_data report.generate, type: 'application/vnd.oasis.opendocument.text',
     disposition: 'attachment',
@@ -61,38 +64,44 @@ class AdministracaoController < ApplicationController
 
 
 
-  def relatorio_nominal
-     @professores_em_sala_estadual = Funcionario.where(:cargo=>"Professor",:quadro=>"Estadual",:ambiente=>"Sala de Aula").asc(:nome)
-     @professores_fora_de_sala_estadual = Funcionario.where(:cargo=>"Professor",:quadro=>"Estadual",:ambiente.in=>@ambientes,:ambiente.ne=>"Sala de Aula").asc(:nome)
-     @nao_docente_estadual = Funcionario.where(:cargo.ne=>"Professor",:quadro=>"Estadual").asc(:nome)
-    respond_to do |format|
-      format.xlsx
-    end
+
+
+
+  def relatorio_nominal_em_sala
+   @professores_em_sala_estadual = Funcionario.where(:cargo=>"Professor",:quadro=>"Estadual",:ambiente=>"Sala de Aula").asc(:nome)
+   @professores_fora_de_sala_estadual = Funcionario.where(:cargo=>"Professor",:quadro=>"Estadual",:ambiente.in=>@ambientes,:ambiente.ne=>"Sala de Aula").asc(:nome)
+   @professores_fora_de_sala_contrato = Funcionario.where(:cargo=>"Professor",:quadro=>"Contrato Administrativo",:ambiente.in=>@ambientes,:ambiente.ne=>"Sala de Aula").asc(:nome)
+   @nao_docente_estadual = Funcionario.where(:cargo.ne=>"Professor",:quadro=>"Estadual").asc(:nome)
+   @nao_docente_contrato = Funcionario.where(:cargo.ne=>"Professor",:quadro=>"Contrato Administrativo").asc(:nome)
+   @nao_docente_federal = Funcionario.where(:cargo.ne=>"Professor",:quadro=>"Federal").asc(:nome)
+   respond_to do |format|
+    format.xlsx
+  end
+end
+
+def relatorio_sem_cadastro
+ @escolas = Local.where(:escola=>true).asc(:nome)
+ @setoriais = Local.where(:setorial=>true).asc(:nome)
+
+ report = ODFReport::Report.new("#{Rails.root}/app/relatorios/locais_sem_cadastro.odt") do |r|
+
+  r.add_field "USER", current_usuario.nome
+  r.add_field "DATA", Date.today.to_s_br
+  r.add_field "HORA", Time.now.strftime("%H:%M:%S")
+
+  r.add_table("escolas", @escolas, :header=>true) do |t|
+    t.add_column(:NOME) { |local| "#{local.nome.upcase}" }
+    t.add_column(:CODIGO) { |local| "#{local.codigo}" }
   end
 
-  def relatorio_sem_cadastro
-   @escolas = Local.where(:escola=>true).asc(:nome)
-   @setoriais = Local.where(:setorial=>true).asc(:nome)
-
-   report = ODFReport::Report.new("#{Rails.root}/app/relatorios/locais_sem_cadastro.odt") do |r|
-
-    r.add_field "USER", current_usuario.nome
-    r.add_field "DATA", Date.today.to_s_br
-    r.add_field "HORA", Time.now.strftime("%H:%M:%S")
-
-    r.add_table("escolas", @escolas, :header=>true) do |t|
-      t.add_column(:NOME) { |local| "#{local.nome.upcase}" }
-      t.add_column(:CODIGO) { |local| "#{local.codigo}" }
-    end
-
-    r.add_table("setoriais", @setoriais, :header=>true) do |t|
-      t.add_column(:NOME) { |local| "#{local.nome.upcase}" }
-      t.add_column(:CODIGO) { |local| "#{local.codigo}" }
-    end
+  r.add_table("setoriais", @setoriais, :header=>true) do |t|
+    t.add_column(:NOME) { |local| "#{local.nome.upcase}" }
+    t.add_column(:CODIGO) { |local| "#{local.codigo}" }
   end
-  send_data report.generate, type: 'application/vnd.oasis.opendocument.text',
-  disposition: 'attachment',
-  filename: "Resumo da escola #{objeto_valor(@escola)}"
+end
+send_data report.generate, type: 'application/vnd.oasis.opendocument.text',
+disposition: 'attachment',
+filename: "Resumo da escola #{objeto_valor(@escola)}"
 end
 
 def criar_funcionario

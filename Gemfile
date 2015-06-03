@@ -8,6 +8,9 @@ gem "brazilian-rails"
 gem 'odf-report'
 gem 'axlsx_rails',:git=>"https://github.com/straydogstudio/axlsx_rails.git"
 gem 'axlsx',:git=>'https://github.com/randym/axlsx.git'
+gem 'wkhtmltopdf-binary-edge', '~> 0.12.2.1'
+gem 'wicked_pdf'
+gem 'zip-zip'
 gem 'rails-jquery-autocomplete'
 #gem "rails4-autocomplete"
 gem 'dependent-fields-rails'

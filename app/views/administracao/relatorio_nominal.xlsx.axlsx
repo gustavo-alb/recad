@@ -10,12 +10,13 @@ oddc = styles.add_style(:bg_color => 'FFFFFF', :fg_color => '000000',:border => 
 header_footer = {:different_first => false, :odd_header => "&G&CGoverno do Estado do Amapá\nSecretaria de Estado da Educação\nCoordenadoria de Administração\nNúcleo de Informática", :odd_footer => '&L&Pde&N',:style=>title}
 wb.add_worksheet(name: "Prof. Estaduais em sala",:header_footer=>header_footer,:page_margins=>{top: 1.5, bottom: 0.6},:alignment=>{:horizontal => :center}) do |sheet|
 	sheet.page_setup.fit_to :width => 1
+	sheet.page_setup.set :orientation=>:landscape
 	sheet.add_row ["Nº","NOME", "CPF","CADASTRO","ESCOLA","DISC."], :style => [headerc,header,headerc,headerc,headerc,headerc]
 	@professores_em_sala_estadual.each.with_index(1) do |p,i|
 		if i.even?
-			sheet.add_row ["",p.nome,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.disciplina_atuacao)], :style => [oddc,odd,oddc,oddc,odd,odd]
+			sheet.add_row ["",p.nome.upcase,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.disciplina_atuacao)], :style => [oddc,odd,oddc,oddc,odd,odd]
 		else
-			sheet.add_row ["",p.nome,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.disciplina_atuacao)], :style => [oddc,odd,oddc,oddc,odd,odd]
+			sheet.add_row ["",p.nome.upcase,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.disciplina_atuacao)], :style => [oddc,odd,oddc,oddc,odd,odd]
 		end
 	end
 	sheet.column_widths 5.75,60, 14, 16,76.75,60
@@ -24,12 +25,13 @@ wb.add_worksheet(name: "Prof. Estaduais em sala",:header_footer=>header_footer,:
 end
 wb.add_worksheet(name: "Prof. em salas ambiente",:header_footer=>header_footer,:page_margins=>{top: 1.5, bottom: 0.6},:alignment=>{:horizontal => :center}) do |sheet|
 	sheet.page_setup.fit_to :width => 1
+	sheet.page_setup.set :orientation=>:landscape
 	sheet.add_row ["Nº","NOME", "CPF","CADASTRO","ESCOLA","AMBIENTE","DISC."], :style => [headerc,header,headerc,headerc,headerc,headerc,headerc]
 	@professores_fora_de_sala_estadual.each.with_index(1) do |p,i|
 		if i.even?
-			sheet.add_row ["",p.nome,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.ambiente),objeto_valor(p.disciplina_concurso)], :style => [oddc,odd,oddc,oddc,odd,odd,odd]
+			sheet.add_row ["",p.nome.upcase,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.ambiente),objeto_valor(p.disciplina_concurso)], :style => [oddc,odd,oddc,oddc,odd,odd,odd]
 		else
-			sheet.add_row ["",p.nome,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.ambiente),objeto_valor(p.disciplina_concurso)], :style => [oddc,odd,oddc,oddc,odd,odd,odd]
+			sheet.add_row ["",p.nome.upcase,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.ambiente),objeto_valor(p.disciplina_concurso)], :style => [oddc,odd,oddc,oddc,odd,odd,odd]
 		end
 	end
 	sheet.column_widths 5.75,60, 14, 16,76.75,60,52.25
