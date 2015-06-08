@@ -23,7 +23,7 @@ class AdministracaoController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "file_name"   # Excluding ".pdf" extension.
+        render pdf: "relatorio_quantitativo"   # Excluding ".pdf" extension.
       end
     end
   end
@@ -80,10 +80,20 @@ class AdministracaoController < ApplicationController
 end
 
 def relatorio_sem_cadastro
- @escolas = Local.where(:escola=>true).asc(:nome)
- @setoriais = Local.where(:setorial=>true).asc(:nome)
+ @escolas = []
+ @setoriais = []
+ Local.where(:escola=>true).asc(:nome).each do |e|
+  if e.funcionarios.none?
+    @escolas << e
+  end
+end
+Local.where(:local_pai_id.ne=>nil).asc(:nome).each do |d|
+  if d.funcionarios.none?
+    @setoriais << d
+  end
+end
 
- report = ODFReport::Report.new("#{Rails.root}/app/relatorios/locais_sem_cadastro.odt") do |r|
+report = ODFReport::Report.new("#{Rails.root}/app/relatorios/locais_sem_cadastro.odt") do |r|
 
   r.add_field "USER", current_usuario.nome
   r.add_field "DATA", Date.today.to_s_br
