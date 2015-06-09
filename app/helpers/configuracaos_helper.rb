@@ -9,7 +9,7 @@ module ConfiguracaosHelper
 			return true
 		elsif !config.none? and config.where(:aberto_escolas_rurais=>true).any? and tipo=='escola_rural'
 			return true
-		elsif !config.none? and config.where(:aberto_departamento=>true).any? and tipo=="departamento"
+		elsif !config.none? and config.where(:aberto_departamento=>true).any? and tipo=="setorial"
 			return true
 		elsif current_usuario.aberto?
 			return true
