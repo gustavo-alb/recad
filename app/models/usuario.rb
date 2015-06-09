@@ -34,6 +34,7 @@ class Usuario
   field :editor ,type: Boolean, default: false
   field :mudar_senha, type: Boolean, default: true
   field :ativo, type: Boolean, default: false
+  field :aberto, type: Boolean, default: false
   field :inep,type: String,default: ""
   attr_accessor :login,:tipo_local
   belongs_to :local
@@ -110,36 +111,20 @@ end
     end
   end
 
-#checa as configurações no banco, para depois dizer se é ativo ou não
-def active_for_authentication?
-  if self.ativo==true
-   ativo = false
-   Configuracao.where(:ativa=>true).each do |c|
-    if c.aberto_escolas? and self.local.escola? and ((Time.now > c.periodo_inicio) and (Time.now < c.periodo_fim))
-      ativo = true
-    end
-    if c.aberto_departamento? and !self.local.escola? and ((Time.now > c.periodo_inicio) and (Time.now < c.periodo_fim))
-      ativo = true
-    end
-    if c.aberto_escolas_inadimplentes? and self.local.escola? and ((Time.now > c.periodo_inicio) and (Time.now < c.periodo_fim)) and self.local.funcionarios.none?
-      ativo = true
+  def active_for_authentication?
+     if self.admin? or self.ativo?
+      return true
+    else 
+      return false
     end
   end
-  if self.gestor_seed? or self.admin? or self.editor?
-    ativo = true
-  end
-  return ativo
-end
-else 
-  return false
-end
 
 
 
-def set_mudar_senha
-  if self.encrypted_password_changed?
-    self.mudar_senha = false
+  def set_mudar_senha
+    if self.encrypted_password_changed?
+      self.mudar_senha = false
+    end
   end
-end
 
 end

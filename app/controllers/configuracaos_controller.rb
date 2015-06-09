@@ -70,6 +70,6 @@ class ConfiguracaosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def configuracao_params
-      params.require(:configuracao).permit(:ativa,:periodo_inicio, :periodo_fim, :aberto_escolas,:aberto_escolas_inadimplentes, :aberto_departamento)
+      params.require(:configuracao).permit(:ativa,:periodo_inicio, :periodo_fim, :aberto_escolas,:aberto_escolas_rurais, :aberto_departamento)
     end
 end
