@@ -11,45 +11,33 @@ header_footer = {:different_first => false, :odd_header => "&G&CGoverno do Estad
 wb.add_worksheet(name: "Prof. Estaduais em sala",:header_footer=>header_footer,:page_margins=>{top: 1.5, bottom: 0.6},:alignment=>{:horizontal => :center}) do |sheet|
 	sheet.page_setup.fit_to :width => 1
 	sheet.page_setup.set :orientation=>:landscape
-	sheet.add_row ["Nº","NOME", "CPF","CADASTRO","ESCOLA","DISC.","C/H","TURMAS"], :style => [headerc,header,headerc,headerc,headerc,headerc,headerc,headerc]
+	sheet.add_row ["Nº","NOME", "CPF","CADASTRO","QUADRO","ESCOLA","DISC.","C/H VINC.","C/H EM SALA","TURMAS"], :style => headerc
 	@professores_em_sala.each.with_index(1) do |p,i|
-		if i.even?
-			sheet.add_row ["",p.nome.upcase,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.disciplina_atuacao),carga_horaria(p.ch_em_sala),objeto_valor(p.turmas)], :style => [oddc,odd,oddc,oddc,odd,odd,oddc,oddc]
-		else
-			sheet.add_row ["",p.nome.upcase,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.disciplina_atuacao),carga_horaria(p.ch_em_sala),objeto_valor(p.turmas)], :style => [oddc,odd,oddc,oddc,odd,odd,oddc,oddc]
-		end
+		sheet.add_row ["",p.nome.upcase,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.quadro),objeto_valor(p.local),objeto_valor(p.disciplina_atuacao),objeto_valor(p.carga_horaria),carga_horaria(p.ch_em_sala),objeto_valor(p.turmas)], :style => [oddc,odd,oddc,oddc,oddc,odd,odd,oddc,oddc,oddc]
 	end
-	sheet.column_widths 5.75,60, 14, 16,76.75,60
+	sheet.column_widths 5.75,60, 14,22.25, 21,76.75,52.50,15.65,15.65,15.65,15.65,30
 	#sheet.add_row ["Total","=SUM(B2:B#{@disciplinas.count})","=SUM(C2:C#{@disciplinas.count})","=SUM(D2:D#{@disciplinas.count})","=SUM(E2:E#{@disciplinas.count})","=SUM(F2:F#{@disciplinas.count})"], :style => header
 	wb.add_defined_name("'Prof. Estaduais em sala'!$1:$1", :local_sheet_id => sheet.index, :name => '_xlnm.Print_Titles')
 end
 wb.add_worksheet(name: "Prof. em salas ambiente",:header_footer=>header_footer,:page_margins=>{top: 1.5, bottom: 0.6},:alignment=>{:horizontal => :center}) do |sheet|
 	sheet.page_setup.fit_to :width => 1
 	sheet.page_setup.set :orientation=>:landscape
-	sheet.add_row ["Nº","NOME", "CPF","CADASTRO","ESCOLA","AMBIENTE","DISC."], :style => [headerc,header,headerc,headerc,headerc,headerc,headerc]
-	@professores_fora_de_sala_estadual.each.with_index(1) do |p,i|
-		if i.even?
-			sheet.add_row ["",p.nome.upcase,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.ambiente),objeto_valor(p.disciplina_concurso)], :style => [oddc,odd,oddc,oddc,odd,odd,odd]
-		else
-			sheet.add_row ["",p.nome.upcase,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.ambiente),objeto_valor(p.disciplina_concurso)], :style => [oddc,odd,oddc,oddc,odd,odd,odd]
-		end
+	sheet.add_row ["Nº","NOME", "CPF","CADASTRO","QUADRO","ESCOLA","AMBIENTE","DISC.","C/H VINC.","SITUAÇÃO"], :style => headerc
+	@professores_fora_de_sala.each.with_index(1) do |p,i|
+		sheet.add_row ["",p.nome.upcase,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.quadro),objeto_valor(p.local),objeto_valor(p.ambiente),objeto_valor(p.disciplina_concurso),objeto_valor(p.carga_horaria),objeto_valor(p.situacao)], :style => [oddc,odd,oddc,oddc,oddc,odd,odd,odd,oddc,oddc]
 	end
-	sheet.column_widths 5.75,60, 14, 16,76.75,60,52.25
+	sheet.column_widths 5.75,60, 14, 16,21,76.75,45,52.25,15.65,46
 	#sheet.add_row ["Total","=SUM(B2:B#{@disciplinas.count})","=SUM(C2:C#{@disciplinas.count})","=SUM(D2:D#{@disciplinas.count})","=SUM(E2:E#{@disciplinas.count})","=SUM(F2:F#{@disciplinas.count})"], :style => header
 	wb.add_defined_name("'Prof. em salas ambiente'!$1:$1", :local_sheet_id => sheet.index, :name => '_xlnm.Print_Titles')
 end
-wb.add_worksheet(name: "Prof. em salas ambiente",:header_footer=>header_footer,:page_margins=>{top: 1.5, bottom: 0.6},:alignment=>{:horizontal => :center}) do |sheet|
+wb.add_worksheet(name: "Não Docente",:header_footer=>header_footer,:page_margins=>{top: 1.5, bottom: 0.6},:alignment=>{:horizontal => :center}) do |sheet|
 	sheet.page_setup.fit_to :width => 1
 	sheet.page_setup.set :orientation=>:landscape
-	sheet.add_row ["Nº","NOME", "CPF","CADASTRO","ESCOLA","AMBIENTE","DISC."], :style => [headerc,header,headerc,headerc,headerc,headerc,headerc]
-	@nao_docente_estadual.each.with_index(1) do |p,i|
-		if i.even?
-			sheet.add_row ["",p.nome.upcase,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.ambiente),objeto_valor(p.disciplina_concurso)], :style => [oddc,odd,oddc,oddc,odd,odd,odd]
-		else
-			sheet.add_row ["",p.nome.upcase,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.local),objeto_valor(p.ambiente),objeto_valor(p.disciplina_concurso)], :style => [oddc,odd,oddc,oddc,odd,odd,odd]
-		end
+	sheet.add_row ["Nº","NOME", "CPF","CADASTRO","QUADRO","CARGO","ESCOLA","AMBIENTE","C/H VINC.","SITUAÇÃO"], :style => headerc
+	@nao_docente.each.with_index(1) do |p,i|
+		sheet.add_row ["",p.nome.upcase,Cpf.new(p.cpf).numero,objeto_valor(p.cadastro),objeto_valor(p.quadro),objeto_valor(p.cargo),objeto_valor(p.local).upcase,objeto_valor(p.ambiente),objeto_valor(p.carga_horaria),objeto_valor(p.situacao)], :style => [oddc,odd,oddc,oddc,oddc,oddc,odd,odd,oddc,oddc]
 	end
-	sheet.column_widths 5.75,60, 14, 16,76.75,60,52.25
+	sheet.column_widths 5.75,60, 14, 16,20,37,76.75,60,15.65,46
 	#sheet.add_row ["Total","=SUM(B2:B#{@disciplinas.count})","=SUM(C2:C#{@disciplinas.count})","=SUM(D2:D#{@disciplinas.count})","=SUM(E2:E#{@disciplinas.count})","=SUM(F2:F#{@disciplinas.count})"], :style => header
-	wb.add_defined_name("'Prof. em salas ambiente'!$1:$1", :local_sheet_id => sheet.index, :name => '_xlnm.Print_Titles')
+	wb.add_defined_name("'Não Docente'!$1:$1", :local_sheet_id => sheet.index, :name => '_xlnm.Print_Titles')
 end

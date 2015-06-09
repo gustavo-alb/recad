@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'administracao/detalhes_funcionario'
   get 'administracao/relatorio_quantitativo_professor'
   get 'administracao/relatorio_quantitativo'
-  get 'administracao/relatorio_nominal'
+  get 'administracao/relatorio_nominal_geral'
   get "administracao/autocomplete_local_nome"
   get "administracao/relatorio_sem_cadastro"
 

@@ -64,10 +64,16 @@ class AdministracaoController < ApplicationController
 
 
 
+  def relatorio_nominal_geral
+   @professores_em_sala = Funcionario.where(:cargo=>"Professor",:ambiente=>"Sala de Aula").asc(:nome)
+   @professores_fora_de_sala = Funcionario.where(:cargo=>"Professor",:ambiente.in=>@ambientes,:ambiente.ne=>"Sala de Aula").asc(:nome)
+   @nao_docente = Funcionario.where(:cargo.ne=>"Professor",:ambiente.ne=>"").asc(:nome)
+   respond_to do |format|
+    format.xlsx
+  end
+end
 
-
-
-  def relatorio_nominal_em_sala
+  def relatorio_nominal_estadual
    @professores_em_sala_estadual = Funcionario.where(:cargo=>"Professor",:quadro=>"Estadual",:ambiente=>"Sala de Aula").asc(:nome)
    @professores_fora_de_sala_estadual = Funcionario.where(:cargo=>"Professor",:quadro=>"Estadual",:ambiente.in=>@ambientes,:ambiente.ne=>"Sala de Aula").asc(:nome)
    @professores_fora_de_sala_contrato = Funcionario.where(:cargo=>"Professor",:quadro=>"Contrato Administrativo",:ambiente.in=>@ambientes,:ambiente.ne=>"Sala de Aula").asc(:nome)
